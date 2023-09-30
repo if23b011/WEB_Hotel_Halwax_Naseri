@@ -7,27 +7,27 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.faqall {
+.faq-header-all {
     margin-left: 69px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: larger;
 }
 
-.faqquestions {
+.faq-header-questions {
     margin-bottom: 60px;
     border-bottom: solid;
-    margin-right: 1400px;
+    margin-right: 1000px;
 }
 
-.faqheader {
+.faq-header-head {
     margin-bottom: 40px;
 }
 
-.faqanswers {
+.faq-header-answers {
     margin-left: 25px;
 }
 
-.faqnav {
+.faq-header-ul {
     font-size: xx-large;
     list-style-type: none;
     margin: 0;
@@ -36,11 +36,11 @@
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.faqnavitems {
+.faq-header-nav-items {
     float: left;
 }
 
-.faqnavlinks {
+.faq-header-nav-links {
     display: block;
     color: rgb(0, 0, 0);
     text-align: center;
