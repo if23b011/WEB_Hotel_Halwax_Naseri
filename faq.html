@@ -5,80 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hotel Tropicana - FAQ</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style> 
+    p {
+      margin-left: 25px;
+    }
+  </style>
 </head>
 
 <body>
   <header>
     <nav>
-      <a href="index.html">Home</a> |
-      <a href="registrierung.html">Registrierung</a> |
-      <a href="login.html">Login</a>
+      <ul class="faqnav">
+        <li class="faqnavitems"><a href="index.html" class="faqnavlinks">Home</a></li>
+        <li class="faqnavitems"><a href="registrierung.html" class="faqnavlinks">Registrierung</a></li>
+        <li class="faqnavitems"><a href="login.html" class="faqnavlinks">Login</a></li>
+      </ul>
     </nav>
   </header>
-  <h1>FAQs</h1>
-  <br />
-  <section>
-    <h2>Häufig gestellte Fragen vor Ort:</h2>
-    <h3>Wie buche ich ein Zimmer?</h3>
-    <p>
-      Am einfachsten buchst du über unsere Webseite. <br />
-      Du kannst uns auch eine E-Mail an
-      <a href="mailto:office@hoteltropicana.at">office@hoteltropicana.at</a>
-      schreiben <br />
-      oder unter <a href="tel:+436604206969">+43 660 4206969</a> anrufen.
-    </p>
-    <h2>Welche Leistungen kann ich optional dazubuchen?</h2>
-    <p>
-      Frühstück, Parkplatz in unserer Tiefgarage und die Mitnahme von
-      Haustieren kannst du dir optional dazubuchen.
-    </p>
-    <h3>Wie lange können wir kostenlos stornieren?</h3>
-    <p>
-      Alle Buchungen können bis zu 3 Tagen vor Anreise kostenlos storniert
-      werden.
-    </p>
-  </section>
-  <section>
-    <h2>Häufig gestellte Frage beim Check-In/Check-Out:</h2>
-    <h3>Welche Arten der Bezahlung erlauben sie?</h3>
-    <p>
-      Wir erlauben Bargeld, Mastercard, Visa, American Express und Diners
-      Karten.
-    </p>
-    <h3>Wie sind Check-In und Check-Out Zeiten bei Ihnen?</h3>
-    <p>Check-Out bis 11 Uhr & Check-In ab 15 Uhr</p>
-    <h3>
-      Kann ich meine Koffer abstellen, wenn ich früher ankomme, oder verspätet
-      abreisen möchte?
-    </h3>
-    <p>
-      Ja, wir bieten Ihnen ein kostenloses abgeschlossenes Gepäcksdepot an.
-    </p>
-  </section>
-  <section>
-    <h2>Häufige Fragen über die Anreise:</h2>
-    <h3>Wie komme ich am einfachsten zum Hotel Tropicana?</h3>
-    <p>
-      Bestenfalls fahren Sie mit der U3 bis zur Endstation Simmering, fahren
-      mit dem 73A zur Station Florian-Hedorfer-Straße und gehen den Rest zu
-      Fuß.
-    </p>
-    <h3>Wie weit ist der nächste Flughafen entfernt?</h3>
-    <p>
-      Wien-Schwechat - Der City Airport Train (CAT) fährt von der Station Wien
-      Mitte alle 30 Minuten zum Flughafen.
-    </p>
-    <h3>Wie weit ist es zum nächsten Bahnhof?</h3>
-    <p>
-      Internationale Züge fahren vom Hauptbahnhof und Westbahnhof ab.<br />
-      Beide Bahnhöfe sind gut mit öffentlichen Verkehrsmitteln oder einer
-      kurzen Taxifahrt erreichbar.
-    </p>
-  </section>
+  
+  <div class="faqall">
+    <h1>FAQs</h1>
+    <section class="faqquestions">
+      <h2 class="faqheader">Häufig gestellte Fragen vor Ort:</h2>
+      <h3>Wie buche ich ein Zimmer?</h3>
+      <p>
+        Am einfachsten buchst du über unsere Webseite. Du kannst uns auch eine E-Mail an
+        <a href="mailto:office@hoteltropicana.at">office@hoteltropicana.at</a> schreiben oder unter <a href="tel:+436604206969">+43 660 4206969</a> anrufen.
+      </p>
+      <h3>Welche Leistungen kann ich optional dazubuchen?</h3>
+      <p>
+        Frühstück, Parkplatz in unserer Tiefgarage und die Mitnahme von
+        Haustieren kannst du dir optional dazubuchen.
+      </p>
+      <h3>Wie lange können wir kostenlos stornieren?</h3>
+      <p>
+        Alle Buchungen können bis zu 3 Tagen vor Anreise kostenlos storniert
+        werden.
+      </p>
+    </section>
+    <section class="faqquestions">
+      <h2 class="faqheader">Häufig gestellte Frage beim Check-In/Check-Out:</h2>
+      <h3>Welche Arten der Bezahlung erlauben sie?</h3>
+      <p>
+        Wir erlauben Bargeld, Mastercard, Visa, American Express und Diners
+        Karten.
+      </p>
+      <h3>Wie sind Check-In und Check-Out Zeiten bei Ihnen?</h3>
+      <p>Check-Out bis 11 Uhr & Check-In ab 15 Uhr</p>
+      <h3>
+        Kann ich meine Koffer abstellen, wenn ich früher ankomme, oder verspätet
+        abreisen möchte?
+      </h3>
+      <p>
+        Ja, wir bieten Ihnen ein kostenloses abgeschlossenes Gepäcksdepot an.
+      </p>
+    </section>
+    <section class="faqquestions">
+      <h2 class="faqheader">Häufige Fragen über die Anreise:</h2>
+      <h3>Wie komme ich am einfachsten zum Hotel Tropicana?</h3>
+      <p>
+        Bestenfalls fahren Sie mit der U3 bis zur Endstation Simmering, fahren
+        mit dem 73A zur Station Florian-Hedorfer-Straße und gehen den Rest zu
+        Fuß.
+      </p>
+      <h3>Wie weit ist der nächste Flughafen entfernt?</h3>
+      <p>
+        Wien-Schwechat - Der City Airport Train (CAT) fährt von der Station Wien
+        Mitte alle 30 Minuten zum Flughafen.
+      </p>
+      <h3>Wie weit ist es zum nächsten Bahnhof?</h3>
+      <p>
+        Internationale Züge fahren vom Hauptbahnhof und Westbahnhof ab. Beide Bahnhöfe sind gut mit öffentlichen Verkehrsmitteln oder einer kurzen Taxifahrt erreichbar.
+      </p>
+    </section>
+  </div>
   <footer>
     <nav>
-      <a href="impressum.html">Impressum</a> |
-      <a href="faq.html">FAQs</a>
+      <ul class="faqnav">
+        <li class="faqnavitems"><a href="impressum.html" class="faqnavlinks">Impressum</a></li>
+        <li class="faqnavitems"><a href="faq.html" class="faqnavlinks">FAQs</a></li>
+     </ul>
     </nav>
   </footer>
 </body>
