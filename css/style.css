@@ -5,8 +5,8 @@
     border-width: 12px;
     padding: 12px;
     font-family: Arial, Helvetica, sans-serif;
-    margin-right: 800px;
-    margin-left: 800px;
+    margin-right: 22%;
+    margin-left: 22%;
 }
 
 .faq-header-all {
@@ -97,6 +97,16 @@
 }
 
 .registrierung-all {
-    margin-left: 220px;
+    margin-left: 240px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-all {
+    margin-left: 240px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.margin-font {
+    margin-left: 240px;
     font-family: Arial, Helvetica, sans-serif;
 }
