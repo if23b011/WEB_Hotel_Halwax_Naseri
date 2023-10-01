@@ -21,56 +21,45 @@
   <div class="content">
     <div class="registrierung-all">
       <h1>Registrierung</h1>
-      <form id="registrierung" action="erfolgreich.html" target="_self" method="post" autocomplete="on">
-        <fieldset>
-          <legend>Persönliche Daten:</legend>
-          <div>
-            <label for="anrede">Anrede:</label>
-            <select id="anrede" name="anrede" required>
-              <option value="" disabled selected>Anrede</option>
-              <option value="Herr">Herr</option>
-              <option value="Frau">Frau</option>
-              <option value="Divers">Divers</option>
-            </select>
-          </div>
-          <div>
-            <label for="vorname">Vorname:</label>
+      <form class="form" id="registrierung" action="erfolgreich.html" target="_self" method="post" autocomplete="on">
+        <div class="inputs">
+          <div class="input-box">
+            <label class="details" for="vorname">Vorname</label>
             <input type="text" name="vorname" id="vorname" required placeholder="Max" pattern="[A-Za-z]+" />
           </div>
-          <div>
-            <label for="nachname">Nachname:</label>
+          <div class="input-box">
+            <label class="details" for="nachname">Nachname</label>
             <input type="text" name="nachname" id="nachname" required placeholder="Mustermann" pattern="[A-Za-z]+" />
           </div>
-          <div>
-            <label for="geburtstag">Geburtstag:</label>
+          <div class="input-box">
+            <label class="details" for="geburtstag">Geburtstag</label>
             <input type="date" id="geburtstag" name="geburtstag" min="1900-01-01" />
-            <!-- //max="heutiges Datum" -->
           </div>
-          <div>
-            <label for="email">E-Mail-Adresse:</label>
+          <div class="input-box">
+            <label class="details" class="details" for="email">E-Mail-Adresse</label>
             <input type="email" name="email" id="email" required placeholder="max.mustermann@mail.com" />
           </div>
-        </fieldset>
-        <fieldset>
-          <legend>Username und Passwort</legend>
-          <div>
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username" required placeholder="maxmustermann123"
-              pattern="[A-Za-z0-9_.]+" />
-          </div>
-          <div>
-            <label for="password">Passwort:</label>
+          <div class="input-box">
+            <label class="details" class="details" for="password">Passwort</label>
             <input type="password" name="password" id="password" required minlength="12" />
           </div>
-          <div>
-            <label for="passwordagain">Passwort wiederholen:</label>
+          <div class="input-box">
+            <label class="details" for="passwordagain">Passwort wiederholen</label>
             <input type="password" name="passwordagain" id="passwordagain" required minlength="12" />
           </div>
-        </fieldset>
-        <div>
+        </div>
+        <div class="anrede">
+          <label class="details" for="anrede">Anrede</label>
+          <select id="anrede" name="anrede" required>
+            <option value="" disabled selected>Anrede</option>
+            <option value="Herr">Herr</option>
+            <option value="Frau">Frau</option>
+            <option value="Divers">Divers</option>
+          </select>
+        </div>
+        <div class="submitreset">
           <input type="submit" value="Registrieren" />
           <input type="reset" value="Zurücksetzen" />
-        </div>
       </form>
     </div>
   </div>
