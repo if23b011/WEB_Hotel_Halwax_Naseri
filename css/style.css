@@ -1,3 +1,5 @@
+/* TODO: px in % umwandeln, Login, Registrierung verschönern, maybe Farben*/
+
 .h1 {
     border: 2px double;
     border-radius: 200px;
@@ -10,80 +12,72 @@
 }
 
 .faq-header-all {
-    margin-left: 240px;
+    margin-left: 13%;
     font-family: Arial, Helvetica, sans-serif;
     font-size: larger;
 }
 
 .faq-header-questions {
-    margin-bottom: 60px;
+    margin-bottom: 5%;
     border-bottom: solid;
-    margin-right: 1000px;
+    margin-right: 40%;
 }
 
 .faq-header-head {
-    margin-bottom: 40px;
+    margin-bottom: 4%;
 }
 
 .faq-header-answers {
-    margin-left: 25px;
+    margin-left: 2%;
 }
 
-.header-nav-ul {
-    font-size: xx-large;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+.header-nav {
+    flex: 1;
+    text-align: right;
+    margin-right: 2%;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    height: 100%;
-    width: 200px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: lightgrey;
-    overflow-x: hidden;
-}
-
-.header-nav-links:hover {
-    background-color: #ddd;
-    color: black;
 }
 
 .header-nav-items {
-    float: left;
+    list-style: none;
+    display: inline-block;
+    margin-left: 60px;
 }
+
 
 .header-nav-links {
-    display: block;
-    color: rgb(0, 0, 0);
-    text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
+    color: #000;
+    font-size: 25px;
 }
 
-.footer-nav-ul {
-    font-size: large;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+.header-nav-links:hover {
+    color: white;
+    background-color: #000;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.footer {
+    left: 0; 
+    right: 0;
+    position: absolute;
+    bottom: 0;
+    background: #000;
+    overflow-x: hidden;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-left: 2350px;
-    margin-top: 50%;
 }
 
 .footer-nav-items {
-    float: left;
+    list-style: none;
+    display: inline-block;
+    margin-left: 60px;  
 }
 
 .footer-nav-links {
-    display: block;
-    color: rgb(0, 0, 0);
-    text-align: center;
-    padding: 14px;
     text-decoration: none;
+    color:  #fff;
+    font-size: 25px;
 }
 
 .impressum-all {
