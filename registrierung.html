@@ -21,45 +21,41 @@
   <div class="content">
     <div class="registrierung-all">
       <h1>Registrierung</h1>
-      <form class="form" id="registrierung" action="erfolgreich.html" target="_self" method="post" autocomplete="on">
-        <div class="inputs">
-          <div class="input-box">
-            <label class="details" for="vorname">Vorname</label>
-            <input type="text" name="vorname" id="vorname" required placeholder="Max" pattern="[A-Za-z]+" />
-          </div>
-          <div class="input-box">
-            <label class="details" for="nachname">Nachname</label>
-            <input type="text" name="nachname" id="nachname" required placeholder="Mustermann" pattern="[A-Za-z]+" />
-          </div>
-          <div class="input-box">
-            <label class="details" for="geburtstag">Geburtstag</label>
-            <input type="date" id="geburtstag" name="geburtstag" min="1900-01-01" />
-          </div>
-          <div class="input-box">
-            <label class="details" class="details" for="email">E-Mail-Adresse</label>
-            <input type="email" name="email" id="email" required placeholder="max.mustermann@mail.com" />
-          </div>
-          <div class="input-box">
-            <label class="details" class="details" for="password">Passwort</label>
-            <input type="password" name="password" id="password" required minlength="12" />
-          </div>
-          <div class="input-box">
-            <label class="details" for="passwordagain">Passwort wiederholen</label>
-            <input type="password" name="passwordagain" id="passwordagain" required minlength="12" />
+      <form action="erfolgreich.html" method="post">
+        <div class="anrede-container">
+          <label class="anrede-label" for="anrede">Anrede:</label>
+          <div class="anrede-options">
+            <input type="radio" name="anrede" id="herr" value="Herr">
+            <label for="herr">Herr</label>
+
+            <input type="radio" name="anrede" id="frau" value="Frau">
+            <label for="frau">Frau</label>
+
+            <input type="radio" name="anrede" id="divers" value="Divers">
+            <label for="divers">Divers</label>
           </div>
         </div>
-        <div class="anrede">
-          <label class="details" for="anrede">Anrede</label>
-          <select id="anrede" name="anrede" required>
-            <option value="" disabled selected>Anrede</option>
-            <option value="Herr">Herr</option>
-            <option value="Frau">Frau</option>
-            <option value="Divers">Divers</option>
-          </select>
-        </div>
+        <label for="vorname">Vorname:</label>
+        <input type="text" id="vorname" name="vorname" required>
+
+        <label for="nachname">Nachname:</label>
+        <input type="text" id="nachname" name="nachname" required>
+
+        <label for="geburtstag">Geburtstag:</label>
+        <input type="date" id="geburtstag" name="geburtstag" required>
+
+        <label for="email">E-Mail-Adresse:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="passwort1">Passwort:</label>
+        <input type="password" id="passwort1" name="passwort1" required>
+
+        <label for="passwort2">Passwort wiederholen:</label>
+        <input type="password" id="passwort2" name="passwort2" required>
         <div class="submitreset">
           <input type="submit" value="Registrieren" />
           <input type="reset" value="Zurücksetzen" />
+        </div>
       </form>
     </div>
   </div>
