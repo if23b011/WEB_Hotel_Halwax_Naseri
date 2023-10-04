@@ -7,7 +7,8 @@ h1 {
     font-family: Arial, Helvetica, sans-serif;
     margin-right: 22%;
     margin-left: 22%;
-    color: white;
+    color: rgb(0, 0, 0);
+    background-color:rgba(255, 99, 71, 0.651);
 }
 
 body {
@@ -27,7 +28,7 @@ body {
     padding-left: 13%;
     font-family: Arial, Helvetica, sans-serif;
     font-size: larger;
-    color: rgb(253, 233, 233);
+    color: rgb(255, 255, 255);
 }
 
 .faq-header-questions {
@@ -46,14 +47,13 @@ body {
 
 .header-nav {
     flex: 1;
-    text-align: right;
     padding-right: 2%;
     left: 0; 
     right: 0;
     bottom: 0;
     overflow-x: hidden;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    background: lightgrey;
+    background-color: black;
 }
 
 .header-nav-items {
@@ -65,13 +65,13 @@ body {
 
 .header-nav-links {
     text-decoration: none;
-    color: #000;
-    font-size: 25px;
+    color: white;
+    font-size: 30px;
 }
 
 .header-nav-links:hover {
     color: white;
-    background-color: #000;
+    background-color: #2e2e2e;
     border-radius: 10px;
     padding: 5px;
 }
@@ -83,25 +83,28 @@ body {
     background: #000;
     overflow-x: hidden;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: right;
+    padding-right: 20px;
 }
 
 .footer-nav-items {
     list-style: none;
     display: inline-block;
-    margin-left: 60px;  
+    margin-left: 60px;
 }
 
 .footer-nav-links {
     text-decoration: none;
     color:  #fff;
-    font-size: 25px;
+    font-size: 16px;
 }
 
 .impressum-all {
     font-family: Arial, Helvetica, sans-serif;
     font-size: larger;
     padding-left: 240px;
-    color: rgb(253, 233, 233);
+    color: rgb(255, 255, 255);
+    box-sizing: border-box;
 }
 
 .impressum-img {
