@@ -1,2 +1,0 @@
-# Semesterprojekt_HotelTropicana_JanArmin
- Hotelwebseite
