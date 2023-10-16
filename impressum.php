@@ -13,18 +13,18 @@
 <body>
     <nav class="navbar navbar-expand bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
                 <img src="img/tropicana.png" alt="Bootstrap" width="60" class="rounded-5">
             </a>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="registrierung.html">
+                        <a class="nav-link" aria-current="page" href="registrierung.php">
                             <h4>Registrierung</h4>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">
+                        <a class="nav-link" href="login.php">
                             <h4>Login</h4>
                         </a>
                     </li>
@@ -75,12 +75,12 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="faq.html">
+                        <a class="nav-link" href="faq.php">
                             <h4>FAQs</h4>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="impressum.html">
+                        <a class="nav-link" href="impressum.php">
                             <h4>Impressum</h4>
                         </a>
                     </li>
