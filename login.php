@@ -38,25 +38,17 @@
         <form action="index.php" method="post">
             <div class="container" style="margin-bottom: 100px;">
                 <div class="container text-center">
-                    <div class="row align-items-center">
-                        <div class="col"></div>
-                        <div class="col">
-                            <div class="mb-3">
-                                <input type="email" class="form-control" id="email" placeholder="name@mail.com"
-                                    required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="password" class="form-control" id="password2" placeholder="Passwort"
-                                    required>
-                            </div>
-                            <div class="d-grid gap-2">
-                                <input class="btn btn-primary" type="submit" value="Submit">
-                            </div>
-                        </div>
-                        <div class="col">
-                        </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="name@mail.com"
+                            required>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" id="password2" placeholder="Passwort"
+                            required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
             </div>
     </div>
     </form>

@@ -33,14 +33,15 @@
         </div>
     </nav>
 
+    //TODO: Für Handy anpassen
     <div class="container" style="margin-bottom: 100px;">
         <h1>Registrierung</h1>
         <form action="index.php" method="post">
-            <div class="container text-center">
-                <div class="row align-items-start">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-2 align-items-start">
                     <div class="col">
                         <div class="mb-3">
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" aria-label="Anrede">
                                 <option selected disabled>
                                     <p>Anrede</p>
                                 </option>
@@ -66,7 +67,7 @@
                     </div>
                     <div class="col">
                         <div class="mb-3">
-                            <input type="email" class="form-control" id="email" placeholder="name@mail.com" required
+                            <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse" required
                                 tabindex="1">
                         </div>
                         <div class="mb-3">
