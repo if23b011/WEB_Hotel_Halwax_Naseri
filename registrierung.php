@@ -33,15 +33,15 @@
         </div>
     </nav>
 
-    //TODO: Für Handy anpassen
+    <!--TODO: Für Handy anpassen--> 
     <div class="container" style="margin-bottom: 100px;">
         <h1>Registrierung</h1>
-        <form action="index.php" method="post">
+        <form action="success.php" method="post">
             <div class="container">
                 <div class="row row-cols-1 row-cols-md-2 align-items-start">
                     <div class="col">
                         <div class="mb-3">
-                            <select class="form-select" aria-label="Anrede">
+                            <select class="form-select" name="anrede">
                                 <option selected disabled>
                                     <p>Anrede</p>
                                 </option>
@@ -54,28 +54,28 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="firstname" placeholder="Vorname" required
+                            <input type="text" class="form-control" name="firstname" placeholder="Vorname" required
                                 tabindex="2">
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" id="password" placeholder="Passwort" required
+                            <input type="password" class="form-control" name="password" placeholder="Passwort" required
                                 tabindex="4">
                         </div>
                         <div class="mb-3">
-                            <input type="date" class="form-control" id="date" required tabindex="6">
+                            <input type="date" class="form-control" name="date" required tabindex="6">
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
-                            <input type="email" class="form-control" id="email" placeholder="E-Mail-Adresse" required
+                            <input type="email" class="form-control" name="email" placeholder="E-Mail-Adresse" required
                                 tabindex="1">
                         </div>
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="lastname" placeholder="Nachname" required
+                            <input type="text" class="form-control" name="lastname" placeholder="Nachname" required
                                 tabindex="3">
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" id="password2"
+                            <input type="password" class="form-control" name="password2"
                                 placeholder="Passwort wiederholen" required tabindex="5">
                         </div>
                         <div class="d-grid gap-2">
@@ -105,6 +105,9 @@
             </div>
         </div>
     </nav>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
