@@ -8,7 +8,7 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background-color: white;">
+<body>
     <nav class="navbar navbar-expand bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">    
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php">
@@ -31,7 +31,10 @@
         </div>
     </nav>
 
-    Herzlich Willkommen <?php echo $_POST["firstname"] . " " . $_POST["lastname"]; ?>
+    <h2>
+    Herzlich Willkommen <?php echo $_POST["firstname"] . " " . $_POST["lastname"]; ?><br>
+    Du hast einen Bestätigungscode auf deine Email ( <?php echo $_POST["email"]; ?>) erhalten.<br>
+    </h2>
 
     <nav class="navbar navbar-expand bg-dark border-top border-body fixed-bottom" data-bs-theme="dark">
         <div class="container-fluid">
