@@ -11,100 +11,194 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">
-                <img src="img/tropicana.png" alt="Bootstrap" width="60" class="rounded-5">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="registrierung.php">
-                            <h4>Registrierung</h4>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">
-                            <h4>Login</h4>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!--TODO: Für Handy anpassen--> 
+    <!-- Navigation-->
+    <?php include 'navbar.php'; ?>
+    <!-- Content-->
+    <!--TODO: Für Handy anpassen-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Registrierung</h1>
-        <form action="success.php" method="post">
+        <!-- serverseitige Validierung -->
+        <?php
+        $anrede = $email = $firstname = $lastname = $password = $password2 = $date = "";
+        $anredeErr = $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $password2Err = $dateErr = "";
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (empty($_POST["anrede"])) {
+                $anredeErr = "Anrede ist erforderlich";
+            } else {
+                $anrede = test_input($_POST["anrede"]);
+            }
+
+            if (empty($_POST["email"])) {
+                $emailErr = "Email ist erforderlich";
+            } else {
+                $email = test_input($_POST["email"]);
+                //TODO: E-Mail-Adresse überprüfen funktioniert nicht mit Modal
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $emailErr = "Invalid email format";
+                }
+            }
+
+            if (empty($_POST["firstname"])) {
+                $firstnameErr = "Vorname ist erforderlich";
+            } else {
+                $firstname = test_input($_POST["firstname"]);
+                if (!preg_match("/^[a-zA-Z]*$/", $firstname)) {
+                    $firstnameErr = "Das ist kein richtiger Vorname";
+                }
+            }
+
+            if (empty($_POST["lastname"])) {
+                $lastnameErr = "Nachname ist erforderlich";
+            } else {
+                $lastname = test_input($_POST["lastname"]);
+                if (!preg_match("/^[a-zA-Z]*$/", $lastname)) {
+                    $lastnameErr = "Das ist kein richtiger Nachname";
+                }
+            }
+
+            if (empty($_POST["password"])) {
+                $passwordErr = "Passwort ist erforderlich";
+            } else {
+                $password = test_input($_POST["password"]);
+            }
+
+            if (empty($_POST["password2"])) {
+                $password2Err = "Passwortwiederholung ist erforderlich";
+            } else {
+                $password2 = test_input($_POST["password2"]);
+            }
+
+            if (empty($_POST["date"])) {
+                $dateErr = "Geburtsdatum ist erforderlich";
+            } else {
+                $date = test_input($_POST["date"]);
+            }
+        }
+
+        function test_input($data)
+        {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+        ?>
+        <!-- Formular -->
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
+                <div class="mb-3">
+                    <span class="error">
+                        <p style="color: red;">
+                            <?php echo "*" . $anredeErr; ?>
+                        </p>
+                    </span>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="anrede">
+                        <p>Herr</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="anrede">
+                        <p>Frau</p>
+                    </div>
+                </div>
                 <div class="row row-cols-1 row-cols-md-2 align-items-start">
                     <div class="col">
-                        <div class="mb-3">
-                            <select class="form-select" name="anrede">
-                                <option selected disabled>
-                                    <p>Anrede</p>
-                                </option>
-                                <option value="1">
-                                    <p>Herr</p>
-                                </option>
-                                <option value="2">
-                                    <p>Frau</p>
-                                </option>
-                            </select>
+                        <div class=" mb-3">
+                            <span class="error">
+                                <p style="color: red;">
+                                    <?php echo "*" . $firstnameErr; ?>
+                                </p>
+                            </span>
+                            <input type="text" class="form-control" name="firstname" placeholder="Vorname" tabindex="1"
+                                value="<?php echo $firstname; ?>">
                         </div>
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="firstname" placeholder="Vorname" required
-                                tabindex="2">
+                            <span class="error">
+                                <p style="color: red;">
+                                    <?php echo "*" . $dateErr; ?>
+                                </p>
+                            </span>
+                            <input type="date" class="form-control" name="date" tabindex="3"
+                                value="<?php echo $date; ?>">
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" name="password" placeholder="Passwort" required
-                                tabindex="4">
-                        </div>
-                        <div class="mb-3">
-                            <input type="date" class="form-control" name="date" required tabindex="6">
+                            <span class="error">
+                                <p style="color: red;">
+                                    <?php echo "*" . $passwordErr; ?>
+                                </p>
+                            </span>
+                            <input type="password" class="form-control" name="password" placeholder="Passwort"
+                                tabindex="5" value="<?php echo $password; ?>">
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
-                            <input type="email" class="form-control" name="email" placeholder="E-Mail-Adresse" required
-                                tabindex="1">
+                            <span class="error">
+                                <p style="color: red;">
+                                    <?php echo "*" . $lastnameErr; ?>
+                                </p>
+                            </span>
+                            <input type="text" class="form-control" name="lastname" placeholder="Nachname" tabindex="2"
+                                value="<?php echo $lastname; ?>">
                         </div>
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="lastname" placeholder="Nachname" required
-                                tabindex="3">
+                            <span class="error">
+                                <p style="color: red;">
+                                    <?php echo "*" . $emailErr; ?>
+                                </p>
+                            </span>
+                            <input type="email" class="form-control" name="email" placeholder="E-Mail-Adresse"
+                                tabindex="4" value="<?php echo $email; ?>">
                         </div>
                         <div class="mb-3">
+                            <span class="error">
+                                <p style="color: red;">
+                                    <?php echo "*" . $password2Err; ?>
+                                </p>
+                            </span>
                             <input type="password" class="form-control" name="password2"
-                                placeholder="Passwort wiederholen" required tabindex="5">
-                        </div>
-                        <div class="d-grid gap-2">
-                            <input class="btn btn-primary" type="submit" value="Submit" tabindex="7">
+                                placeholder="Passwort wiederholen" tabindex="6" value="<?php echo $password2; ?>">
                         </div>
                     </div>
+                </div>
+                <div class="d-grid gap-2">
+                    <input class="btn btn-primary" type="submit" value="Submit" tabindex="7" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
                 </div>
             </div>
         </form>
     </div>
+    <!-- TODO: Modal hinzufügen -->
 
-    <nav class="navbar navbar-expand bg-dark border-top border-body fixed-bottom" data-bs-theme="dark">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="faq.php">
-                            <h4>FAQs</h4>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="impressum.php">
-                            <h4>Impressum</h4>
-                        </a>
-                    </li>
-                </ul>
+    <!-- Footer-->
+    <?php include 'footer.php'; ?>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 style="color: black;" class="modal-title fs-5" id="staticBackdropLabel">Registrierung
+                        erfolgreich</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p style="color: black;">Herzlich Willkommen
+                        <?php echo $_POST["firstname"] . " " . $_POST["lastname"]; ?><br>
+                        Du hast einen Bestätigungscode auf deine Email (
+                        <?php echo $_POST["email"]; ?>) erhalten.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Verstanden</button>
+                </div>
             </div>
         </div>
-    </nav>
+    </div>
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
