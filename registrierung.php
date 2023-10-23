@@ -94,13 +94,15 @@
                         </p>
                     </span>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="anrede">
+                        <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "herr")
+                            echo "checked"; ?> value="herr">
                         <p>Herr</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="anrede">
+                        <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "frau")
+                            echo "checked"; ?> value="frau">
                         <p>Frau</p>
                     </div>
                 </div>
@@ -150,7 +152,7 @@
                                     <?php echo "*" . $emailErr; ?>
                                 </p>
                             </span>
-                            <input type="email" class="form-control" name="email" placeholder="E-Mail-Adresse"
+                            <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse"
                                 tabindex="4" value="<?php echo $email; ?>">
                         </div>
                         <div class="mb-3">
@@ -165,8 +167,7 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2">
-                    <input class="btn btn-primary" type="submit" value="Submit" tabindex="7" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">
+                    <input class="btn btn-primary" type="submit" value="Submit" tabindex="7">
                 </div>
             </div>
         </form>
@@ -175,29 +176,6 @@
 
     <!-- Footer-->
     <?php include 'footer.php'; ?>
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 style="color: black;" class="modal-title fs-5" id="staticBackdropLabel">Registrierung
-                        erfolgreich</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p style="color: black;">Herzlich Willkommen
-                        <?php echo $_POST["firstname"] . " " . $_POST["lastname"]; ?><br>
-                        Du hast einen Bestätigungscode auf deine Email (
-                        <?php echo $_POST["email"]; ?>) erhalten.
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Verstanden</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

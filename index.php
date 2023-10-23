@@ -17,39 +17,37 @@
     <div class="container" style="margin-bottom: 100px;">
         <h1>Hotel Tropicana - hier werden Urlaubsträume wahr!</h1>
         <!-- TODO: Carousel implementieren-->
-        <div class="container-fluid">
-            <div class="row row-cols-1 row-cols-xl-3">
-                <div class="col">
-                    <div class="card text-bg-dark mb-3">
-                        <div class="ratio ratio-16x9">
-                            <img src="img/parkplatz.jpg" class="card-img-top" alt="Parkplätze">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Parkplätze</h5>
-                        </div>
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="img/frühstück.jpg" class="d-block w-100" alt="Frühstück" style="height: 35rem;">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>Frühstück</h1>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card text-bg-dark mb-3">
-                        <div class="ratio ratio-16x9">
-                            <img src="img/frühstück.jpg" class="card-img-top" alt="Frühstück">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Frühstück</h5>
-                        </div>
+                <div class="carousel-item">
+                    <img src="img/parkplatz.jpg" class="d-block w-100" alt="Parkplatz" style="height: 35rem;">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>Parkplatz</h1>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card text-bg-dark mb-3">
-                        <div class="ratio ratio-16x9">
-                            <img src="img/haustiere.jpg" class="card-img-top" alt="Mitnahme von Haustieren">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Mitnahme von Haustieren</h5>
-                        </div>
+                <div class="carousel-item">
+                    <img src="img/haustiere.jpg" class="d-block w-100" alt="Haustiere" style="height: 35rem">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>Haustiere</h1>
                     </div>
                 </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
         <!-- Footer-->
         <?php include 'footer.php'; ?>
