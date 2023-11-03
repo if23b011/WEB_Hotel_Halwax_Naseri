@@ -43,7 +43,7 @@
                 $firstnameErr = "Vorname ist erforderlich";
             } else {
                 $firstname = test_input($_POST["firstname"]);
-                if (!preg_match("/^[a-zA-Z]*$/", $firstname)) {
+                if (!preg_match("/^[a-zA-Zäöü]*$/", $firstname)) {
                     $firstnameErr = "Das ist kein richtiger Vorname";
                 }
             }
@@ -52,7 +52,7 @@
                 $lastnameErr = "Nachname ist erforderlich";
             } else {
                 $lastname = test_input($_POST["lastname"]);
-                if (!preg_match("/^[a-zA-Z]*$/", $lastname)) {
+                if (!preg_match("/^[a-zA-Zäöü]*$/", $lastname)) {
                     $lastnameErr = "Das ist kein richtiger Nachname";
                 }
             }
