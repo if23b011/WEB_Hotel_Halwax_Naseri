@@ -122,19 +122,19 @@
                 <div class="mb-3">
                     <span class="error">
                         <p style="color: red;">
-                            <?php echo "" . $anredeErr; ?>
+                            <?php echo $anredeErr; ?>
                         </p>
                     </span>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "herr")
-                            echo "checked"; ?> value="herr">
+                        <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "Herr")
+                            echo "checked"; ?> value="Herr">
                         <p>Herr</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "frau")
-                            echo "checked"; ?> value="frau">
+                        <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "Frau")
+                            echo "checked"; ?> value="Frau">
                         <p>Frau</p>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                                 value="<?php echo $firstname; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo "" . $firstnameErr; ?>
+                                    <?php echo $firstnameErr; ?>
                                 </p>
                             </span>
                         </div>
@@ -154,7 +154,7 @@
                                 value="<?php echo $date; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo "" . $dateErr; ?>
+                                    <?php echo $dateErr; ?>
                                 </p>
                             </span>
                         </div>
@@ -163,32 +163,32 @@
                                 tabindex="5" value="<?php echo $password; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo "" . $passwordErr; ?>
+                                    <?php echo $passwordErr; ?>
                                 </p>
                             </span>
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo "" . $passwordErrUp; ?>
+                                    <?php echo $passwordErrUp; ?>
                                 </p>
                             </span>
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo "" . $passwordErrLow; ?>
+                                    <?php echo $passwordErrLow; ?>
                                 </p>
                             </span>
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo "" . $passwordErrNum; ?>
+                                    <?php echo $passwordErrNum; ?>
                                 </p>
                             </span>
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo "" . $passwordErrSpecial; ?>
+                                    <?php echo $passwordErrSpecial; ?>
                                 </p>
                             </span>
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo "" . $passwordErrLen; ?>
+                                    <?php echo $passwordErrLen; ?>
                                 </p>
                             </span>
                         </div>
@@ -231,12 +231,15 @@
                     if (
                         isset($_POST['anrede']) && isset($_POST['email']) && isset($_POST['firstname'])
                         && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['password2'])
-                        && isset($_POST['date']) && ($_POST['password'] == $_POST['password2'])
+                        && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $passwordErrUp == ""
+                        && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
                     ) {
-                        echo "Herzlich Willkommen " . $_POST["firstname"] . " " . $_POST["lastname"] . ".<br>"
+                        echo "Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . ".<br>"
                             . "Du hast einen Bestätigungscode auf deine Email (" . $_POST["email"] . ") erhalten.";
                     }
-                    ?>
+                    $passwordErrUp = $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen
+                        ?>
+
                 </h2>
             </div>
         </form>
