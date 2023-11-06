@@ -25,13 +25,13 @@
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (empty($_POST["anrede"])) {
-                $anredeErr = "Anrede ist erforderlich";
+                $anredeErr = "*Anrede ist erforderlich";
             } else {
                 $anrede = input($_POST["anrede"]);
             }
 
             if (empty($_POST["email"])) {
-                $emailErr = "Email ist erforderlich";
+                $emailErr = "*Email ist erforderlich";
             } else {
                 $email = input($_POST["email"]);
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -40,7 +40,7 @@
             }
 
             if (empty($_POST["firstname"])) {
-                $firstnameErr = "Vorname ist erforderlich";
+                $firstnameErr = "*Vorname ist erforderlich";
             } else {
                 $firstname = input($_POST["firstname"]);
                 if (!preg_match("/^[a-zA-Zäöü]*$/", $firstname)) {
@@ -49,7 +49,7 @@
             }
 
             if (empty($_POST["lastname"])) {
-                $lastnameErr = "Nachname ist erforderlich";
+                $lastnameErr = "*Nachname ist erforderlich";
             } else {
                 $lastname = input($_POST["lastname"]);
                 if (!preg_match("/^[a-zA-Zäöü]*$/", $lastname)) {
@@ -58,7 +58,7 @@
             }
 
             if (empty($_POST["password"])) {
-                $passwordErr = "Passwort ist erforderlich";
+                $passwordErr = "*Passwort ist erforderlich";
             } else {
                 $password = input($_POST["password"]);
             }
@@ -70,38 +70,36 @@
             $specialChars = preg_match('@[^\w]@', $password);
 
             if (!$uppercase) {
-                $passwordErrUp = "min. einen Großbuchstaben";
+                $passwordErrUp = "*Großbuchstabe erforlderlich";
             }
 
 
             if (!$lowercase) {
-                $passwordErrLow = "min. einen Kleinbuchstaben";
+                $passwordErrLow = "*Kleinbuchstabe erforlderlich";
             }
 
             if (!$number) {
-                $passwordErrNum = "min. eine Zahl";
+                $passwordErrNum = "*Zahl erforlderlich";
             }
 
             if (!$specialChars) {
-                $passwordErrSpecial = "min. ein Sonderzeichen";
+                $passwordErrSpecial = "*Sonderzeichen erforlderlich";
             }
 
             if (strlen($password) < 8) {
-                $passwordErrLen = "min. 8 Zeichen lang";
+                $passwordErrLen = "*8 Zeichen erforlderlich";
             }
 
             if (empty($_POST["password2"])) {
-                $password2Err = "Passwortwiederholung ist erforderlich";
+                $password2Err = "*Passwortwiederholung ist erforderlich";
             } else if ($_POST['password'] != $_POST['password2']) {
                 $password2Err = "Passwort ist nicht ident!";
             } else {
                 $password2 = input($_POST["password2"]);
             }
 
-
-
             if (empty($_POST["date"])) {
-                $dateErr = "Geburtsdatum ist erforderlich";
+                $dateErr = "*Geburtsdatum ist erforderlich";
             } else {
                 $date = input($_POST["date"]);
             }
@@ -122,7 +120,12 @@
                 <div class="mb-3">
                     <span class="error">
                         <p style="color: red;">
-                            <?php echo $anredeErr; ?>
+                            <?php
+                            if ($anredeErr != "") {
+                                echo $anredeErr;
+                            } else {
+                                echo "*erforderlich";
+                            } ?>
                         </p>
                     </span>
                     <div class="form-check">
@@ -145,7 +148,12 @@
                                 value="<?php echo $firstname; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo $firstnameErr; ?>
+                                <?php
+                            if ($firstnameErr != "") {
+                                echo $firstnameErr;
+                            } else {
+                                echo "*erforderlich";
+                            } ?>
                                 </p>
                             </span>
                         </div>
@@ -154,7 +162,12 @@
                                 value="<?php echo $date; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo $dateErr; ?>
+                                <?php
+                            if ($dateErr != "") {
+                                echo $dateErr;
+                            } else {
+                                echo "*erforderlich";
+                            } ?>
                                 </p>
                             </span>
                         </div>
@@ -163,7 +176,12 @@
                                 tabindex="5" value="<?php echo $password; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo $passwordErr; ?>
+                                <?php
+                            if ($passwordErr != "") {
+                                echo $passwordErr;
+                            } else {
+                                echo "*erforderlich";
+                            } ?>
                                 </p>
                             </span>
                             <span class="error">
@@ -199,7 +217,12 @@
                                 tabindex="2" value="<?php echo $lastname; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo "" . $lastnameErr; ?>
+                                <?php
+                            if ($lastnameErr != "") {
+                                echo $lastnameErr;
+                            } else {
+                                echo "*erforderlich";
+                            } ?>
                                 </p>
                             </span>
                         </div>
@@ -208,7 +231,12 @@
                                 tabindex="4" value="<?php echo $email; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo "" . $emailErr; ?>
+                                <?php
+                            if ($emailErr != "") {
+                                echo $emailErr;
+                            } else {
+                                echo "*erforderlich";
+                            } ?>
                                 </p>
                             </span>
                         </div>
@@ -217,7 +245,12 @@
                                 placeholder="Passwort wiederholen" tabindex="6" value="<?php echo $password2; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                    <?php echo "" . $password2Err; ?>
+                                <?php
+                            if ($password2Err != "") {
+                                echo $password2Err;
+                            } else {
+                                echo "*erforderlich";
+                            } ?>
                                 </p>
                             </span>
                         </div>
