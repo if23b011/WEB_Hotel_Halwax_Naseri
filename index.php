@@ -26,13 +26,13 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="img/parkplatz.jpg" class="d-block w-100" alt="Parkplatz" style="height: 35rem;">
+                    <img src="img/parkplätze.jpg" class="d-block w-100" alt="Parkplatz" style="height: 35rem;">
                     <div class="carousel-caption d-none d-md-block">
                         <h1>Parkplatz</h1>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="img/haustiere.jpg" class="d-block w-100" alt="Haustiere" style="height: 35rem">
+                    <img src="img/haustier.jpg" class="d-block w-100" alt="Haustiere" style="height: 35rem">
                     <div class="carousel-caption d-none d-md-block">
                         <h1>Haustiere</h1>
                     </div>
