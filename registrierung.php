@@ -70,7 +70,7 @@
             $specialChars = preg_match('@[^\w]@', $password);
 
             if (!$uppercase) {
-                $passwordErrUp = "*Großbuchstabe erforlderlich";
+                $passwordErrUp = "*Großbuchstabe erforderlich";
             }
 
 
@@ -123,7 +123,7 @@
                             <?php
                             if ($anredeErr != "") {
                                 echo $anredeErr;
-                            } else {
+                            } else if (empty($_POST['anrede'])) {
                                 echo "*erforderlich";
                             } ?>
                         </p>
@@ -148,12 +148,12 @@
                                 value="<?php echo $firstname; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                <?php
-                            if ($firstnameErr != "") {
-                                echo $firstnameErr;
-                            } else {
-                                echo "*erforderlich";
-                            } ?>
+                                    <?php
+                                    if ($firstnameErr != "") {
+                                        echo $firstnameErr;
+                                    } if (empty($_POST['firstname'])) {
+                                        echo "*erforderlich";
+                                    } ?>
                                 </p>
                             </span>
                         </div>
@@ -162,12 +162,12 @@
                                 value="<?php echo $date; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                <?php
-                            if ($dateErr != "") {
-                                echo $dateErr;
-                            } else {
-                                echo "*erforderlich";
-                            } ?>
+                                    <?php
+                                    if ($dateErr != "") {
+                                        echo $dateErr;
+                                    } else if (empty($_POST['date'])) {
+                                        echo "*erforderlich";
+                                    } ?>
                                 </p>
                             </span>
                         </div>
@@ -176,12 +176,12 @@
                                 tabindex="5" value="<?php echo $password; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                <?php
-                            if ($passwordErr != "") {
-                                echo $passwordErr;
-                            } else {
-                                echo "*erforderlich";
-                            } ?>
+                                    <?php
+                                    if ($passwordErr != "") {
+                                        echo $passwordErr;
+                                    } else if (empty($_POST['password'])) {
+                                        echo "*erforderlich";
+                                    } ?>
                                 </p>
                             </span>
                             <span class="error">
@@ -217,12 +217,12 @@
                                 tabindex="2" value="<?php echo $lastname; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                <?php
-                            if ($lastnameErr != "") {
-                                echo $lastnameErr;
-                            } else {
-                                echo "*erforderlich";
-                            } ?>
+                                    <?php
+                                    if ($lastnameErr != "") {
+                                        echo $lastnameErr;
+                                    } else if (empty($_POST['lastname'])) {
+                                        echo "*erforderlich";
+                                    } ?>
                                 </p>
                             </span>
                         </div>
@@ -231,13 +231,12 @@
                                 tabindex="4" value="<?php echo $email; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                <?php
-                            if ($emailErr != "") {
-                                echo $emailErr;
-                            } else {
-                                echo "*erforderlich";
-                            } ?>
-                                </p>
+                                    <?php
+                                    if ($emailErr != "") {
+                                        echo $emailErr;
+                                    } else if (empty($_POST['email'])) {
+                                        echo "*erforderlich";
+                                    } ?>
                             </span>
                         </div>
                         <div class="mb-3">
@@ -245,12 +244,12 @@
                                 placeholder="Passwort wiederholen" tabindex="6" value="<?php echo $password2; ?>">
                             <span class="error">
                                 <p style="color: red;">
-                                <?php
-                            if ($password2Err != "") {
-                                echo $password2Err;
-                            } else {
-                                echo "*erforderlich";
-                            } ?>
+                                    <?php
+                                    if ($password2Err != "") {
+                                        echo $password2Err;
+                                    } else if (empty($_POST['password2'])) {
+                                        echo "*erforderlich";
+                                    } ?>
                                 </p>
                             </span>
                         </div>
