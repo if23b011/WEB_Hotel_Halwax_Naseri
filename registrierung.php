@@ -114,7 +114,7 @@
         }
         ?>
         <!-- Formular -->
-        <!-- TODO: Formatierung der Registrierung mit "*erforderlich" -->
+        <!-- TODO: Formatierung der Registrierung mit "Super gemacht" -->
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
                 <div class="mb-3">
