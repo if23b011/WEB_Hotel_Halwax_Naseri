@@ -125,6 +125,8 @@
                                 echo $anredeErr;
                             } else if (empty($_POST['anrede'])) {
                                 echo "*erforderlich";
+                            } else {
+                                echo "⠀";
                             } ?>
                         </p>
                     </span>
@@ -151,8 +153,10 @@
                                     <?php
                                     if ($firstnameErr != "") {
                                         echo $firstnameErr;
-                                    } if (empty($_POST['firstname'])) {
+                                    } else if (empty($_POST['firstname'])) {
                                         echo "*erforderlich";
+                                    } else {
+                                        echo "⠀";
                                     } ?>
                                 </p>
                             </span>
@@ -167,6 +171,8 @@
                                         echo $dateErr;
                                     } else if (empty($_POST['date'])) {
                                         echo "*erforderlich";
+                                    } else {
+                                        echo "⠀";
                                     } ?>
                                 </p>
                             </span>
@@ -181,6 +187,8 @@
                                         echo $passwordErr;
                                     } else if (empty($_POST['password'])) {
                                         echo "*erforderlich";
+                                    } else {
+                                        echo "⠀";
                                     } ?>
                                 </p>
                             </span>
@@ -222,6 +230,8 @@
                                         echo $lastnameErr;
                                     } else if (empty($_POST['lastname'])) {
                                         echo "*erforderlich";
+                                    } else {
+                                        echo "⠀";
                                     } ?>
                                 </p>
                             </span>
@@ -236,6 +246,8 @@
                                         echo $emailErr;
                                     } else if (empty($_POST['email'])) {
                                         echo "*erforderlich";
+                                    } else {
+                                        echo "⠀";
                                     } ?>
                             </span>
                         </div>
@@ -249,6 +261,8 @@
                                         echo $password2Err;
                                     } else if (empty($_POST['password2'])) {
                                         echo "*erforderlich";
+                                    } else {
+                                        echo "⠀";
                                     } ?>
                                 </p>
                             </span>
@@ -271,7 +285,6 @@
                     }
                     $passwordErrUp = $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen
                         ?>
-
                 </h2>
             </div>
         </form>
