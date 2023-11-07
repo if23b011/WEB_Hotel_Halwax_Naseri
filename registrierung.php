@@ -21,26 +21,26 @@
         <?php
         //serverseitige Validierung
         $anrede = $email = $firstname = $lastname = $password = $password2 = $date = "";
-        $anredeErr = $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrUp = $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen = $password2Err = $dateErr = "";
+        $anredeErr = $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrUp =
+            $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen = $password2Err = $dateErr = "";
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (empty($_POST["anrede"])) {
-                $anredeErr = "*Anrede ist erforderlich";
+                $anredeErr = "*erforderlich";
             } else {
                 $anrede = input($_POST["anrede"]);
             }
 
             if (empty($_POST["email"])) {
-                $emailErr = "*Email ist erforderlich";
+                $emailErr = "*erforderlich";
+            } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $emailErr = "Das ist keine richtige Email";
             } else {
                 $email = input($_POST["email"]);
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $emailErr = "Invalid email format";
-                }
             }
 
             if (empty($_POST["firstname"])) {
-                $firstnameErr = "*Vorname ist erforderlich";
+                $firstnameErr = "*erforderlich";
             } else {
                 $firstname = input($_POST["firstname"]);
                 if (!preg_match("/^[a-zA-Zäöü]*$/", $firstname)) {
@@ -49,7 +49,7 @@
             }
 
             if (empty($_POST["lastname"])) {
-                $lastnameErr = "*Nachname ist erforderlich";
+                $lastnameErr = "*erforderlich";
             } else {
                 $lastname = input($_POST["lastname"]);
                 if (!preg_match("/^[a-zA-Zäöü]*$/", $lastname)) {
@@ -58,7 +58,7 @@
             }
 
             if (empty($_POST["password"])) {
-                $passwordErr = "*Passwort ist erforderlich";
+                $passwordErr = "*erforderlich";
             } else {
                 $password = input($_POST["password"]);
             }
@@ -69,29 +69,33 @@
             $number = preg_match('@[0-9]@', $password);
             $specialChars = preg_match('@[^\w]@', $password);
 
-            if (!$uppercase) {
-                $passwordErrUp = "*Großbuchstabe erforderlich";
+            if (strlen($password) < 8 && !(empty($_POST["password"]))) {
+                $passwordErr = "*erforderlich:";
+                $passwordErrLen = "8 Zeichen";
             }
 
-
-            if (!$lowercase) {
-                $passwordErrLow = "*Kleinbuchstabe erforlderlich";
+            if (!$uppercase && !(empty($_POST["password"]))) {
+                $passwordErr = "*erforderlich:";
+                $passwordErrUp = "1 Großbuchstabe";
             }
 
-            if (!$number) {
-                $passwordErrNum = "*Zahl erforlderlich";
+            if (!$lowercase && !(empty($_POST["password"]))) {
+                $passwordErr = "*erforderlich:";
+                $passwordErrLow = "1 Kleinbuchstabe";
             }
 
-            if (!$specialChars) {
-                $passwordErrSpecial = "*Sonderzeichen erforlderlich";
+            if (!$number && !(empty($_POST["password"]))) {
+                $passwordErr = "*erforderlich:";
+                $passwordErrNum = "1 Zahl";
             }
 
-            if (strlen($password) < 8) {
-                $passwordErrLen = "*8 Zeichen erforlderlich";
+            if (!$specialChars && !(empty($_POST["password"]))) {
+                $passwordErr = "*erforderlich:";
+                $passwordErrSpecial = "1 Sonderzeichen";
             }
 
             if (empty($_POST["password2"])) {
-                $password2Err = "*Passwortwiederholung ist erforderlich";
+                $password2Err = "*erforderlich";
             } else if ($_POST['password'] != $_POST['password2']) {
                 $password2Err = "Passwort ist nicht ident!";
             } else {
@@ -99,7 +103,7 @@
             }
 
             if (empty($_POST["date"])) {
-                $dateErr = "*Geburtsdatum ist erforderlich";
+                $dateErr = "*erforderlich";
             } else {
                 $date = input($_POST["date"]);
             }
@@ -114,22 +118,9 @@
         }
         ?>
         <!-- Formular -->
-        <!-- TODO: Formatierung der Registrierung mit "Super gemacht" -->
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
                 <div class="mb-3">
-                    <span class="error">
-                        <p style="color: red;">
-                            <?php
-                            if ($anredeErr != "") {
-                                echo $anredeErr;
-                            } else if (empty($_POST['anrede'])) {
-                                echo "*erforderlich";
-                            } else {
-                                echo "⠀";
-                            } ?>
-                        </p>
-                    </span>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "Herr")
                             echo "checked"; ?> value="Herr">
@@ -143,6 +134,18 @@
                         <p>Frau</p>
                     </div>
                 </div>
+                <span class="error">
+                    <p style="color: red;">
+                        <?php
+                        if ($anredeErr != "") {
+                            echo $anredeErr;
+                        } else if (empty($_POST['anrede'])) {
+                            echo "*";
+                        } else {
+                            echo "⠀";
+                        } ?>
+                    </p>
+                </span>
                 <div class="row row-cols-1 row-cols-md-2 align-items-start">
                     <div class="col">
                         <div class=" mb-3">
@@ -154,7 +157,7 @@
                                     if ($firstnameErr != "") {
                                         echo $firstnameErr;
                                     } else if (empty($_POST['firstname'])) {
-                                        echo "*erforderlich";
+                                        echo "*";
                                     } else {
                                         echo "⠀";
                                     } ?>
@@ -170,7 +173,7 @@
                                     if ($dateErr != "") {
                                         echo $dateErr;
                                     } else if (empty($_POST['date'])) {
-                                        echo "*erforderlich";
+                                        echo "*";
                                     } else {
                                         echo "⠀";
                                     } ?>
@@ -186,7 +189,7 @@
                                     if ($passwordErr != "") {
                                         echo $passwordErr;
                                     } else if (empty($_POST['password'])) {
-                                        echo "*erforderlich";
+                                        echo "*";
                                     } else {
                                         echo "⠀";
                                     } ?>
@@ -221,15 +224,15 @@
                     </div>
                     <div class="col">
                         <div class="mb-3">
-                            <input type="emails" class="form-control" name="lastname" placeholder="Nachname"
-                                tabindex="2" value="<?php echo $lastname; ?>">
+                            <input type="text" class="form-control" name="lastname" placeholder="Nachname" tabindex="2"
+                                value="<?php echo $lastname; ?>">
                             <span class="error">
                                 <p style="color: red;">
                                     <?php
                                     if ($lastnameErr != "") {
                                         echo $lastnameErr;
                                     } else if (empty($_POST['lastname'])) {
-                                        echo "*erforderlich";
+                                        echo "*";
                                     } else {
                                         echo "⠀";
                                     } ?>
@@ -245,7 +248,7 @@
                                     if ($emailErr != "") {
                                         echo $emailErr;
                                     } else if (empty($_POST['email'])) {
-                                        echo "*erforderlich";
+                                        echo "*";
                                     } else {
                                         echo "⠀";
                                     } ?>
@@ -260,7 +263,7 @@
                                     if ($password2Err != "") {
                                         echo $password2Err;
                                     } else if (empty($_POST['password2'])) {
-                                        echo "*erforderlich";
+                                        echo "*";
                                     } else {
                                         echo "⠀";
                                     } ?>
@@ -272,24 +275,35 @@
                 <div class="d-grid gap-2">
                     <input class="btn btn-primary" type="submit" value="Submit" tabindex="7">
                 </div>
+                <p style="color: red;">
+                    <?php
+                    if (
+                        $anredeErr != "" || $emailErr != "" || $firstnameErr != "" || $lastnameErr != "" || $passwordErr != ""
+                        || $password2Err != "" || $dateErr != ""
+                    ) {
+                        echo "⠀";
+                    } else {
+                        echo "*erforderlich";
+                    } ?>
+                </p>
                 <h2>
                     <?php
                     if (
                         isset($_POST['anrede']) && isset($_POST['email']) && isset($_POST['firstname'])
                         && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['password2'])
-                        && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $passwordErrUp == ""
-                        && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
+                        && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $anredeErr == "" && $emailErr = ""
+                        && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" && $password2Err == "" && $dateErr == ""
+                        && $passwordErrUp == "" && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == ""
+                        && $passwordErrLen == ""
                     ) {
                         echo "Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . ".<br>"
                             . "Du hast einen Bestätigungscode auf deine Email (" . $_POST["email"] . ") erhalten.";
                     }
-                    $passwordErrUp = $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen
-                        ?>
+                    ?>
                 </h2>
             </div>
         </form>
     </div>
-    <!-- TODO: Modal hinzufügen -->
     <!-- Footer-->
     <?php include 'footer.php'; ?>
     <!-- Bootstrap JS -->
