@@ -30,13 +30,13 @@
             } else {
                 $anrede = input($_POST["anrede"]);
             }
-
             if (empty($_POST["email"])) {
-                $emailErr = "*erforderlich";
-            } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $emailErr = "Das ist keine richtige Email";
+                $emailErr = "*Email ist erforderlich";
             } else {
                 $email = input($_POST["email"]);
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $emailErr = "Invalid email format";
+                }
             }
 
             if (empty($_POST["firstname"])) {
@@ -282,6 +282,13 @@
                         || $password2Err != "" || $dateErr != ""
                     ) {
                         echo "⠀";
+                    } else if (
+                        isset($_POST['anrede']) && isset($_POST['email']) && isset($_POST['firstname'])
+                        && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['password2'])
+                        && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $passwordErrUp == ""
+                        && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
+                    ) {
+                        echo "";
                     } else {
                         echo "*erforderlich";
                     } ?>
@@ -291,10 +298,8 @@
                     if (
                         isset($_POST['anrede']) && isset($_POST['email']) && isset($_POST['firstname'])
                         && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['password2'])
-                        && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $anredeErr == "" && $emailErr = ""
-                        && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" && $password2Err == "" && $dateErr == ""
-                        && $passwordErrUp == "" && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == ""
-                        && $passwordErrLen == ""
+                        && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $passwordErrUp == ""
+                        && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
                     ) {
                         echo "Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . ".<br>"
                             . "Du hast einen Bestätigungscode auf deine Email (" . $_POST["email"] . ") erhalten.";
