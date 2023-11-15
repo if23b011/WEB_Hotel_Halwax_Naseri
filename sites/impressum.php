@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,12 +13,12 @@
     <title>Hotel Tropicana - Impressum</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
     <!-- Navigation-->
-    <?php include 'navbar.php'; ?>
+    <?php include '../utils/navbar.php'; ?>
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Impressum</h1>
@@ -43,17 +49,17 @@
             <div class="row align-items-end ">
                 <div class="col">
                     <p>Jan Halwax</p>
-                    <img src="img/jan.gif" alt="Jan" title="Jan" height="300" />
+                    <img src="../img/jan.gif" alt="Jan" title="Jan" height="300" />
                 </div>
                 <div class="col">
                     <p>Armin Naseri</p>
-                    <img src="img/armin.gif" alt="Armin" title="Armin" height="300" />
+                    <img src="../img/armin.gif" alt="Armin" title="Armin" height="300" />
                 </div>
             </div>
         </div>
     </div>
     <!-- Footer-->
-    <?php include 'footer.php'; ?>
+    <?php include '../utils/footer.php'; ?>
     <!-- Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

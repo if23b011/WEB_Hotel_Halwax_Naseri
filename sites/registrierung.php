@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!-- TODO: Code kommentieren -->
 <!DOCTYPE html>
 <html lang="en">
@@ -8,15 +14,17 @@
     <title>Hotel Tropicana - Registrierung</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
     <!-- Navigation-->
-    <?php include 'navbar.php'; ?>
+    <?php include '../utils/navbar.php'; ?>
     <!-- Content-->
     <!--TODO: Für Handy anpassen-->
     <div class="container" style="margin-bottom: 100px;">
+        <h1>
+        </h1>
         <h1>Registrierung</h1>
         <?php
         //serverseitige Validierung
@@ -298,11 +306,14 @@
                     if (
                         $anredeErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
                         $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
-                        $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
+                        $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $anrede != ""
                     ) {
                         echo "Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"]
                             //TODO:  . ".<br>" . "Du hast einen Bestätigungscode auf deine Email (" . $_POST["email"] . ") erhalten."
                         ;
+                        $_SESSION["firstname"] = $_POST["firstname"];
+                        $_SESSION["lastname"] = $_POST["lastname"];
+                        $_SESSION["login"] = true;
                     }
                     ?>
                 </h2>
@@ -310,7 +321,7 @@
         </form>
     </div>
     <!-- Footer-->
-    <?php include 'footer.php'; ?>
+    <?php include '../utils/footer.php'; ?>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

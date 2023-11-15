@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,23 +13,33 @@
     <title>Hotel Tropicana - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
     <!-- Navigation-->
-    <?php include 'navbar.php'; ?>
+    <?php include '../utils/navbar.php'; ?>
     <!-- Content-->
+    <?php
+    $email = $_POST["email"];
+    ?>
     <div class="container" style="margin-bottom: 100px;">
         <h1>Login</h1>
-        <form action="index.php" method="post">
+        <?php
+        if (isset($_SESSION["login"]) && $_SESSION["login"] == true) {
+            echo "<p>Willkommen zurück, Jan Halwax!</p>";
+        } else {
+            echo "";
+        }
+        ?>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container" style="margin-bottom: 100px;">
                 <div class="container text-center">
                     <div class="mb-3">
-                        <input type="email" class="form-control" id="email" placeholder="name@mail.com" required>
+                        <input type="text" class="form-control" id="email" placeholder="E-Mail-Adresse">
                     </div>
                     <div class="mb-3">
-                        <input type="password" class="form-control" id="password2" placeholder="Passwort" required>
+                        <input type="password" class="form-control" id="password" placeholder="Passwort" required>
                     </div>
                     <div class="d-grid gap-2">
                         <input class="btn btn-primary" type="submit" value="Submit">
@@ -31,9 +47,16 @@
                 </div>
             </div>
         </form>
+        <?php
+        if (
+            $email == "jan.halwax42@gmail.com"
+        ) {
+            $_SESSION["login"] = true;
+        }
+        ?>
     </div>
     <!-- Footer-->
-    <?php include 'footer.php'; ?>
+    <?php include '../utils/footer.php'; ?>
     <!-- Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
