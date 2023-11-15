@@ -296,13 +296,13 @@
                 <h2>
                     <?php
                     if (
-                        isset($_POST['anrede']) && isset($_POST['email']) && isset($_POST['firstname'])
-                        && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['password2'])
-                        && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $passwordErrUp == ""
-                        && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
+                        $anredeErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
+                        $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
+                        $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
                     ) {
-                        echo "Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . ".<br>"
-                            . "Du hast einen Bestätigungscode auf deine Email (" . $_POST["email"] . ") erhalten.";
+                        echo "Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"]
+                            //TODO:  . ".<br>" . "Du hast einen Bestätigungscode auf deine Email (" . $_POST["email"] . ") erhalten."
+                        ;
                     }
                     ?>
                 </h2>
