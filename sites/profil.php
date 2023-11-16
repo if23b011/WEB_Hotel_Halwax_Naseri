@@ -15,7 +15,7 @@
     <?php include '../utils/navbar.php' ?>
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
-        <h1>Profil!</h1>
+        <h1>Profil</h1>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
                 <div class="row row-cols-1 row-cols-md-2 align-items-start">
@@ -39,26 +39,50 @@
                                 tabindex="4" value="<?php echo $_SESSION["email"]; ?>">
                         </div>
                     </div>
-                </div>
-                <div class="d-grid gap-2">
-                    <input class="btn btn-primary" type="submit"
-                        value="Nach Klicken des Buttons Wesbeite neuladen um Änderungen zu sehen" tabindex="7">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <input class="btn btn-primary" type="submit" value="Änderungen übernehmen" tabindex="7">
+                    </div>
                 </div>
             </div>
             <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $_SESSION["firstname"] = $_POST["firstname"];
-                $_SESSION["lastname"] = $_POST["lastname"];
-                $_SESSION["email"] = $_POST["email"];
-                $_SESSION["date"] = $_POST["date"];
+                if (!empty($_POST["firstname"])) {
+                    $_SESSION["firstname"] = $_POST["firstname"];
+                }
+                if (!empty($_POST["lastname"])) {
+                    $_SESSION["lastname"] = $_POST["lastname"];
+                }
+                if (!empty($_POST["email"])) {
+                    $_SESSION["email"] = $_POST["email"];
+                }
+                if (!empty($_POST["date"])) {
+                    $_SESSION["date"] = $_POST["date"];
+                }
             }
             ?>
         </form>
-        <form action="login.php">
-            <div class="d-grid gap-2 col-4 mx-auto">
+        <form action="logout.php">
+            <div class="d-grid gap-2 col-6 mx-auto">
                 <input type="submit" class="btn btn-outline-danger" value="Logout"></input>
             </div>
-        </form>
+    </div>
+    </form>
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (!empty($_POST["firstname"])) {
+            $_SESSION["firstname"] = $_POST["firstname"];
+        }
+        if (!empty($_POST["lastname"])) {
+            $_SESSION["lastname"] = $_POST["lastname"];
+        }
+        if (!empty($_POST["email"])) {
+            $_SESSION["email"] = $_POST["email"];
+        }
+        if (!empty($_POST["date"])) {
+            $_SESSION["date"] = $_POST["date"];
+        }
+    }
+    ?>
 
     </div>
     <!-- Footer-->

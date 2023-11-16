@@ -16,32 +16,18 @@
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Login</h1>
-        <?php
-        $_SESSION["login"] = false;
-        $password = "";
-        if (empty($_POST["password"])) {
-            $passwordErr = "*erforderlich";
-        } else {
-            $password = input($_POST["password"]);
-        }
-        function input($data)
-        {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-        ?>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <form method="post" action="../sites/logined.php">
             <div class="container" style="margin-bottom: 100px;">
                 <div class="container text-center">
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="email" placeholder="E-Mail-Adresse"
-                            value="<?php echo $_SESSION["email"]; ?>" required>
+                        <input type="text" class="form-control" id="email" placeholder="E-Mail-Adresse" value="<?php if (isset($_SESSION["email"])) {
+                            echo $_SESSION["email"];
+                        } else {
+                            echo "";
+                        } ?>" required>
                     </div>
                     <div class="mb-3">
-                        <input type="password" class="form-control" id="password" placeholder="Passwort"
-                            value="<?php echo $password; ?>" required>
+                        <input type="password" class="form-control" id="password" placeholder="Passwort" required>
                     </div>
                     <div class="d-grid gap-2">
                         <input class="btn btn-primary" type="submit" value="Submit">
@@ -49,14 +35,6 @@
                 </div>
             </div>
         </form>
-        <h2>
-            <?php
-            if ($password != "") {
-                echo "<a href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-                $_SESSION["login"] = true;
-            }
-            ?>
-        </h2>
     </div>
     <!-- Footer-->
     <?php include '../utils/footer.php'; ?>
