@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +20,27 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <?php
+                    if ($_SESSION["login"] == true) {
+                        echo '<li class="nav-item">
+                        <a class="nav-link" href="../sites/profil.php">
+                            <h4>Profil</h4>
+                        </a>';
+                    } else if ($_SESSION["registered"] == true) {
+                        echo '<li class="nav-item">
+                        <a class="nav-link" href="../sites/login.php">
+                            <h4>Login</h4>
+                        </a>';
+                    } else {
+                        $_SESSION["registered"] = false;
+                        $_SESSION["login"] = false;
+                        echo '<li class="nav-item">
+                        <a class="nav-link" href="../sites/registrierung.php">
+                            <h4>Registrierung</h4>
+                        </a>';
+                    }
+                    ?>
+                    <!--<li class="nav-item">
                         <a class="nav-link" aria-current="page" href="../sites/registrierung.php">
                             <h4>Registrierung</h4>
                         </a>
@@ -25,6 +50,7 @@
                             <h4>Login</h4>
                         </a>
                     </li>
+                -->
                 </ul>
             </div>
         </div>

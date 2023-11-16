@@ -1,9 +1,3 @@
-<?php
-
-session_start();
-
-?>
-
 <!-- TODO: Code kommentieren -->
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +17,6 @@ session_start();
     <!-- Content-->
     <!--TODO: Für Handy anpassen-->
     <div class="container" style="margin-bottom: 100px;">
-        <h1>
-        </h1>
         <h1>Registrierung</h1>
         <?php
         //serverseitige Validierung
@@ -308,12 +300,15 @@ session_start();
                         $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
                         $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $anrede != ""
                     ) {
-                        echo "Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"]
-                            //TODO:  . ".<br>" . "Du hast einen Bestätigungscode auf deine Email (" . $_POST["email"] . ") erhalten."
-                        ;
+                        echo "Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "! <br>";
+                        echo "<a href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+                        $_SESSION["registered"] = true;
+                        $_SESSION["login"] = true;
+                        $_SESSION["email"] = $_POST["email"];
                         $_SESSION["firstname"] = $_POST["firstname"];
                         $_SESSION["lastname"] = $_POST["lastname"];
-                        $_SESSION["login"] = true;
+                        $_SESSION["password"] = $_POST["password"];
+                        $_SESSION["date"] = $_POST["date"];
                     }
                     ?>
                 </h2>

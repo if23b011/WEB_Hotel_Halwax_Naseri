@@ -1,9 +1,3 @@
-<?php
-
-session_start();
-
-?>
-
 <!doctype html>
 <html lang="en">
 
@@ -17,6 +11,10 @@ session_start();
 </head>
 
 <body style="background-image: url(../img/tropicana.jpg);">
+    <?php
+    $_SESSION["registered"] = false;
+    $_SESSION["login"] = false;
+    ?>
     <!-- Navigation-->
     <?php include '../utils/navbar.php' ?>
     <!-- Content-->
