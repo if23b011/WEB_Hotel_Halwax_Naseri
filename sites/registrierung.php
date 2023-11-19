@@ -3,7 +3,7 @@
 session_start();
 
 ?>
-<!-- TODO: Code kommentieren -->
+<!-- //TODO: Code kommentieren -->
 <!DOCTYPE html>
 <html lang="en">
 

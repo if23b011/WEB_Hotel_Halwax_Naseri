@@ -26,25 +26,53 @@ session_start();
     <div class="container" style="margin-bottom: 100px;">
         <h1>Login</h1>
         <p>Noch nicht registriert? <a href="../sites/registrierung.php"> Zur Registrierung</a></p>
-        <form method="post" action="../sites/logined.php">
+        <?php
+        $email = $password = "";
+        if (!empty($_POST["email"])) {
+            $email = input($_POST["email"]);
+        }
+
+        if (!empty($_POST["password"])) {
+            $password = input($_POST["password"]);
+        }
+
+        function input($data)
+        {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+        ?>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container" style="margin-bottom: 100px;">
-                <div class="container text-center">
-                    <div class="mb-3">
-                        <input type="text" class="form-control" id="email" placeholder="E-Mail-Adresse" value="<?php if (isset($_SESSION["email"])) {
-                            echo $_SESSION["email"];
-                        } else {
-                            echo "";
-                        } ?>" required>
-                    </div>
-                    <div class="mb-3">
-                        <input data-toggle="password" class="form-control" type="password">
-                    </div>
-                    <div class="d-grid gap-2">
-                        <input class="btn btn-primary" type="submit" value="Submit">
+                <div class="container">
+                    <div class="d-grid gap-3 col-6 mx-auto">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse" required>
+                        </div>
+                        <div class="mb-3">
+                            <input data-toggle="password" class="form-control" type="password" name="password" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <input class="btn btn-primary" type="submit" value="Submit">
+                        </div>
                     </div>
                 </div>
             </div>
         </form>
+        <?php
+        if ($email == 'admin@gmail.com' && $password == 'admin') {
+            $_SESSION['login'] = true;
+            $_SESSION['firstname'] = 'admin';
+            $_SESSION['lastname'] = 'admin';
+            $_SESSION['email'] = 'admin@gmail.com';
+            $_SESSION['date'] = '01.01.2000';
+            $_SESSION['password'] = 'admin';
+            echo '<p>Willkommen zurück, ' . $_SESSION['firstname'] . '!</p>';
+            echo "<a href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+        }
+        ?>
     </div>
     <!-- Footer-->
     <?php include '../utils/footer.php'; ?>

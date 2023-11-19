@@ -22,12 +22,12 @@
                             <h4>Profil</h4>
                         </a> 
                         <li class="nav-item">
-                        <a class="nav-link" href="../sites/logout.php">
+                        <a class="nav-link" href="../utils/logout.php">
                             <h4>Logout</h4>
                         </a>
                         <li class="nav-item">
                         <a class="nav-link" href="../sites/buchung.php">
-                            <h4>Buchung</h4>
+                            <h4>Neue Reservierung</h4>
                         </a>';
                         /*} else if ($_SESSION["registered"] == true) {
                             echo '<li class="nav-item">
