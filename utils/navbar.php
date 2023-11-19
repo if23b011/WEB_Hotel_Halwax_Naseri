@@ -20,12 +20,21 @@
                         echo '<li class="nav-item">
                         <a class="nav-link" href="../sites/profil.php">
                             <h4>Profil</h4>
+                        </a> 
+                        <li class="nav-item">
+                        <a class="nav-link" href="../sites/logout.php">
+                            <h4>Logout</h4>
+                        </a>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../sites/buchung.php">
+                            <h4>Buchung</h4>
                         </a>';
-                    } else if ($_SESSION["registered"] == true) {
-                        echo '<li class="nav-item">
-                        <a class="nav-link" href="../sites/login.php">
-                            <h4>Login</h4>
-                        </a>';
+                        /*} else if ($_SESSION["registered"] == true) {
+                            echo '<li class="nav-item">
+                            <a class="nav-link" href="../sites/login.php">
+                                <h4>Login</h4>
+                            </a>';
+                            */
                     } else {
                         $_SESSION["registered"] = false;
                         $_SESSION["login"] = false;

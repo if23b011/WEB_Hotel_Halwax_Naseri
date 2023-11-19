@@ -11,6 +11,10 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Tropicana - Registrierung</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
@@ -23,6 +27,7 @@ session_start();
     <!--TODO: Für Handy anpassen-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Registrierung</h1>
+        <p>Schon registriert? <a href="../sites/login.php">Zum Login</a></p>
         <?php
         //serverseitige Validierung
         $anrede = $email = $firstname = $lastname = $password = $password2 = $date = "";
@@ -35,6 +40,7 @@ session_start();
             } else {
                 $anrede = input($_POST["anrede"]);
             }
+
             if (empty($_POST["email"])) {
                 $emailErr = "*Email ist erforderlich";
             } else {
@@ -132,12 +138,10 @@ session_start();
                         <p>Herr</p>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "Frau")
-                            echo "checked"; ?> value="Frau">
-                        <p>Frau</p>
-                    </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "Frau")
+                        echo "checked"; ?> value="Frau">
+                    <p>Frau</p>
                 </div>
                 <span class="error">
                     <p style="color: red;">
@@ -153,7 +157,7 @@ session_start();
                 </span>
                 <div class="row row-cols-1 row-cols-md-2 align-items-start">
                     <div class="col">
-                        <div class=" mb-3">
+                        <div class="mb-3">
                             <input type="text" class="form-control" name="firstname" placeholder="Vorname" tabindex="1"
                                 value="<?php echo $firstname; ?>">
                             <span class="error">
@@ -186,8 +190,8 @@ session_start();
                             </span>
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" name="password" placeholder="Passwort"
-                                tabindex="5" value="<?php echo $password; ?>">
+                            <input data-toggle="password" class="form-control" type="password" name="password"
+                                placeholder="Passwort" tabindex="5">
                             <span class="error">
                                 <p style="color: red;">
                                     <?php
@@ -260,8 +264,8 @@ session_start();
                             </span>
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" name="password2"
-                                placeholder="Passwort wiederholen" tabindex="6" value="<?php echo $password2; ?>">
+                            <input data-toggle="password" class="form-control" type="password" name="password2"
+                                placeholder="Passwort wiederholen" tabindex="5">
                             <span class="error">
                                 <p style="color: red;">
                                     <?php
@@ -312,8 +316,9 @@ session_start();
                         $_SESSION["email"] = $_POST["email"];
                         $_SESSION["firstname"] = $_POST["firstname"];
                         $_SESSION["lastname"] = $_POST["lastname"];
-                        $_SESSION["password"] = $_POST["password"];
                         $_SESSION["date"] = $_POST["date"];
+                        //TODO: Passwort verschlüsseln
+                        $_SESSION["password"] = $_POST["password"];
                     }
                     ?>
                 </h2>
@@ -326,6 +331,9 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script>
 </body>
 
 </html>
