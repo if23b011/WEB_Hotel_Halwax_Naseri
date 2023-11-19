@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -16,27 +21,33 @@
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Profil</h1>
+        <?php
+        $firstname = "";
+        $lastname = "";
+        $email = "";
+        $date = "";
+        ?>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
                 <div class="row row-cols-1 row-cols-md-2 align-items-start">
                     <div class="col">
                         <div class=" mb-3">
                             <input type="text" class="form-control" name="firstname" placeholder="Vorname" tabindex="1"
-                                value="<?php echo $_SESSION["firstname"]; ?>">
+                                value="<?php echo $firstname; ?>">
                         </div>
                         <div class="mb-3">
                             <input type="date" class="form-control" name="date" tabindex="3"
-                                value="<?php echo $_SESSION["date"]; ?>">
+                                value="<?php echo $date; ?>">
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <input type="text" class="form-control" name="lastname" placeholder="Nachname" tabindex="2"
-                                value="<?php echo $_SESSION["lastname"]; ?>">
+                                value="<?php echo $lastname; ?>">
                         </div>
                         <div class="mb-3">
                             <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse"
-                                tabindex="4" value="<?php echo $_SESSION["email"]; ?>">
+                                tabindex="4" value="<?php echo $email; ?>">
                         </div>
                     </div>
                     <div class="d-grid gap-2 col-6 mx-auto">
@@ -44,22 +55,6 @@
                     </div>
                 </div>
             </div>
-            <?php
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                if (!empty($_POST["firstname"])) {
-                    $_SESSION["firstname"] = $_POST["firstname"];
-                }
-                if (!empty($_POST["lastname"])) {
-                    $_SESSION["lastname"] = $_POST["lastname"];
-                }
-                if (!empty($_POST["email"])) {
-                    $_SESSION["email"] = $_POST["email"];
-                }
-                if (!empty($_POST["date"])) {
-                    $_SESSION["date"] = $_POST["date"];
-                }
-            }
-            ?>
         </form>
         <form action="logout.php">
             <div class="d-grid gap-2 col-6 mx-auto">
@@ -67,22 +62,6 @@
             </div>
     </div>
     </form>
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (!empty($_POST["firstname"])) {
-            $_SESSION["firstname"] = $_POST["firstname"];
-        }
-        if (!empty($_POST["lastname"])) {
-            $_SESSION["lastname"] = $_POST["lastname"];
-        }
-        if (!empty($_POST["email"])) {
-            $_SESSION["email"] = $_POST["email"];
-        }
-        if (!empty($_POST["date"])) {
-            $_SESSION["date"] = $_POST["date"];
-        }
-    }
-    ?>
 
     </div>
     <!-- Footer-->

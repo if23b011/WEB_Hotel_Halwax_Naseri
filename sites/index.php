@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -12,8 +17,12 @@
 
 <body style="background-image: url(../img/tropicana.jpg);">
     <?php
-    $_SESSION["registered"] = false;
-    $_SESSION["login"] = false;
+    if(!isset($_SESSION["registered"])) {
+        $_SESSION["registered"] = false;
+    }
+    if(!isset($_SESSION["login"])) {
+        $_SESSION["login"] = false;
+    }
     ?>
     <!-- Navigation-->
     <?php include '../utils/navbar.php' ?>

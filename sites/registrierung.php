@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+
+?>
 <!-- TODO: Code kommentieren -->
 <!DOCTYPE html>
 <html lang="en">
