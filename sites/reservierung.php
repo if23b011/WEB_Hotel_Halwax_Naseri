@@ -9,7 +9,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hotel Tropicana - Home</title>
+    <title>Hotel Tropicana - Reservierung</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
@@ -21,18 +21,6 @@ session_start();
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Reservierung</h1>
-        <?php
-        $arrival = $departure = $arrivalDate = $departureDate = $breakfast = $parking = $pets = $comments = "";
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $_SESSION['arrivalDate'] = $_POST['arrivalDate'];
-            $_SESSION['departureDate'] = $_POST['departureDate'];
-            $_SESSION['breakfast'] = $_POST['breakfast'];
-            $_SESSION['parking'] = $_POST['parking'];
-            $_SESSION['pets'] = $_POST['pets'];
-            $_SESSION['comments'] = $_POST['comments'];
-        }
-
-        ?>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
                 <div class="d-grid gap-3 col-6 mx-auto">
@@ -88,33 +76,64 @@ session_start();
                     <div class="d-grid gap-2">
                         <input class="btn btn-primary" type="submit" value="Buchen">
                     </div>
+                    <?php
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        $arrival = $departure = $arrivalDate = $departureDate = $breakfast = $parking = $pets = $comments = "";
+                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            if (isset($_POST["arrivalDate"])) {
+                                $arrival = input($_POST["arrivalDate"]);
+                                $arrivalDate = date("d.m.Y", strtotime($arrival));
+                            }
+                            if (isset($_POST["departureDate"])) {
+                                $departure = input($_POST["departureDate"]);
+                                $departureDate = date("d.m.Y", strtotime($departure));
+                            }
+                            if (isset($_POST["breakfast"])) {
+                                $breakfast = "inkludiert";
+                            } else {
+                                $breakfast = "nicht inkludiert";
+                            }
+                            if (isset($_POST["parking"])) {
+                                $parking = "inkludiert";
+                            } else {
+                                $parking = "nicht inkludiert";
+                            }
+                            if (isset($_POST["pets"])) {
+                                $pets = "inkludiert";
+                            } else {
+                                $pets = "nicht inkludiert";
+                            }
+                            if (isset($_POST["comments"])) {
+                                $comments = input($_POST["comments"]);
+                            }
+                            $_SESSION['arrivalDate'] = $arrivalDate;
+                            $_SESSION['departureDate'] = $departureDate;
+                            $_SESSION['breakfast'] = $breakfast;
+                            $_SESSION['parking'] = $parking;
+                            $_SESSION['pets'] = $pets;
+                            $_SESSION['comments'] = $comments;
+                        }
+                        if ($departureDate <= $arrivalDate) {
+                            echo '<p style="color: red;">Anreisedatum muss vor Abreisedatum liegen!</p>';
+                        } else {
+                            echo '<div class="alert alert-success" role="alert">Deine Reise vom ' . $arrivalDate . ' bis ' . $departureDate .
+                                ' wurde mit folgenden Bemerkungen gebucht: Frühstück ' . $breakfast . ', Parkplatz ' . $parking .
+                                ', Haustiere ' . $pets . '</div>';
+                        }
+
+
+                    }
+
+                    function input($data)
+                    {
+                        $data = trim($data);
+                        $data = stripslashes($data);
+                        $data = htmlspecialchars($data);
+                        return $data;
+                    }
+                    ?>
                 </div>
         </form>
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST["arrivalDate"])) {
-                $arrival = input($_POST["arrivalDate"]);
-                $arrivalDate = date("Y-m-d", strtotime($arrival));
-            }
-            if (isset($_POST["departureDate"])) {
-                $departure = input($_POST["departureDate"]);
-                $departureDate = date("Y-m-d", strtotime($departure));
-            }
-            if ($departureDate < $arrivalDate) {
-                echo '<p style="color: red;>Abreisedatum muss nach dem Anreisedatum liegen!</p>';
-            }
-            echo '<p>Anreisedatum: ' . $arrivalDate . '</p>';
-            echo '<p>Abreisedatum: ' . $departureDate . '</p>';
-        }
-
-        function input($data)
-        {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-        ?>
 
 
         <!-- Footer-->

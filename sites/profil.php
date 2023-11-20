@@ -208,6 +208,7 @@ session_start();
                     }
                     ?>
                     <input class="btn btn-danger" type="submit" value="Passwort ändern" tabindex="8">
+                    <a href="../sites/reservierungen.php"><h2>Meine Buchungen</h2></a>
                 </div>
             </div>
         </form>

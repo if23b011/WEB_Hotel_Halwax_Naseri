@@ -9,6 +9,6 @@ $_SESSION["email"] = "";
 $_SESSION["date"] = "";
 
 
-header("Location: index.php");
+header("Location: ../sites/index.php");
 exit();
 ?>
