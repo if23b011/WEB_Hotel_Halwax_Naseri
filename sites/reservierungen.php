@@ -20,16 +20,37 @@ session_start();
     <?php include '../utils/navbar.php' ?>
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
-        <h1>Meine Buchungen</h1>
+        <h1>Meine Reservierungen</h1>
         <p>
             <?php
-            echo 'Zimmer: ' . $_SESSION['zimmer'] . '<br>';
-            echo 'Anreisedatum: ' . $_SESSION['arrivalDate'] . '<br>';
-            echo 'Abreisedatum: ' . $_SESSION['departureDate'] . '<br>';
-            echo 'Frühstück: ' . $_SESSION['breakfast'] . '<br>';
-            echo 'Parkplatz: ' . $_SESSION['parking'] . '<br>';;
-            echo 'Haustiere: ' . $_SESSION['pets'] . '<br>';
-            echo 'Bemerkungen: ' .$_SESSION['comments'];
+            if (isset($_SESSION['zimmer'])) {
+                echo 'Zimmer: ' . $_SESSION['zimmer'] . '<br>';
+            }
+            if (isset($_SESSION['arrivalDate'])) {
+                echo 'Anreisedatum: ' . $_SESSION['arrivalDate'] . '<br>';
+            }
+            if (isset($_SESSION['departureDate'])) {
+                echo 'Abreisedatum: ' . $_SESSION['departureDate'] . '<br>';
+            }
+            if (isset($_SESSION['breakfast'])) {
+                echo 'Frühstück: ' . $_SESSION['breakfast'] . '<br>';
+            }
+            if (isset($_SESSION['parking'])) {
+                echo 'Parkplatz: ' . $_SESSION['parking'] . '<br>';
+            }
+            if (isset($_SESSION['pets'])) {
+                echo 'Haustiere: ' . $_SESSION['pets'] . '<br>';
+            }
+            if (isset($_SESSION['comments'])) {
+                echo 'Bemerkungen: ' . $_SESSION['comments'];
+            }
+            if (
+                empty($_SESSION['zimmer']) && empty($_SESSION['arrivalDate']) && empty($_SESSION['departureDate'])
+                && empty($_SESSION['breakfast']) && empty($_SESSION['parking']) && empty($_SESSION['pets'])
+                && empty($_SESSION['comments'])
+            ) {
+                echo '<h2>Du hast derzeit keine Buchungen</h2>';
+            }
             ?>
         </p>
     </div>

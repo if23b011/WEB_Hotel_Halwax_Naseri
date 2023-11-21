@@ -79,49 +79,52 @@ session_start();
                     <?php
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $arrival = $departure = $arrivalDate = $departureDate = $breakfast = $parking = $pets = $comments = "";
-                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                            if (isset($_POST["arrivalDate"])) {
-                                $arrival = input($_POST["arrivalDate"]);
-                                $arrivalDate = date("d.m.Y", strtotime($arrival));
-                            }
-                            if (isset($_POST["departureDate"])) {
-                                $departure = input($_POST["departureDate"]);
-                                $departureDate = date("d.m.Y", strtotime($departure));
-                            }
-                            if (isset($_POST["breakfast"])) {
-                                $breakfast = "inkludiert";
-                            } else {
-                                $breakfast = "nicht inkludiert";
-                            }
-                            if (isset($_POST["parking"])) {
-                                $parking = "inkludiert";
-                            } else {
-                                $parking = "nicht inkludiert";
-                            }
-                            if (isset($_POST["pets"])) {
-                                $pets = "inkludiert";
-                            } else {
-                                $pets = "nicht inkludiert";
-                            }
-                            if (isset($_POST["comments"])) {
-                                $comments = input($_POST["comments"]);
-                            }
-                            $_SESSION['arrivalDate'] = $arrivalDate;
-                            $_SESSION['departureDate'] = $departureDate;
-                            $_SESSION['breakfast'] = $breakfast;
-                            $_SESSION['parking'] = $parking;
-                            $_SESSION['pets'] = $pets;
-                            $_SESSION['comments'] = $comments;
+                        if (isset($_POST["arrivalDate"])) {
+                            $arrival = input($_POST["arrivalDate"]);
+                            $arrivalDate = date("d.m.Y", strtotime($arrival));
                         }
-                        if ($departureDate <= $arrivalDate) {
+                        if (isset($_POST["departureDate"])) {
+                            $departure = input($_POST["departureDate"]);
+                            $departureDate = date("d.m.Y", strtotime($departure));
+                        }
+                        if (isset($_POST["breakfast"])) {
+                            $breakfast = "inkludiert";
+                        } else {
+                            $breakfast = "nicht inkludiert";
+                        }
+                        if (isset($_POST["parking"])) {
+                            $parking = "inkludiert";
+                        } else {
+                            $parking = "nicht inkludiert";
+                        }
+                        if (isset($_POST["pets"])) {
+                            $pets = "inkludiert";
+                        } else {
+                            $pets = "nicht inkludiert";
+                        }
+                        if (isset($_POST["comments"])) {
+                            $comments = input($_POST["comments"]);
+                        }
+                        $_SESSION['arrivalDate'] = $arrivalDate;
+                        $_SESSION['departureDate'] = $departureDate;
+                        $_SESSION['breakfast'] = $breakfast;
+                        $_SESSION['parking'] = $parking;
+                        $_SESSION['pets'] = $pets;
+                        $_SESSION['comments'] = $comments;
+                    }
+                    if (isset($departureDate) && isset($arrivalDate)) {
+
+                        //TODO: heutiges Datum 
+                        if ($arrivalDate < $heutigesDatum) {
+                            echo '<p style="color: red;">Anreisedatum muss nach heute sein!</p>';
+                        } else if ($departureDate <= $arrivalDate) {
                             echo '<p style="color: red;">Anreisedatum muss vor Abreisedatum liegen!</p>';
                         } else {
                             echo '<div class="alert alert-success" role="alert">Deine Reise vom ' . $arrivalDate . ' bis ' . $departureDate .
                                 ' wurde mit folgenden Bemerkungen gebucht: Frühstück ' . $breakfast . ', Parkplatz ' . $parking .
                                 ', Haustiere ' . $pets . '</div>';
+                            echo '<a href="../sites/reservierungen.php"><h2>Meine Reservierungen</h2></a>';
                         }
-
-
                     }
 
                     function input($data)

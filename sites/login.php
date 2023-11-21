@@ -69,8 +69,15 @@ session_start();
             $_SESSION['email'] = 'admin@gmail.com';
             $_SESSION['date'] = '01.01.2000';
             $_SESSION['password'] = 'admin';
-            echo '<p>Willkommen zurück, ' . $_SESSION['firstname'] . '!</p>';
+            echo '<p>Willkommen ' . $_SESSION['firstname'] . '!</p>';
             echo "<a href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+        } else if ($email == $_SESSION['email'] && $password == $_SESSION['password']) {
+            $_SESSION['login'] = true;
+            echo '<p>Willkommen zurück ' . $_SESSION['anrede'] . ' ' . $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . '!</p>';
+            echo "<a href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+        } else if (isset( $_POST["email"]) && isset($_POST["password"])) {
+            echo '<p style="color: red;">Du bist noch nicht registriert!</p>';
+            echo "<a href='../sites/registrierung.php'<h2>Zur Registrierung</h2></a>";
         }
         ?>
     </div>

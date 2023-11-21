@@ -313,6 +313,7 @@ session_start();
                         echo "<a href='../sites/profil.php'<h2>Zum Profil</h2></a>";
                         $_SESSION["registered"] = true;
                         $_SESSION["login"] = true;
+                        $_SESSION["anrede"] = $_POST["anrede"];
                         $_SESSION["email"] = $_POST["email"];
                         $_SESSION["firstname"] = $_POST["firstname"];
                         $_SESSION["lastname"] = $_POST["lastname"];
