@@ -114,9 +114,10 @@ session_start();
                     }
                     if (isset($departureDate) && isset($arrivalDate)) {
 
-                        //TODO: heutiges Datum 
-                        if ($arrivalDate < $heutigesDatum) {
-                            echo '<p style="color: red;">Anreisedatum muss nach heute sein!</p>';
+                        $timestamp = time();
+                        $today = date("d.m.Y", $timestamp);
+                        if ($arrivalDate < $today) {
+                            echo '<p style="color: red;">Anreisedatum muss nach ' . $today . ' sein!</p>';
                         } else if ($departureDate <= $arrivalDate) {
                             echo '<p style="color: red;">Anreisedatum muss vor Abreisedatum liegen!</p>';
                         } else {

@@ -29,12 +29,6 @@
                         <a class="nav-link" href="../sites/buchung.php">
                             <h4>Neue Reservierung</h4>
                         </a>';
-                        /*} else if ($_SESSION["registered"] == true) {
-                            echo '<li class="nav-item">
-                            <a class="nav-link" href="../sites/login.php">
-                                <h4>Login</h4>
-                            </a>';
-                            */
                     } else {
                         $_SESSION["registered"] = false;
                         $_SESSION["login"] = false;
@@ -49,6 +43,14 @@
                             <h4>News</h4>
                         </a>
                     </li>
+                    <?php
+                    if ($_SESSION["admin"] == true) {
+                        echo '<li class="nav-item">
+<a class="nav-link" href="../sites/newsupload.php">
+<h4>Test</h4>
+</a> ';
+                    }
+                    ?>
                 </ul>
             </div>
         </div>

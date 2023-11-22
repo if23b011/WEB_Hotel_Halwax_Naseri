@@ -64,6 +64,7 @@ session_start();
         <?php
         if ($email == 'admin@gmail.com' && $password == 'admin') {
             $_SESSION['login'] = true;
+            $_SESSION['admin'] = true;
             $_SESSION['firstname'] = 'admin';
             $_SESSION['lastname'] = 'admin';
             $_SESSION['email'] = 'admin@gmail.com';
