@@ -47,7 +47,7 @@
                     if ($_SESSION["admin"] == true) {
                         echo '<li class="nav-item">
 <a class="nav-link" href="../sites/newsupload.php">
-<h4>Test</h4>
+<h4>Upload</h4>
 </a> ';
                     }
                     ?>

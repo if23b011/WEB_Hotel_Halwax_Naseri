@@ -21,7 +21,12 @@ session_start();
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>NEWS</h1>
-
+        <p>
+            <?php
+            echo $text;
+            echo $bild;
+            ?>
+        </p>
         <!-- Footer-->
         <?php include '../utils/footer.php'; ?>
         <!-- Bootstrap core JS-->
