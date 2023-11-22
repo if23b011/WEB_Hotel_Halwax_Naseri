@@ -30,7 +30,6 @@
                             <h4>Neue Reservierung</h4>
                         </a>';
                     } else {
-                        $_SESSION["registered"] = false;
                         $_SESSION["login"] = false;
                         echo '<li class="nav-item">
                         <a class="nav-link" href="../sites/registrierung.php">
