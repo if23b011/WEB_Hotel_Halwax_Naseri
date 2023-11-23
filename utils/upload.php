@@ -51,7 +51,7 @@ session_start();
             // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                echo "<p>The file " . htmlspecialchars(basename($_FILES["fileToUpload"]["name"])) . " and your news article has been uploaded.</p>";
+                echo "<p>Der Newsbeitrag wurde erfolgreich hochgeladen.</p>";
                 $_SESSION["text"] = $_POST["text"];
                 $_SESSION["title"] = $_POST["title"];
                 $timestamp = time();
