@@ -14,6 +14,7 @@ session_start();
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
     <!-- Navigation-->
     <?php include '../utils/navbar.php' ?>
@@ -24,25 +25,38 @@ session_start();
             <div class="text-center">
                 <h2>
                     <?php
-                    echo $_SESSION["title"];
+                    if (isset($_SESSION["title"])) {
+                        echo $_SESSION["title"];
+                    }
                     ?>
                 </h2>
             </div>
             <div class="text-center">
                 <?php
-                echo '<img src="../img/thumbnails/' . $_SESSION["fileToUpload"] . '" alt="Bild" width="500" height:"auto" class="img-thumbnail">';
+                if (isset($_SESSION["fileToUpload"])) {
+                    echo '<img src="../img/thumbnails/' . $_SESSION["fileToUpload"] . '" alt="Bild" width="500" height:"auto" class="img-thumbnail">';
+                }
                 ?>
             </div>
             <p style="text-align: justify;">
                 <?php
-                echo $_SESSION["text"] . "<br>";
+                if (isset($_SESSION["text"])) {
+                    echo $_SESSION["text"] . "<br>";
+                }
                 ?>
             </p>
             <h3>
                 <?php
-                echo "News vom " . $_SESSION["newsDate"];
+                if (isset($_SESSION["newsDate"])) {
+                    echo "News vom " . $_SESSION["newsDate"];
+                }
                 ?>
             </h3>
+            <?php
+            if (empty($_SESSION["title"]) && empty($_SESSION["fileToUpload"]) && empty($_SESSION["text"]) && empty($_SESSION["newsDate"])) {
+                echo '<div class="text-center"><h2>Keine News vorhanden</h2></div>';
+            }
+            ?>
         </div>
     </div>
     <!-- Footer-->
