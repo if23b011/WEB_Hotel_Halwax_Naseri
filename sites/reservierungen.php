@@ -29,7 +29,7 @@ session_start();
                     && empty($_SESSION['breakfast']) && empty($_SESSION['parking']) && empty($_SESSION['pets'])
                     && empty($_SESSION['comments'])
                 ) {
-                    echo '<h2>Du hast derzeit keine Buchungen</h2>';
+                    echo '<h2>Du hast derzeit keine Reservierungen</h2>';
                 } else {
                     if (isset($_SESSION['zimmer'])) {
                         echo 'Zimmer: ' . $_SESSION['zimmer'] . '<br>';
