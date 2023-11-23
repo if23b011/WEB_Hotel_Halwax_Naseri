@@ -22,9 +22,15 @@ session_start();
 
     <div class="container" style="margin-bottom: 100px;">
         <h1>Hotel Tropicana - News uploaden</h1>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <form method="post" action="../utils/upload.php" enctype="multipart/form-data">
             <div class="container">
-                <div class="d-grid gap-3 col-6 mx-auto">
+                <div class="d-grid col-6 mx-auto">
+                    <div class="mb-3">
+                        <label for="exampleFormControlText" class="form-label">
+                            <p>Newstitel:</p>
+                        </label>
+                        <input class="form-control" type="text" name="title" id="title">
+                    </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">
                             <p>Newstext:</p>
@@ -40,44 +46,6 @@ session_start();
             </div>
         </form>
     </div>
-    <?php
-    $target_dir = "../img/thumbnails/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    // Check if image file is a actual image or fake image
-    if (isset($_POST["submit"])) {
-        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-        if ($check !== false) {
-            echo "File is an image - " . $check["mime"] . ".";
-            $uploadOk = 1;
-        } else {
-            echo "File is not an image.";
-            $uploadOk = 0;
-        }
-    }
-    // Allow certain file formats
-    if (
-        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif"
-    ) {
-        echo "<p>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</p>";
-        $uploadOk = 0;
-    }
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "<p>Sorry, your file was not uploaded.</p>";
-        // if everything is ok, try to upload file
-    } else {
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            echo "<p>The file " . htmlspecialchars(basename($_FILES["fileToUpload"]["name"])) . " and your news article has been uploaded.</p>";
-        } else {
-            echo "<p>Sorry, there was an error uploading your file.</p>";
-        }
-    }
-    $text = $_POST['text'];
-    $bild = $_POST['fileToUpload'];
-    ?>
     <!-- Footer-->
     <?php include '../utils/footer.php'; ?>
     <!-- Bootstrap core JS-->
