@@ -43,11 +43,11 @@ session_start();
             <p>
             </p>
             <hr>
-            <div class="alert-primary d-flex align-items-center" style="padding-top: 10px">
+            <div class="alert-primary d-flex align-items-center">
                 <svg style="width: 50px; height: 90px;" class="bi flex-shrink-0 me-2" role="img" aria-label="Info:">
                     <use xlink:href="#info-fill" />
                 </svg>
-                <p>
+                <p style="margin-top: -7px;">
                     Verbraucher haben die Möglichkeit, Beschwerden an die Online-Streitbeilegungsplattform der EU zu
                     richten:
                         <a class="impressum-link" href="http://ec.europa.eu/odr"
