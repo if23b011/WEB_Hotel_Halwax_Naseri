@@ -23,7 +23,7 @@ session_start();
         <h1>Zimmerauswahl</h1>
         <?php $_SESSION['zimmer'] = '' ?>
         <div class="container text-center">
-            <div class="row row-cols-1 row-cols-md-4 align-items-start">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xxl-4 align-items-start">
                 <div class="col">
                     <div class="card" class="" style="width: 18rem;" data-bs-theme="dark">
                         <img src="../img/zimmer1.jpg" class="card-img-top" alt="Zimmer 1">
