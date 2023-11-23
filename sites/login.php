@@ -25,7 +25,6 @@ session_start();
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Login</h1>
-        <p>Noch nicht registriert? <a href="../sites/registrierung.php"> Zur Registrierung</a></p>
         <?php
         $email = $password = "";
         if (!empty($_POST["email"])) {
@@ -48,6 +47,9 @@ session_start();
             <div class="container" style="margin-bottom: 100px;">
                 <div class="container">
                     <div class="d-grid gap-3 col-6 mx-auto">
+                        <div class="mb-3">
+                            <p>Noch nicht registriert? <a href="../sites/registrierung.php"> Zur Registrierung</a></p>
+                        </div>
                         <div class="mb-3">
                             <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse" required>
                         </div>
@@ -76,7 +78,7 @@ session_start();
             $_SESSION['login'] = true;
             echo '<p>Willkommen zurück ' . $_SESSION['anrede'] . ' ' . $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . '!</p>';
             echo "<a href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-        } else if (isset( $_POST["email"]) && isset($_POST["password"])) {
+        } else if (isset($_POST["email"]) && isset($_POST["password"])) {
             echo '<p style="color: red;">Du bist noch nicht registriert!</p>';
             echo "<a href='../sites/registrierung.php'<h2>Zur Registrierung</h2></a>";
         }

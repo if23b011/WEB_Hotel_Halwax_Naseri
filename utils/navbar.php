@@ -32,8 +32,8 @@
                     } else {
                         $_SESSION["login"] = false;
                         echo '<li class="nav-item">
-                        <a class="nav-link" href="../sites/registrierung.php">
-                            <h4>Registrierung</h4>
+                        <a class="nav-link" href="../sites/login.php">
+                            <h4>Login</h4>
                         </a>';
                     }
                     ?>

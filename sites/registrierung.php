@@ -27,7 +27,6 @@ session_start();
     <!--TODO: Für Handy anpassen-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Registrierung</h1>
-        <p>Schon registriert? <a href="../sites/login.php">Zum Login</a></p>
         <?php
         //serverseitige Validierung
         $anrede = $email = $firstname = $lastname = $password = $password2 = $date = "";
@@ -131,6 +130,9 @@ session_start();
         <!-- Formular -->
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
+                <div class="mb-3">
+                    <p>Schon registriert? <a href="../sites/login.php">Zum Login</a></p>
+                </div>
                 <div class="mb-3">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "Herr")
@@ -302,28 +304,29 @@ session_start();
                         echo "*erforderlich";
                     } ?>
                 </p>
-                <h2>
-                    <?php
-                    if (
-                        $anredeErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
-                        $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
-                        $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $anrede != ""
-                    ) {
-                        echo "Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "! <br>";
-                        echo "<a href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-                        $_SESSION["registered"] = true;
-                        $_SESSION["login"] = true;
-                        $_SESSION["anrede"] = $_POST["anrede"];
-                        $_SESSION["email"] = $_POST["email"];
-                        $_SESSION["firstname"] = $_POST["firstname"];
-                        $_SESSION["lastname"] = $_POST["lastname"];
-                        $_SESSION["date"] = $_POST["date"];
-                        //TODO: Passwort verschlüsseln
-                        $_SESSION["password"] = $_POST["password"];
-                    }
-                    ?>
-                </h2>
-            </div>
+                <div class="d-grid mx-auto">
+                    <div class="text-center">
+                        <?php
+                        if (
+                            $anredeErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
+                            $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
+                            $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $anrede != ""
+                        ) {
+                            echo "<p>Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</p><br>";
+                            echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+                            $_SESSION["registered"] = true;
+                            $_SESSION["login"] = true;
+                            $_SESSION["anrede"] = $_POST["anrede"];
+                            $_SESSION["email"] = $_POST["email"];
+                            $_SESSION["firstname"] = $_POST["firstname"];
+                            $_SESSION["lastname"] = $_POST["lastname"];
+                            $_SESSION["date"] = $_POST["date"];
+                            //TODO: Passwort verschlüsseln
+                            $_SESSION["password"] = $_POST["password"];
+                        }
+                        ?>
+                    </div>
+                </div>
         </form>
     </div>
     <!-- Footer-->

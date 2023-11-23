@@ -124,6 +124,9 @@ session_start();
             return $data;
         }
         ?>
+        <div class="d-grid gap-3 col-6 mx-auto">
+            <a class="btn btn-info" role="button" href="../sites/reservierungen.php">Meine Reservierungen</a>";
+        </div>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
                 <div class="d-grid gap-3 col-6 mx-auto">
@@ -208,7 +211,6 @@ session_start();
                     }
                     ?>
                     <input class="btn btn-danger" type="submit" value="Passwort ändern" tabindex="8">
-                    <a href="../sites/reservierungen.php"><h2>Meine Reservierungen</h2></a>
                 </div>
             </div>
         </form>

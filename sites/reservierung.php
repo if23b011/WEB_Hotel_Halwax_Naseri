@@ -124,10 +124,9 @@ session_start();
                             echo '<div class="alert alert-success" role="alert">Deine Reise vom ' . $arrivalDate . ' bis ' . $departureDate .
                                 ' wurde mit folgenden Bemerkungen gebucht: Frühstück ' . $breakfast . ', Parkplatz ' . $parking .
                                 ', Haustiere ' . $pets . '</div>';
-                            echo '<a href="../sites/reservierungen.php"><h2>Meine Reservierungen</h2></a>';
+                            echo "<a class='btn btn-info' role='button' href='../sites/reservierungen.php'>Meine Reservierungen</a>";
                         }
                     }
-
                     function input($data)
                     {
                         $data = trim($data);

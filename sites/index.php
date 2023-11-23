@@ -17,9 +17,6 @@ session_start();
 
 <body style="background-image: url(../img/tropicana.jpg);">
     <?php
-    if (!isset($_SESSION["registered"])) {
-        $_SESSION["registered"] = false;
-    }
     if (!isset($_SESSION["login"])) {
         $_SESSION["login"] = false;
     }
@@ -32,26 +29,35 @@ session_start();
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Hotel Tropicana - hier werden Urlaubsträume wahr!</h1>
-        <!-- TODO: Carousel implementieren-->
+        <!-- TODO: Zimmer - Carousel implementieren-->
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="../img/frühstück.jpg" class="d-block w-100" alt="Frühstück" style="height: 35rem;">
                     <div class="carousel-caption d-none d-md-block">
-                        <h1>Frühstück</h1>
+                        <h1 style="margin-bottom: 27rem; margin-right: 5rem; color: black;">Einzelzimmer mit Einzelbett
+                        </h1>
                     </div>
+                    <img src="../img/zimmer1.jpg" class="d-block w-100" alt="Zimmer 1" style="height: 35rem;">
                 </div>
                 <div class="carousel-item">
-                    <img src="../img/parkplätze.jpg" class="d-block w-100" alt="Parkplatz" style="height: 35rem;">
                     <div class="carousel-caption d-none d-md-block">
-                        <h1>Parkplatz</h1>
+                        <h1 style="margin-bottom: 29rem; color: black;">Einzelzimmer mit Doppelbett</h1>
                     </div>
+                    <img src="../img/zimmer2.jpg" class="d-block w-100" alt="Zimmer 2" style="height: 35rem;">
                 </div>
                 <div class="carousel-item">
-                    <img src="../img/haustier.jpg" class="d-block w-100" alt="Haustiere" style="height: 35rem">
                     <div class="carousel-caption d-none d-md-block">
-                        <h1>Haustiere</h1>
+                        <h1 style="margin-bottom: 24rem; margin-right: 12rem; color: black; ">Luxus Zimmer<br>mit
+                            Jacuzzi</h1>
                     </div>
+                    <img src="../img/zimmer3.jpg" class="d-block w-100" alt="Zimmer 3" style="height: 35rem;">
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1 style="margin-bottom: 22rem; margin-right: 10rem; color: black;">Luxus Suite mit privatem
+                            Butler</h1>
+                    </div>
+                    <img src="../img/zimmer4.jpg" class="d-block w-100" alt="Zimmer 4" style="height: 35rem">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
@@ -64,6 +70,15 @@ session_start();
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
+        </div>
+        <div class="d-grid gap-3 col-6 mx-auto">
+            <?php
+            if ($_SESSION["login"] == true) {
+                echo "<a class='btn btn-primary' href='../sites/buchung.php' role='button'>Zu den Zimmern</a>";
+            } else {
+                echo "<a class='btn btn-primary' href='../sites/registrierung.php' role='button'>Zur Registrierung</a>";
+            }
+            ?>
         </div>
     </div>
     <!-- Footer-->
