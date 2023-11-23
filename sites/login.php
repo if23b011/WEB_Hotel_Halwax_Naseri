@@ -63,26 +63,30 @@ session_start();
                 </div>
             </div>
         </form>
-        <?php
-        if ($email == 'admin@gmail.com' && $password == 'admin') {
-            $_SESSION['login'] = true;
-            $_SESSION['admin'] = true;
-            $_SESSION['firstname'] = 'admin';
-            $_SESSION['lastname'] = 'admin';
-            $_SESSION['email'] = 'admin@gmail.com';
-            $_SESSION['date'] = '01.01.2000';
-            $_SESSION['password'] = 'admin';
-            echo '<p>Willkommen ' . $_SESSION['firstname'] . '!</p>';
-            echo "<a href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-        } else if ($email == $_SESSION['email'] && $password == $_SESSION['password']) {
-            $_SESSION['login'] = true;
-            echo '<p>Willkommen zurück ' . $_SESSION['anrede'] . ' ' . $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . '!</p>';
-            echo "<a href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-        } else if (isset($_POST["email"]) && isset($_POST["password"])) {
-            echo '<p style="color: red;">Du bist noch nicht registriert!</p>';
-            echo "<a href='../sites/registrierung.php'<h2>Zur Registrierung</h2></a>";
-        }
-        ?>
+        <div class="d-grid mx-auto">
+            <div class="text-center">
+                <?php
+                if ($email == 'admin@gmail.com' && $password == 'admin') {
+                    $_SESSION['login'] = true;
+                    $_SESSION['admin'] = true;
+                    $_SESSION['firstname'] = 'admin';
+                    $_SESSION['lastname'] = 'admin';
+                    $_SESSION['email'] = 'admin@gmail.com';
+                    $_SESSION['date'] = '01.01.2000';
+                    $_SESSION['password'] = 'admin';
+                    echo '<h3>Willkommen ' . $_SESSION['firstname'] . '!</h3>';
+                    echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+                } else if ($email == $_SESSION['email'] && $password == $_SESSION['password'] && isset($_POST["email"]) && isset($_POST["password"])) {
+                    $_SESSION['login'] = true;
+                    echo '<h3>Willkommen zurück ' . $_SESSION['anrede'] . ' ' . $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . '!</h3>';
+                    echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+                } else if (isset($_POST["email"]) && isset($_POST["password"])) {
+                    echo '<h3 style="color: red;">Du bist noch nicht registriert!</h3>';
+                    echo "<a class='btn btn-primary' role='button' href='../sites/registrierung.php'<h2>Zur Registrierung</h2></a>";
+                }
+                ?>
+            </div>
+        </div>
     </div>
     <!-- Footer-->
     <?php include '../utils/footer.php'; ?>

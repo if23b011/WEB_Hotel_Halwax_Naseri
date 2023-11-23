@@ -15,7 +15,7 @@ session_start();
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body style="background-image: url(../img/tropicana.jpg);">
+<body>
     <?php
     if (!isset($_SESSION["login"])) {
         $_SESSION["login"] = false;
