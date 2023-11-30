@@ -22,31 +22,14 @@ session_start();
     <?php include '../utils/navbar.php'; ?>
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
-        <h1>Login</h1>
-        <?php
-        $email = $password = "";
-        if (!empty($_POST["email"])) {
-            $email = input($_POST["email"]);
-        }
-
-        if (!empty($_POST["password"])) {
-            $password = input($_POST["password"]);
-        }
-
-        function input($data)
-        {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-        ?>
+        <h1 class="text-center">Login</h1>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <div class="container" style="margin-bottom: 100px;">
-                <div class="container">
-                    <div class="d-grid gap-3 col-6 mx-auto">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
                         <div class="mb-3">
-                            <p>Noch nicht registriert? <a href="../sites/registrierung.php"> Zur Registrierung</a></p>
+                            <p class="text-center">Noch nicht registriert? <a href="../sites/registrierung.php">Zur
+                                    Registrierung</a></p>
                         </div>
                         <div class="mb-3">
                             <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse" required>
@@ -61,9 +44,25 @@ session_start();
                 </div>
             </div>
         </form>
-        <div class="d-grid mx-auto">
+        <div class="d-grid mx-auto mt-4">
             <div class="text-center">
                 <?php
+                $email = $password = "";
+                if (!empty($_POST["email"])) {
+                    $email = input($_POST["email"]);
+                }
+
+                if (!empty($_POST["password"])) {
+                    $password = input($_POST["password"]);
+                }
+
+                function input($data)
+                {
+                    $data = trim($data);
+                    $data = stripslashes($data);
+                    $data = htmlspecialchars($data);
+                    return $data;
+                }
                 if ($email == 'admin@gmail.com' && $password == 'admin') {
                     $_SESSION['login'] = true;
                     $_SESSION['admin'] = true;
