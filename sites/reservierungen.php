@@ -21,8 +21,8 @@ session_start();
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Meine Reservierungen</h1>
-        <div class="d-grid gap-3 col-6 mx-auto">
-            <h3 style="text-align: justify;">
+        <div class="d-grid col-12 mx-auto">
+            <div class="mb-3 container">
                 <?php
                 if (
                     empty($_SESSION['zimmer']) && empty($_SESSION['arrivalDate']) && empty($_SESSION['departureDate'])
@@ -31,6 +31,7 @@ session_start();
                 ) {
                     echo '<h2>Du hast derzeit keine Reservierungen</h2>';
                 } else {
+                    echo "<div class='alert alert-light' role='alert' data-bs-theme='dark'>";
                     if (isset($_SESSION['zimmer'])) {
                         echo 'Zimmer: ' . $_SESSION['zimmer'] . '<br>';
                     }
@@ -56,8 +57,10 @@ session_start();
                     }
                 }
                 ?>
-            </h3>
+            </div>
         </div>
+    </div>
+    </div>
     </div>
     <!-- Footer-->
     <?php include '../utils/footer.php'; ?>

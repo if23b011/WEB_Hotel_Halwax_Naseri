@@ -20,7 +20,7 @@ session_start();
     <?php include '../utils/navbar.php' ?>
     <!-- Content-->
     <div style="margin-bottom: 100px;">
-        <h1 class="text-center">NEWS</h1>
+        <h1>NEWS</h1>
         <div class="d-grid col-12 mx-auto">
             <div class="mb-3 container">
                 <div class="text-center">
@@ -67,7 +67,6 @@ session_start();
                 </div>
                 <div class="alert alert-light" role="alert" data-bs-theme="dark">
                     <p style="text-align: justify;">
-                        <br>
                         Das Hotel Tropicana gab heute bekannt, dass es eine umfassende Nachhaltigkeitsinitiative
                         gestartet
                         hat, um seinen ökologischen Fußabdruck zu reduzieren und einen Beitrag zum Umweltschutz zu
@@ -105,7 +104,6 @@ session_start();
                 </div>
                 <div class="alert alert-light" role="alert" data-bs-theme="dark">
                     <p style="text-align: justify;">
-                        <br>
                         Das Hotel Tropicana feierte gestern Abend seine glanzvolle Wiedereröffnung nach einer
                         umfangreichen
                         Renovierung, die mehrere Monate in Anspruch nahm. Gäste wurden von einer atemberaubenden,
