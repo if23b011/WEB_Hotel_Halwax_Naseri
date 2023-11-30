@@ -259,70 +259,69 @@ session_start();
                             </p>
                         </span>
                     </div>
+                    <div class="col-md-6 mb-3">
+                        <input data-toggle="password" class="form-control" type="password" name="password2"
+                            placeholder="Passwort wiederholen" tabindex="5">
+                        <span class="error">
+                            <p style="color: red;">
+                                <?php
+                                if ($password2Err != "") {
+                                    echo $password2Err;
+                                } else if (empty($_POST['password2'])) {
+                                    echo "*";
+                                } else {
+                                    echo "⠀";
+                                } ?>
+                            </p>
+                        </span>
+                    </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <input data-toggle="password" class="form-control" type="password" name="password2"
-                        placeholder="Passwort wiederholen" tabindex="5">
-                    <span class="error">
-                        <p style="color: red;">
-                            <?php
-                            if ($password2Err != "") {
-                                echo $password2Err;
-                            } else if (empty($_POST['password2'])) {
-                                echo "*";
-                            } else {
-                                echo "⠀";
-                            } ?>
-                        </p>
-                    </span>
+                <div class="d-grid mx-auto text-center"> <!-- Add 'text-center' class here -->
+                    <input class="btn btn-primary" type="submit" value="Submit" tabindex="7">
                 </div>
             </div>
-    </div>
-    <div class="d-grid gap-2">
-        <input class="btn btn-primary" type="submit" value="Submit" tabindex="7">
-    </div>
-    <p style="color: red;">
-        <?php
-        if (
-            $anredeErr != "" || $emailErr != "" || $firstnameErr != "" || $lastnameErr != "" || $passwordErr != ""
-            || $password2Err != "" || $dateErr != ""
-        ) {
-            echo "⠀";
-        } else if (
-            isset($_POST['anrede']) && isset($_POST['email']) && isset($_POST['firstname'])
-            && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['password2'])
-            && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $passwordErrUp == ""
-            && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
-        ) {
-            echo "";
-        } else {
-            echo "*erforderlich";
-        } ?>
-    </p>
-    </form>
-    <div class="d-grid mx-auto">
-        <div class="text-center">
-            <?php
-            if (
-                $anredeErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
-                $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
-                $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $anrede != ""
-            ) {
-                echo "<h3>Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</h3><br>";
-                echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-                $_SESSION["registered"] = true;
-                $_SESSION["login"] = true;
-                $_SESSION["anrede"] = $_POST["anrede"];
-                $_SESSION["email"] = $_POST["email"];
-                $_SESSION["firstname"] = $_POST["firstname"];
-                $_SESSION["lastname"] = $_POST["lastname"];
-                $_SESSION["date"] = $_POST["date"];
-                //TODO: Passwort verschlüsseln
-                $_SESSION["password"] = $_POST["password"];
-            }
-            ?>
+            <p style="color: red;">
+                <?php
+                if (
+                    $anredeErr != "" || $emailErr != "" || $firstnameErr != "" || $lastnameErr != "" || $passwordErr != ""
+                    || $password2Err != "" || $dateErr != ""
+                ) {
+                    echo "⠀";
+                } else if (
+                    isset($_POST['anrede']) && isset($_POST['email']) && isset($_POST['firstname'])
+                    && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['password2'])
+                    && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $passwordErrUp == ""
+                    && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
+                ) {
+                    echo "";
+                } else {
+                    echo "*erforderlich";
+                } ?>
+            </p>
+        </form>
+        <div class="d-grid mx-auto">
+            <div class="text-center">
+                <?php
+                if (
+                    $anredeErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
+                    $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
+                    $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $anrede != ""
+                ) {
+                    echo "<h3>Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</h3><br>";
+                    echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+                    $_SESSION["registered"] = true;
+                    $_SESSION["login"] = true;
+                    $_SESSION["anrede"] = $_POST["anrede"];
+                    $_SESSION["email"] = $_POST["email"];
+                    $_SESSION["firstname"] = $_POST["firstname"];
+                    $_SESSION["lastname"] = $_POST["lastname"];
+                    $_SESSION["date"] = $_POST["date"];
+                    //TODO: Passwort verschlüsseln
+                    $_SESSION["password"] = $_POST["password"];
+                }
+                ?>
+            </div>
         </div>
-    </div>
     </div>
     <!-- Footer-->
     <?php include '../utils/footer.php'; ?>
