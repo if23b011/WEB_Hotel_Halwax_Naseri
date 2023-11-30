@@ -122,12 +122,12 @@ session_start();
             return $data;
         }
         ?>
-        <div class="d-grid gap-3 col-6 mx-auto">
-            <a class="btn btn-info" role="button" href="../sites/reservierungen.php">Meine Reservierungen</a>";
-        </div>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <div class="container">
-                <div class="d-grid gap-3 col-6 mx-auto">
+        <div class="container">
+            <div class="d-grid gap-3 col-md-6 mx-auto">
+                <a class="btn btn-info" role="button" href="../sites/reservierungen.php">Meine Reservierungen</a>";
+            </div>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <div class="d-grid gap-3 col-md-6 mx-auto">
                     <input type="text" class="form-control" name="firstname" placeholder="Vorname" tabindex="1"
                         value="<?php echo $firstname; ?>">
                     <input type="text" class="form-control" name="lastname" placeholder="Nachname" tabindex="2"
@@ -135,15 +135,14 @@ session_start();
                     <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse" tabindex="3"
                         value="<?php echo $email; ?>">
                     <input type="date" class="form-control" name="date" tabindex="4" value="<?php echo $newDate; ?>">
-                    <input class="btn btn-primary" type="submit" value="Änderungen übernehmen" tabindex="4">
+                    <input class="btn btn-primary" type="submit" value="Änderungen übernehmen" tabindex="5">
                     <p>Passwort ändern:</p>
                 </div>
-            </div>
-        </form>
 
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <div class="container">
-                <div class="d-grid gap-3 col-6 mx-auto">
+            </form>
+
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <div class="d-grid gap-3 col-md-6 mx-auto">
                     <input data-toggle="password" class="form-control" type="password" name="oldPassword"
                         placeholder="Altes Passwort" tabindex="5">
                     <div class="mb-3">
@@ -210,8 +209,8 @@ session_start();
                     ?>
                     <input class="btn btn-danger" type="submit" value="Passwort ändern" tabindex="8">
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <!-- Footer-->
     <?php include '../utils/footer.php'; ?>

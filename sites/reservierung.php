@@ -23,29 +23,23 @@ session_start();
         <h1>Reservierung</h1>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
-                <div class="d-grid gap-3 col-6 mx-auto">
-                    <div class="mb-3">
-                        <input type="text" id="disabledTextInput" class="form-control"
-                            value="<?php echo $_SESSION['zimmer'] ?>" disabled>
-                    </div>
+                <div class="d-grid gap-3 col-md-6 mx-auto">
+                    <input type="text" id="disabledTextInput" class="form-control"
+                        value="<?php echo $_SESSION['zimmer'] ?>" disabled>
                     <div class="row row-cols-1 row-cols-md-2 align-items-start">
                         <div class="col">
-                            <div class="mb-3">
-                                <label for="date" class="form-label">
-                                    <p>Anreisedatum</p>
-                                </label>
-                                <input type="date" class="form-control" name="arrivalDate"
-                                    value="<?php echo $arrivalDate; ?>">
-                            </div>
+                            <label for="date" class="form-label">
+                                <p>Anreisedatum</p>
+                            </label>
+                            <input type="date" class="form-control" name="arrivalDate"
+                                value="<?php echo $arrivalDate; ?>">
                         </div>
                         <div class="col">
-                            <div class="mb-3">
-                                <label for="date" class="form-label">
-                                    <p>Abreisedatum</p>
-                                </label>
-                                <input type="date" class="form-control" name="departureDate"
-                                    value="<?php echo $departureDate; ?>">
-                            </div>
+                            <label for="date" class="form-label">
+                                <p>Abreisedatum</p>
+                            </label>
+                            <input type="date" class="form-control" name="departureDate"
+                                value="<?php echo $departureDate; ?>">
                         </div>
                     </div>
                     <div class="form-check">
@@ -137,6 +131,8 @@ session_start();
                     ?>
                 </div>
         </form>
+    </div>
+    </div>
     </div>
 
 

@@ -20,12 +20,12 @@ session_start();
     <?php include '../utils/navbar.php' ?>
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
-        <h1>Zimmerauswahl</h1>
+        <h1 class="text-center mx-auto">Zimmerauswahl</h1>
         <?php $_SESSION['zimmer'] = '' ?>
-        <div class="container text-center">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-xxl-4 align-items-start">
-                <div class="col">
-                    <div class="card" class="" style="width: 18rem;" data-bs-theme="dark">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xxl-4 justify-content-center">
+                <div class="col mb-4 text-center">
+                    <div class="card mx-auto" style="width: 18rem;" data-bs-theme="dark">
                         <img src="../img/zimmer1.jpg" class="card-img-top" alt="Zimmer 1">
                         <div class="card-body">
                             <h5 class="card-title">Einzelzimmer mit<br>Einzelbett</h5>
@@ -34,8 +34,8 @@ session_start();
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;" data-bs-theme="dark">
+                <div class="col mb-4 text-center">
+                    <div class="card mx-auto" style="width: 18rem;" data-bs-theme="dark">
                         <img src="../img/zimmer2.jpg" class="card-img-top" alt="Zimmer 3">
                         <div class="card-body">
                             <h5 class="card-title">Einzelzimmer mit Doppelbett</h5>
@@ -44,8 +44,8 @@ session_start();
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;" data-bs-theme="dark">
+                <div class="col mb-4 text-center">
+                    <div class="card mx-auto" style="width: 18rem;" data-bs-theme="dark">
                         <img src="../img/zimmer3.jpg" class="card-img-top" alt="Zimmer 2">
                         <div class="card-body">
                             <h5 class="card-title">Luxus Zimmer mit Jacuzzi<br>⠀</h5>
@@ -54,8 +54,8 @@ session_start();
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;" data-bs-theme="dark">
+                <div class="col mb-4 text-center">
+                    <div class="card mx-auto" style="width: 18rem;" data-bs-theme="dark">
                         <img src="../img/zimmer4.jpg" class="card-img-top" alt="Zimmer 4">
                         <div class="card-body">
                             <h5 class="card-title">Luxus Suite mit privatem Butler</h5>

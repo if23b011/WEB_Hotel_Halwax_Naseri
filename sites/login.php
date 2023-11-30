@@ -22,7 +22,7 @@ session_start();
     <?php include '../utils/navbar.php'; ?>
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
-        <h1 class="text-center">Login</h1>
+        <h1>Login</h1>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
                 <div class="row justify-content-center">
