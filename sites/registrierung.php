@@ -155,177 +155,174 @@ session_start();
                         } ?>
                     </p>
                 </span>
-                <div class="row row-cols-1 row-cols-md-2 align-items-start">
-                    <div class="col">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="firstname" placeholder="Vorname" tabindex="1"
-                                value="<?php echo $firstname; ?>">
-                            <span class="error">
-                                <p style="color: red;">
-                                    <?php
-                                    if ($firstnameErr != "") {
-                                        echo $firstnameErr;
-                                    } else if (empty($_POST['firstname'])) {
-                                        echo "*";
-                                    } else {
-                                        echo "⠀";
-                                    } ?>
-                                </p>
-                            </span>
-                        </div>
-                        <div class="mb-3">
-                            <input type="date" class="form-control" name="date" tabindex="3"
-                                value="<?php echo $date; ?>">
-                            <span class="error">
-                                <p style="color: red;">
-                                    <?php
-                                    if ($dateErr != "") {
-                                        echo $dateErr;
-                                    } else if (empty($_POST['date'])) {
-                                        echo "*";
-                                    } else {
-                                        echo "⠀";
-                                    } ?>
-                                </p>
-                            </span>
-                        </div>
-                        <div class="mb-3">
-                            <input data-toggle="password" class="form-control" type="password" name="password"
-                                placeholder="Passwort" tabindex="5">
-                            <span class="error">
-                                <p style="color: red;">
-                                    <?php
-                                    if ($passwordErr != "") {
-                                        echo $passwordErr;
-                                    } else if (empty($_POST['password'])) {
-                                        echo "*";
-                                    } else {
-                                        echo "⠀";
-                                    } ?>
-                                </p>
-                            </span>
-                            <span class="error">
-                                <p style="color: red;">
-                                    <?php echo $passwordErrUp; ?>
-                                </p>
-                            </span>
-                            <span class="error">
-                                <p style="color: red;">
-                                    <?php echo $passwordErrLow; ?>
-                                </p>
-                            </span>
-                            <span class="error">
-                                <p style="color: red;">
-                                    <?php echo $passwordErrNum; ?>
-                                </p>
-                            </span>
-                            <span class="error">
-                                <p style="color: red;">
-                                    <?php echo $passwordErrSpecial; ?>
-                                </p>
-                            </span>
-                            <span class="error">
-                                <p style="color: red;">
-                                    <?php echo $passwordErrLen; ?>
-                                </p>
-                            </span>
-                        </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" name="firstname" placeholder="Vorname" tabindex="1"
+                            value="<?php echo $firstname; ?>">
+                        <span class="error">
+                            <p style="color: red;">
+                                <?php
+                                if ($firstnameErr != "") {
+                                    echo $firstnameErr;
+                                } else if (empty($_POST['firstname'])) {
+                                    echo "*";
+                                } else {
+                                    echo "⠀";
+                                } ?>
+                            </p>
+                        </span>
                     </div>
-                    <div class="col">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="lastname" placeholder="Nachname" tabindex="2"
-                                value="<?php echo $lastname; ?>">
-                            <span class="error">
-                                <p style="color: red;">
-                                    <?php
-                                    if ($lastnameErr != "") {
-                                        echo $lastnameErr;
-                                    } else if (empty($_POST['lastname'])) {
-                                        echo "*";
-                                    } else {
-                                        echo "⠀";
-                                    } ?>
-                                </p>
-                            </span>
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse"
-                                tabindex="4" value="<?php echo $email; ?>">
-                            <span class="error">
-                                <p style="color: red;">
-                                    <?php
-                                    if ($emailErr != "") {
-                                        echo $emailErr;
-                                    } else if (empty($_POST['email'])) {
-                                        echo "*";
-                                    } else {
-                                        echo "⠀";
-                                    } ?>
-                            </span>
-                        </div>
-                        <div class="mb-3">
-                            <input data-toggle="password" class="form-control" type="password" name="password2"
-                                placeholder="Passwort wiederholen" tabindex="5">
-                            <span class="error">
-                                <p style="color: red;">
-                                    <?php
-                                    if ($password2Err != "") {
-                                        echo $password2Err;
-                                    } else if (empty($_POST['password2'])) {
-                                        echo "*";
-                                    } else {
-                                        echo "⠀";
-                                    } ?>
-                                </p>
-                            </span>
-                        </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" name="lastname" placeholder="Nachname" tabindex="2"
+                            value="<?php echo $lastname; ?>">
+                        <span class="error">
+                            <p style="color: red;">
+                                <?php
+                                if ($lastnameErr != "") {
+                                    echo $lastnameErr;
+                                } else if (empty($_POST['lastname'])) {
+                                    echo "*";
+                                } else {
+                                    echo "⠀";
+                                } ?>
+                            </p>
+                        </span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="date" class="form-control" name="date" tabindex="3" value="<?php echo $date; ?>">
+                        <span class="error">
+                            <p style="color: red;">
+                                <?php
+                                if ($dateErr != "") {
+                                    echo $dateErr;
+                                } else if (empty($_POST['date'])) {
+                                    echo "*";
+                                } else {
+                                    echo "⠀";
+                                } ?>
+                            </p>
+                        </span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse" tabindex="4"
+                            value="<?php echo $email; ?>">
+                        <span class="error">
+                            <p style="color: red;">
+                                <?php
+                                if ($emailErr != "") {
+                                    echo $emailErr;
+                                } else if (empty($_POST['email'])) {
+                                    echo "*";
+                                } else {
+                                    echo "⠀";
+                                } ?>
+                        </span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input data-toggle="password" class="form-control" type="password" name="password"
+                            placeholder="Passwort" tabindex="5">
+                        <span class="error">
+                            <p style="color: red;">
+                                <?php
+                                if ($passwordErr != "") {
+                                    echo $passwordErr;
+                                } else if (empty($_POST['password'])) {
+                                    echo "*";
+                                } else {
+                                    echo "⠀";
+                                } ?>
+                            </p>
+                        </span>
+                        <span class="error">
+                            <p style="color: red;">
+                                <?php echo $passwordErrUp; ?>
+                            </p>
+                        </span>
+                        <span class="error">
+                            <p style="color: red;">
+                                <?php echo $passwordErrLow; ?>
+                            </p>
+                        </span>
+                        <span class="error">
+                            <p style="color: red;">
+                                <?php echo $passwordErrNum; ?>
+                            </p>
+                        </span>
+                        <span class="error">
+                            <p style="color: red;">
+                                <?php echo $passwordErrSpecial; ?>
+                            </p>
+                        </span>
+                        <span class="error">
+                            <p style="color: red;">
+                                <?php echo $passwordErrLen; ?>
+                            </p>
+                        </span>
                     </div>
                 </div>
-                <div class="d-grid gap-2">
-                    <input class="btn btn-primary" type="submit" value="Submit" tabindex="7">
+                <div class="col-md-6 mb-3">
+                    <input data-toggle="password" class="form-control" type="password" name="password2"
+                        placeholder="Passwort wiederholen" tabindex="5">
+                    <span class="error">
+                        <p style="color: red;">
+                            <?php
+                            if ($password2Err != "") {
+                                echo $password2Err;
+                            } else if (empty($_POST['password2'])) {
+                                echo "*";
+                            } else {
+                                echo "⠀";
+                            } ?>
+                        </p>
+                    </span>
                 </div>
-                <p style="color: red;">
-                    <?php
-                    if (
-                        $anredeErr != "" || $emailErr != "" || $firstnameErr != "" || $lastnameErr != "" || $passwordErr != ""
-                        || $password2Err != "" || $dateErr != ""
-                    ) {
-                        echo "⠀";
-                    } else if (
-                        isset($_POST['anrede']) && isset($_POST['email']) && isset($_POST['firstname'])
-                        && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['password2'])
-                        && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $passwordErrUp == ""
-                        && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
-                    ) {
-                        echo "";
-                    } else {
-                        echo "*erforderlich";
-                    } ?>
-                </p>
-        </form>
-        <div class="d-grid mx-auto">
-            <div class="text-center">
-                <?php
-                if (
-                    $anredeErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
-                    $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
-                    $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $anrede != ""
-                ) {
-                    echo "<h3>Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</h3><br>";
-                    echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-                    $_SESSION["registered"] = true;
-                    $_SESSION["login"] = true;
-                    $_SESSION["anrede"] = $_POST["anrede"];
-                    $_SESSION["email"] = $_POST["email"];
-                    $_SESSION["firstname"] = $_POST["firstname"];
-                    $_SESSION["lastname"] = $_POST["lastname"];
-                    $_SESSION["date"] = $_POST["date"];
-                    //TODO: Passwort verschlüsseln
-                    $_SESSION["password"] = $_POST["password"];
-                }
-                ?>
             </div>
+    </div>
+    <div class="d-grid gap-2">
+        <input class="btn btn-primary" type="submit" value="Submit" tabindex="7">
+    </div>
+    <p style="color: red;">
+        <?php
+        if (
+            $anredeErr != "" || $emailErr != "" || $firstnameErr != "" || $lastnameErr != "" || $passwordErr != ""
+            || $password2Err != "" || $dateErr != ""
+        ) {
+            echo "⠀";
+        } else if (
+            isset($_POST['anrede']) && isset($_POST['email']) && isset($_POST['firstname'])
+            && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['password2'])
+            && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $passwordErrUp == ""
+            && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
+        ) {
+            echo "";
+        } else {
+            echo "*erforderlich";
+        } ?>
+    </p>
+    </form>
+    <div class="d-grid mx-auto">
+        <div class="text-center">
+            <?php
+            if (
+                $anredeErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
+                $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
+                $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $anrede != ""
+            ) {
+                echo "<h3>Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</h3><br>";
+                echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+                $_SESSION["registered"] = true;
+                $_SESSION["login"] = true;
+                $_SESSION["anrede"] = $_POST["anrede"];
+                $_SESSION["email"] = $_POST["email"];
+                $_SESSION["firstname"] = $_POST["firstname"];
+                $_SESSION["lastname"] = $_POST["lastname"];
+                $_SESSION["date"] = $_POST["date"];
+                //TODO: Passwort verschlüsseln
+                $_SESSION["password"] = $_POST["password"];
+            }
+            ?>
         </div>
+    </div>
     </div>
     <!-- Footer-->
     <?php include '../utils/footer.php'; ?>
