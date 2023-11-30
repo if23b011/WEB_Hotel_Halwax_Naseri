@@ -30,34 +30,19 @@ session_start();
     <div class="container" style="margin-bottom: 100px;">
         <h1>Hotel Tropicana - hier werden Urlaubsträume wahr!</h1>
         <!-- TODO: Zimmer - Carousel implementieren-->
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleAutoplaying" class="carousel slide mb-4" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h1 style="margin-bottom: 27rem; margin-right: 5rem; color: black;">Einzelzimmer mit Einzelbett
-                        </h1>
-                    </div>
-                    <img src="../img/zimmer1.jpg" class="d-block w-100" alt="Zimmer 1" style="height: 35rem;">
+                    <img src="../img/zimmer1.jpg" class="d-block w-100 img-fluid" alt="Zimmer 1">
                 </div>
                 <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h1 style="margin-bottom: 29rem; color: black;">Einzelzimmer mit Doppelbett</h1>
-                    </div>
-                    <img src="../img/zimmer2.jpg" class="d-block w-100" alt="Zimmer 2" style="height: 35rem;">
+                    <img src="../img/zimmer2.jpg" class="d-block w-100 img-fluid" alt="Zimmer 2">
                 </div>
                 <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h1 style="margin-bottom: 24rem; margin-right: 12rem; color: black; ">Luxus Zimmer<br>mit
-                            Jacuzzi</h1>
-                    </div>
-                    <img src="../img/zimmer3.jpg" class="d-block w-100" alt="Zimmer 3" style="height: 35rem;">
+                    <img src="../img/zimmer3.jpg" class="d-block w-100 img-fluid" alt="Zimmer 3">
                 </div>
                 <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h1 style="margin-bottom: 22rem; margin-right: 10rem; color: black;">Luxus Suite mit privatem
-                            Butler</h1>
-                    </div>
-                    <img src="../img/zimmer4.jpg" class="d-block w-100" alt="Zimmer 4" style="height: 35rem">
+                    <img src="../img/zimmer4.jpg" class="d-block w-100 img-fluid" alt="Zimmer 4">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"

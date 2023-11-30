@@ -20,9 +20,9 @@ session_start();
     <?php include '../utils/navbar.php' ?>
     <!-- Content-->
     <div style="margin-bottom: 100px;">
-        <h1>NEWS</h1>
-        <div class="d-grid col-6 mx-auto">
-            <div class="mb-3">
+        <h1 class="text-center">NEWS</h1>
+        <div class="d-grid col-12 mx-auto">
+            <div class="mb-3 container">
                 <div class="text-center">
                     <h3>
                         <?php
@@ -35,7 +35,7 @@ session_start();
                 <div class="text-center">
                     <?php
                     if (isset($_SESSION["fileToUpload"])) {
-                        echo '<img src="../img/thumbnails/' . $_SESSION["fileToUpload"] . '" alt="Bild" width="500" height:"auto" class="img-thumbnail">';
+                        echo '<img src="../img/thumbnails/' . $_SESSION["fileToUpload"] . '" alt="Bild" width="500" height="auto" class="img-thumbnail">';
                     }
                     ?>
                 </div>
@@ -47,7 +47,7 @@ session_start();
                     }
                     ?>
                 </p>
-                <h3>
+                <h3 class="text-center">
                     <?php
                     if (isset($_SESSION["newsDate"])) {
                         echo "News vom " . $_SESSION["newsDate"];
@@ -58,12 +58,12 @@ session_start();
 
 
 
-            <div class="mb-3">
+            <div class="mb-3 container">
                 <div class="text-center">
                     <h2>Nachhaltigkeitsinitiative im Hotel Tropicana: Ein grüner Schritt in die Zukunft</h2>
                 </div>
                 <div class="text-center">
-                    <img src="../img/thumbnails/news2.jpg" alt="News1" width="500" height:"auto" class="img-thumbnail">
+                    <img src="../img/thumbnails/news2.jpg" alt="News1" width="500" height="auto" class="img-thumbnail">
                 </div>
                 <p style="text-align: justify;">
                     <br>
@@ -89,7 +89,7 @@ session_start();
 
 
 
-            <div class="mb-3">
+            <div class="mb-3 container">
                 <div class="text-center">
                     <h2>Grand Reopening des Hotel Tropicana nach aufwendiger Renovierung</h2>
                 </div>

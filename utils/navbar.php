@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="../sites/index.php">
                 <img src="../img/tropicana.png" alt="Bootstrap" width="60" class="rounded-5">
@@ -55,6 +55,11 @@
                     ?>
                 </ul>
             </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
         </div>
     </nav>
 </body>
