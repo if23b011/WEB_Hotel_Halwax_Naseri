@@ -309,15 +309,16 @@ session_start();
                 ) {
                     echo "<h3>Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</h3><br>";
                     echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-                    $_SESSION["registered"] = true;
+                    //Login Cookie setzen
                     $_SESSION["login"] = true;
-                    $_SESSION["anrede"] = $_POST["anrede"];
-                    $_SESSION["email"] = $_POST["email"];
-                    $_SESSION["firstname"] = $_POST["firstname"];
-                    $_SESSION["lastname"] = $_POST["lastname"];
-                    $_SESSION["date"] = $_POST["date"];
-                    //TODO: Passwort verschlüsseln
-                    $_SESSION["password"] = $_POST["password"];
+                    //Daten in Datenbank speichern
+                    $sql = "INSERT INTO users (anrede, firstname, lastname, email, password, date) VALUES ('" . $_POST["anrede"] . "', '" . $_POST["firstname"] . "', '" . $_POST["lastname"] . "', '" . $_POST["email"] . "', '" . $_POST["password"] . "', '" . $_POST["date"] . "')";
+                    if (mysqli_query($conn, $sql)) {
+                        echo "New record created successfully";
+                    } else {
+                        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                    }
+                    
                 }
                 ?>
             </div>

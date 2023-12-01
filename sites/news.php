@@ -24,36 +24,38 @@ session_start();
         <div class="d-grid col-12 mx-auto">
             <div class="mb-3 container">
                 <div class="text-center">
-                    <h3>
+                    <h2>
                         <?php
                         if (isset($_SESSION["title"])) {
                             echo $_SESSION["title"];
                         }
                         ?>
-                    </h3>
+                    </h2>
                 </div>
-                <div class="text-center">
+                <div class="text-center mb-4">
                     <?php
                     if (isset($_SESSION["fileToUpload"])) {
                         echo '<img src="../img/thumbnails/' . $_SESSION["fileToUpload"] . '" alt="Bild" width="500" height="auto" class="img-thumbnail">';
                     }
                     ?>
                 </div>
-                <p style="text-align: justify;">
-                    <br>
-                    <?php
-                    if (isset($_SESSION["text"])) {
-                        echo $_SESSION["text"] . "<br>";
-                    }
-                    ?>
-                </p>
-                <h3 class="text-center">
-                    <?php
-                    if (isset($_SESSION["newsDate"])) {
-                        echo "News vom " . $_SESSION["newsDate"];
-                    }
-                    ?>
-                </h3>
+                <div class="alert alert-light" role="alert" data-bs-theme="dark">
+                    <p style="text-align: justify;">
+                        <br>
+                        <?php
+                        if (isset($_SESSION["text"])) {
+                            echo $_SESSION["text"] . "<br>";
+                        }
+                        ?>
+                    </p>
+                    <h3>
+                        <?php
+                        if (isset($_SESSION["newsDate"])) {
+                            echo "News vom " . $_SESSION["newsDate"];
+                        }
+                        ?>
+                    </h3>
+                </div>
             </div>
 
 
@@ -80,12 +82,14 @@ session_start();
                         Umweltschutzorganisationen geschlossen, um gemeinsam nachhaltige Projekte in der Gemeinde zu
                         fördern.
 
-                        Die Gäste des Hotels werden ebenfalls in die Initiative einbezogen, da das Hotel Tropicana aktiv
+                        Die Gäste des Hotels werden ebenfalls in die Initiative einbezogen, da das Hotel Tropicana
+                        aktiv
                         dazu ermutigt, Ressourcen zu sparen und umweltfreundliche Praktiken zu unterstützen. Dazu
                         gehören
                         die Option, Handtücher und Bettwäsche auf Wunsch weniger häufig zu wechseln sowie die
                         Bereitstellung
-                        von Recyclingbehältern in den Gästezimmern. Diese Initiative des Hotel Tropicana markiert einen
+                        von Recyclingbehältern in den Gästezimmern. Diese Initiative des Hotel Tropicana markiert
+                        einen
                         bedeutenden Schritt in Richtung nachhaltigen Tourismus und verdeutlicht das Engagement des
                         Hotels für Umweltschutz und soziale Verantwortung.
                     </p>
@@ -111,7 +115,8 @@ session_start();
                         hochmoderner
                         Technologie ausgestattet ist.
 
-                        Die Zimmer wurden ebenfalls einem kompletten Makeover unterzogen, wobei der Fokus auf Komfort
+                        Die Zimmer wurden ebenfalls einem kompletten Makeover unterzogen, wobei der Fokus auf
+                        Komfort
                         und
                         Eleganz lag. Die Gäste können sich auf stilvolle, neu gestaltete Unterkünfte freuen, die den
                         zeitgenössischen Ansprüchen gerecht werden. Die Renovierungen erstreckten sich auch auf die
@@ -120,12 +125,14 @@ session_start();
 
                         Das Hotel Tropicana hat sich nicht nur äußerlich verändert, sondern auch sein kulinarisches
                         Angebot
-                        aufgewertet. Die Gäste können nun eine breite Palette von internationalen Köstlichkeiten in den
+                        aufgewertet. Die Gäste können nun eine breite Palette von internationalen Köstlichkeiten in
+                        den
                         neu
                         gestalteten Restaurants des Hotels genießen.
 
                         Die Wiedereröffnung lockte zahlreiche Gäste und lokale Persönlichkeiten an, die von der
-                        Transformation des Hotels begeistert waren. Das Hotel Tropicana ist nun bereit, seinen Gästen
+                        Transformation des Hotels begeistert waren. Das Hotel Tropicana ist nun bereit, seinen
+                        Gästen
                         eine
                         noch luxuriösere und zeitgemäßere Erfahrung zu bieten.
                     </p>
