@@ -17,12 +17,6 @@ session_start();
 
 <body>
     <?php
-    if (!isset($_SESSION["login"])) {
-        $_SESSION["login"] = false;
-    }
-    if (!isset($_SESSION["admin"])) {
-        $_SESSION["admin"] = false;
-    }
     ?>
     <!-- Navigation-->
     <?php include '../utils/navbar.php' ?>

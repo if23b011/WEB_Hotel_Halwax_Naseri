@@ -27,15 +27,15 @@ session_start();
         <h1>Registrierung</h1>
         <?php
         //serverseitige Validierung
-        $anrede = $email = $firstname = $lastname = $password = $password2 = $date = "";
-        $anredeErr = $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrUp =
+        $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
+        $genderErr = $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrUp =
             $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen = $password2Err = $dateErr = "";
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (empty($_POST["anrede"])) {
-                $anredeErr = "*erforderlich";
+            if (empty($_POST["gender"])) {
+                $genderErr = "*erforderlich";
             } else {
-                $anrede = input($_POST["anrede"]);
+                $gender = input($_POST["gender"]);
             }
 
             if (empty($_POST["email"])) {
@@ -43,7 +43,7 @@ session_start();
             } else {
                 $email = input($_POST["email"]);
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $emailErr = "Invalid email format";
+                    $emailErr = "Das ist keine richtige Email-Adresse";
                 }
             }
 
@@ -133,22 +133,22 @@ session_start();
                 </div>
                 <div class="mb-3">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "Herr")
-                            echo "checked"; ?> value="Herr">
+                        <input class="form-check-input" type="radio" name="gender" <?php if (isset($gender) && $gender == "Herr")
+                            echo "checked"; ?> value=" Herr">
                         <p>Herr</p>
                     </div>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="anrede" <?php if (isset($anrede) && $anrede == "Frau")
-                        echo "checked"; ?> value="Frau">
+                    <input class="form-check-input" type="radio" name="gender" <?php if (isset($gender) && $gender == "Frau")
+                        echo "checked"; ?> value=" Frau">
                     <p>Frau</p>
                 </div>
                 <span class="error">
                     <p style="color: red;">
                         <?php
-                        if ($anredeErr != "") {
-                            echo $anredeErr;
-                        } else if (empty($_POST['anrede'])) {
+                        if ($genderErr != "") {
+                            echo $genderErr;
+                        } else if (empty($_POST['gender'])) {
                             echo "*";
                         } else {
                             echo "⠀";
@@ -283,12 +283,12 @@ session_start();
             <p style="color: red;">
                 <?php
                 if (
-                    $anredeErr != "" || $emailErr != "" || $firstnameErr != "" || $lastnameErr != "" || $passwordErr != ""
+                    $genderErr != "" || $emailErr != "" || $firstnameErr != "" || $lastnameErr != "" || $passwordErr != ""
                     || $password2Err != "" || $dateErr != ""
                 ) {
                     echo "⠀";
                 } else if (
-                    isset($_POST['anrede']) && isset($_POST['email']) && isset($_POST['firstname'])
+                    isset($_POST['gender']) && isset($_POST['email']) && isset($_POST['firstname'])
                     && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['password2'])
                     && isset($_POST['date']) && ($_POST['password'] == $_POST['password2']) && $passwordErrUp == ""
                     && $passwordErrLow == "" && $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == ""
@@ -303,22 +303,73 @@ session_start();
             <div class="text-center">
                 <?php
                 if (
-                    $anredeErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
+                    $genderErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
                     $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
-                    $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $anrede != ""
+                    $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $gender != ""
                 ) {
-                    echo "<h3>Herzlich Willkommen " . $_POST["anrede"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</h3><br>";
-                    echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-                    //Login Cookie setzen
-                    $_SESSION["login"] = true;
                     //Daten in Datenbank speichern
-                    $sql = "INSERT INTO users (anrede, firstname, lastname, email, password, date) VALUES ('" . $_POST["anrede"] . "', '" . $_POST["firstname"] . "', '" . $_POST["lastname"] . "', '" . $_POST["email"] . "', '" . $_POST["password"] . "', '" . $_POST["date"] . "')";
-                    if (mysqli_query($conn, $sql)) {
-                        echo "New record created successfully";
-                    } else {
-                        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                    require_once '../utils/dbaccess.php';
+                    function emailExists($conn, $email)
+                    {
+                        require_once '../utils/dbaccess.php';
+                        $sql = "SELECT * FROM users WHERE email = ?;";
+                        $stmt = mysqli_stmt_init($conn);
+
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            echo "SQL-Fehler";
+                        }
+
+                        mysqli_stmt_bind_param($stmt, "s", $email);
+                        mysqli_stmt_execute($stmt);
+
+                        $resultData = mysqli_stmt_get_result($stmt);
+
+                        if ($row = mysqli_fetch_assoc($resultData)) {
+                            return $row;
+                        } else {
+                            $result = false;
+                            return $result;
+                        }
+                        mysqli_stmt_close($stmt);
                     }
-                    
+
+                    if (emailExists($conn, $_POST["email"])) {
+                        echo "<p style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</p>";
+                        exit();
+                    }
+
+                    if ($_POST["gender"] == "Herr") {
+                        $dBgender = "M";
+                    } else {
+                        $dBgender = "W";
+                    }
+
+                    function createUser($conn, $gender, $firstname, $lastname, $birthdate, $email, $password, $type)
+                    {
+                        require_once '../utils/dbaccess.php';
+                        $sql = "INSERT INTO users (userId, gender, firstname, lastname, birthdate, email, password, type) 
+                                VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
+                        $stmt = mysqli_stmt_init($conn);
+
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            echo "SQL-Fehler";
+                            return;
+                        }
+
+                        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                        $birthdate = date("Y-m-d", strtotime($birthdate));
+                        mysqli_stmt_bind_param($stmt, "sssssss", $gender, $firstname, $lastname, $birthdate, $email, $hashedPassword, $type);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
+
+                        echo "<h3>Herzlich Willkommen " . $_POST["gender"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</h3><br>";
+                        echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+                        $_SESSION["login"] = true;
+                    }
+                    $birth = input($_POST["date"]);
+                    $birthDate = date("d.m.Y", strtotime($birth));
+                    createUser($conn, $dBgender, $_POST["firstname"], $_POST["lastname"], $birthDate, $_POST["email"], $_POST["password"], "user");
+                    setcookie("email", $email, time() + (86400 * 30 + 3600 * 0), "/");
                 }
                 ?>
             </div>

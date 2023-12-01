@@ -27,27 +27,16 @@ session_start();
         $firstname = $lastname = $email = $date = $password = "";
         $passwordErr = $passwordErrUp = $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen =
             $passwordErrIdent = $wrongOldPassword = "";
-        if (isset($_SESSION["firstname"])) {
-            $firstname = input($_SESSION["firstname"]);
-        } else {
-            $firstname = "Max";
-        }
-        if (isset($_SESSION["lastname"])) {
-            $lastname = input($_SESSION["lastname"]);
-        } else {
-            $lastname = "Mustermann";
-        }
-        if (isset($_SESSION["email"])) {
-            $email = input($_SESSION["email"]);
-        } else {
-            $email = "max.mustermann@email.com";
-        }
-        if (isset($_SESSION["date"])) {
-            $date = input($_SESSION["date"]);
-        } else {
-            $date = "2000-01-01";
-        }
-        $newDate = date("Y-m-d", strtotime($date));
+        require_once '../utils/dbaccess.php';
+        $_SESSION["email"] = $_COOKIE["email"];
+        $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $firstname = input($row['firstname']);
+        $lastname = input($row['lastname']);
+        $email = input($row['email']);
+        $date = input($row['birthdate']);
+        $birthDate = date("Y-m-d", strtotime($date));
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_POST["firstname"])) {
@@ -56,17 +45,23 @@ session_start();
             if (isset($_POST["lastname"])) {
                 $lastname = input($_POST["lastname"]);
             }
-            if (isset($_POST["email"])) {
+            /*if (isset($_POST["email"])) {
                 $email = input($_POST["email"]);
-            }
+            }*/
             if (isset($_POST["date"])) {
                 $date = input($_POST["date"]);
             }
-            $newDate = date("Y-m-d", strtotime($date));
-            $_SESSION["firstname"] = $firstname;
-            $_SESSION["lastname"] = $lastname;
-            $_SESSION["email"] = $email;
-            $_SESSION["date"] = $date;
+            $birthDate = date("Y-m-d", strtotime($date));
+
+            $sql = "UPDATE users SET firstname = ? , lastname = ? , birthdate = ? WHERE email = ?";
+            $stmt = mysqli_stmt_init($conn);
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                echo "SQL-Fehler";
+                return;
+            }
+            mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $birthDate, $_SESSION["email"]);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
 
             //Passwortvalidierung
             if (isset($_POST["newPassword"])) {
@@ -109,7 +104,9 @@ session_start();
             }
 
             if (isset($_POST["oldPassword"])) {
-                if ($_POST["oldPassword"] != $_SESSION["password"]) {
+                $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
+                $result = mysqli_query($conn, $sql);
+                if (!password_verify($_POST['oldPassword'], $row['password'])) {
                     $wrongOldPassword = "Falsches Passwort!";
                 }
             }
@@ -134,7 +131,7 @@ session_start();
                         value="<?php echo $lastname; ?>">
                     <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse" tabindex="3"
                         value="<?php echo $email; ?>">
-                    <input type="date" class="form-control" name="date" tabindex="4" value="<?php echo $newDate; ?>">
+                    <input type="date" class="form-control" name="date" tabindex="4" value="<?php echo $date; ?>">
                     <input class="btn btn-primary" type="submit" value="Änderungen übernehmen" tabindex="5">
                     <p>Passwort ändern:</p>
                 </div>
@@ -195,12 +192,23 @@ session_start();
                     </div>
                     <?php
                     if (isset($_POST["newPassword"])) {
+                        $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
+                        $result = mysqli_query($conn, $sql);
                         if (
-                            ($_POST["newPassword"] == $_POST["newPassword2"]) && ($_POST["oldPassword"] == $_SESSION["password"]) &&
+                            ($_POST["newPassword"] == $_POST["newPassword2"]) && password_verify($_POST['oldPassword'], $row['password']) &&
                             ($passwordErr == "") && ($passwordErrUp == "") && ($passwordErrLow == "") && ($passwordErrNum == "") &&
                             ($passwordErrSpecial == "") && ($passwordErrLen == "") && ($passwordErrIdent == "") && ($wrongOldPassword == "")
                         ) {
-                            $_SESSION["password"] = $_POST["newPassword"];
+                            $password = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
+                            $sql = "UPDATE users SET password = ? WHERE email = ?";
+                            $stmt = mysqli_stmt_init($conn);
+                            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                                echo "SQL-Fehler";
+                                return;
+                            }
+                            mysqli_stmt_bind_param($stmt, "ss", $password, $_SESSION["email"]);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_close($stmt);
                             echo '<div class="alert alert-success" role="alert">
                     Passwort erfolgreich geändert!
                     </div>';

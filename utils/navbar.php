@@ -24,7 +24,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <?php
-                    if ($_SESSION["login"] == true) {
+                    if (isset($_COOKIE["email"])) {
                         echo '<li class="nav-item">
                         <a class="nav-link" href="../utils/logout.php">
                         <h4 style="color: white">Logout</h4>
