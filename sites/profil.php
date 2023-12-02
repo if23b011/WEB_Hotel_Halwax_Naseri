@@ -28,7 +28,9 @@ session_start();
         $passwordErr = $passwordErrUp = $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen =
             $passwordErrIdent = $wrongOldPassword = "";
         require_once '../utils/dbaccess.php';
+        echo $_COOKIE["email"];
         $_SESSION["email"] = $_COOKIE["email"];
+        echo $_SESSION["email"];
         $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);

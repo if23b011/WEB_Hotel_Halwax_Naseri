@@ -25,106 +25,179 @@ session_start();
     <!--TODO: Für Handy anpassen-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Registrierung</h1>
-        <?php
-        //serverseitige Validierung
-        $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
-        $genderErr = $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrUp =
-            $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen = $password2Err = $dateErr = "";
+        <div class="d-grid mx-auto">
+            <div class="text-center">
+                <?php
+                //serverseitige Validierung
+                $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
+                $genderErr = $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrUp =
+                    $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen = $password2Err = $dateErr = "";
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (empty($_POST["gender"])) {
-                $genderErr = "*erforderlich";
-            } else {
-                $gender = input($_POST["gender"]);
-            }
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    if (empty($_POST["gender"])) {
+                        $genderErr = "*erforderlich";
+                    } else {
+                        $gender = input($_POST["gender"]);
+                    }
 
-            if (empty($_POST["email"])) {
-                $emailErr = "*Email ist erforderlich";
-            } else {
-                $email = input($_POST["email"]);
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $emailErr = "Das ist keine richtige Email-Adresse";
+                    if (empty($_POST["email"])) {
+                        $emailErr = "*Email ist erforderlich";
+                    } else {
+                        $email = input($_POST["email"]);
+                        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                            $emailErr = "Das ist keine richtige Email-Adresse";
+                        }
+                    }
+
+                    if (empty($_POST["firstname"])) {
+                        $firstnameErr = "*erforderlich";
+                    } else {
+                        $firstname = input($_POST["firstname"]);
+                        if (!preg_match("/^[a-zA-Zäöü]*$/", $firstname)) {
+                            $firstnameErr = "Das ist kein richtiger Vorname";
+                        }
+                    }
+
+                    if (empty($_POST["lastname"])) {
+                        $lastnameErr = "*erforderlich";
+                    } else {
+                        $lastname = input($_POST["lastname"]);
+                        if (!preg_match("/^[a-zA-Zäöü]*$/", $lastname)) {
+                            $lastnameErr = "Das ist kein richtiger Nachname";
+                        }
+                    }
+
+                    if (empty($_POST["password"])) {
+                        $passwordErr = "*erforderlich";
+                    } else {
+                        $password = input($_POST["password"]);
+                    }
+
+                    //Passwortvalidierung
+                    $uppercase = preg_match('@[A-Z]@', $password);
+                    $lowercase = preg_match('@[a-z]@', $password);
+                    $number = preg_match('@[0-9]@', $password);
+                    $specialChars = preg_match('@[^\w]@', $password);
+
+                    if (strlen($password) < 8 && !(empty($_POST["password"]))) {
+                        $passwordErr = "*erforderlich:";
+                        $passwordErrLen = "8 Zeichen";
+                    }
+
+                    if (!$uppercase && !(empty($_POST["password"]))) {
+                        $passwordErr = "*erforderlich:";
+                        $passwordErrUp = "1 Großbuchstabe";
+                    }
+
+                    if (!$lowercase && !(empty($_POST["password"]))) {
+                        $passwordErr = "*erforderlich:";
+                        $passwordErrLow = "1 Kleinbuchstabe";
+                    }
+
+                    if (!$number && !(empty($_POST["password"]))) {
+                        $passwordErr = "*erforderlich:";
+                        $passwordErrNum = "1 Zahl";
+                    }
+
+                    if (!$specialChars && !(empty($_POST["password"]))) {
+                        $passwordErr = "*erforderlich:";
+                        $passwordErrSpecial = "1 Sonderzeichen";
+                    }
+
+                    if (empty($_POST["password2"])) {
+                        $password2Err = "*erforderlich";
+                    } else if ($_POST['password'] != $_POST['password2']) {
+                        $password2Err = "Passwort ist nicht ident!";
+                    } else {
+                        $password2 = input($_POST["password2"]);
+                    }
+
+                    if (empty($_POST["date"])) {
+                        $dateErr = "*erforderlich";
+                    } else {
+                        $date = input($_POST["date"]);
+                    }
                 }
-            }
 
-            if (empty($_POST["firstname"])) {
-                $firstnameErr = "*erforderlich";
-            } else {
-                $firstname = input($_POST["firstname"]);
-                if (!preg_match("/^[a-zA-Zäöü]*$/", $firstname)) {
-                    $firstnameErr = "Das ist kein richtiger Vorname";
+                function input($data)
+                {
+                    $data = trim($data);
+                    $data = stripslashes($data);
+                    $data = htmlspecialchars($data);
+                    return $data;
                 }
-            }
+                if (
+                    $genderErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
+                    $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
+                    $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $gender != ""
+                ) {
+                    //Daten in Datenbank speichern
+                    require_once '../utils/dbaccess.php';
+                    function emailExists($conn, $email)
+                    {
+                        require_once '../utils/dbaccess.php';
+                        $sql = "SELECT * FROM users WHERE email = ?;";
+                        $stmt = mysqli_stmt_init($conn);
 
-            if (empty($_POST["lastname"])) {
-                $lastnameErr = "*erforderlich";
-            } else {
-                $lastname = input($_POST["lastname"]);
-                if (!preg_match("/^[a-zA-Zäöü]*$/", $lastname)) {
-                    $lastnameErr = "Das ist kein richtiger Nachname";
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            echo "SQL-Fehler";
+                        }
+
+                        mysqli_stmt_bind_param($stmt, "s", $email);
+                        mysqli_stmt_execute($stmt);
+
+                        $resultData = mysqli_stmt_get_result($stmt);
+
+                        if ($row = mysqli_fetch_assoc($resultData)) {
+                            return $row;
+                        } else {
+                            $result = false;
+                            return $result;
+                        }
+                        mysqli_stmt_close($stmt);
+                    }
+
+                    if (emailExists($conn, $_POST["email"])) {
+                        echo "<p style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</p>";
+                        exit();
+                    }
+
+                    if ($_POST["gender"] == "Herr") {
+                        $dBgender = "M";
+                    } else {
+                        $dBgender = "W";
+                    }
+
+                    function createUser($conn, $gender, $firstname, $lastname, $birthdate, $email, $password, $type)
+                    {
+                        require_once '../utils/dbaccess.php';
+                        $sql = "INSERT INTO users (userId, gender, firstname, lastname, birthdate, email, password, type) 
+                                VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
+                        $stmt = mysqli_stmt_init($conn);
+
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            echo "SQL-Fehler";
+                            return;
+                        }
+
+                        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                        $birthdate = date("Y-m-d", strtotime($birthdate));
+                        mysqli_stmt_bind_param($stmt, "sssssss", $gender, $firstname, $lastname, $birthdate, $email, $hashedPassword, $type);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
+
+                        echo "<h3>Herzlich Willkommen " . $_POST["gender"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</h3><br>";
+                        echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+                        $_SESSION["login"] = true;
+                    }
+                    $birth = input($_POST["date"]);
+                    $birthDate = date("d.m.Y", strtotime($birth));
+                    createUser($conn, $dBgender, $_POST["firstname"], $_POST["lastname"], $birthDate, $_POST["email"], $_POST["password"], "user");
+                    setcookie("email", $_POST["email"], time() + (86400 * 30), "/");
                 }
-            }
-
-            if (empty($_POST["password"])) {
-                $passwordErr = "*erforderlich";
-            } else {
-                $password = input($_POST["password"]);
-            }
-
-            //Passwortvalidierung
-            $uppercase = preg_match('@[A-Z]@', $password);
-            $lowercase = preg_match('@[a-z]@', $password);
-            $number = preg_match('@[0-9]@', $password);
-            $specialChars = preg_match('@[^\w]@', $password);
-
-            if (strlen($password) < 8 && !(empty($_POST["password"]))) {
-                $passwordErr = "*erforderlich:";
-                $passwordErrLen = "8 Zeichen";
-            }
-
-            if (!$uppercase && !(empty($_POST["password"]))) {
-                $passwordErr = "*erforderlich:";
-                $passwordErrUp = "1 Großbuchstabe";
-            }
-
-            if (!$lowercase && !(empty($_POST["password"]))) {
-                $passwordErr = "*erforderlich:";
-                $passwordErrLow = "1 Kleinbuchstabe";
-            }
-
-            if (!$number && !(empty($_POST["password"]))) {
-                $passwordErr = "*erforderlich:";
-                $passwordErrNum = "1 Zahl";
-            }
-
-            if (!$specialChars && !(empty($_POST["password"]))) {
-                $passwordErr = "*erforderlich:";
-                $passwordErrSpecial = "1 Sonderzeichen";
-            }
-
-            if (empty($_POST["password2"])) {
-                $password2Err = "*erforderlich";
-            } else if ($_POST['password'] != $_POST['password2']) {
-                $password2Err = "Passwort ist nicht ident!";
-            } else {
-                $password2 = input($_POST["password2"]);
-            }
-
-            if (empty($_POST["date"])) {
-                $dateErr = "*erforderlich";
-            } else {
-                $date = input($_POST["date"]);
-            }
-        }
-
-        function input($data)
-        {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-        ?>
+                ?>
+            </div>
+        </div>
         <!-- Formular -->
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="container">
@@ -299,81 +372,6 @@ session_start();
                 } ?>
             </p>
         </form>
-        <div class="d-grid mx-auto">
-            <div class="text-center">
-                <?php
-                if (
-                    $genderErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
-                    $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
-                    $passwordErrNum == "" && $passwordErrSpecial == "" && $passwordErrLen == "" && $gender != ""
-                ) {
-                    //Daten in Datenbank speichern
-                    require_once '../utils/dbaccess.php';
-                    function emailExists($conn, $email)
-                    {
-                        require_once '../utils/dbaccess.php';
-                        $sql = "SELECT * FROM users WHERE email = ?;";
-                        $stmt = mysqli_stmt_init($conn);
-
-                        if (!mysqli_stmt_prepare($stmt, $sql)) {
-                            echo "SQL-Fehler";
-                        }
-
-                        mysqli_stmt_bind_param($stmt, "s", $email);
-                        mysqli_stmt_execute($stmt);
-
-                        $resultData = mysqli_stmt_get_result($stmt);
-
-                        if ($row = mysqli_fetch_assoc($resultData)) {
-                            return $row;
-                        } else {
-                            $result = false;
-                            return $result;
-                        }
-                        mysqli_stmt_close($stmt);
-                    }
-
-                    if (emailExists($conn, $_POST["email"])) {
-                        echo "<p style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</p>";
-                        exit();
-                    }
-
-                    if ($_POST["gender"] == "Herr") {
-                        $dBgender = "M";
-                    } else {
-                        $dBgender = "W";
-                    }
-
-                    function createUser($conn, $gender, $firstname, $lastname, $birthdate, $email, $password, $type)
-                    {
-                        require_once '../utils/dbaccess.php';
-                        $sql = "INSERT INTO users (userId, gender, firstname, lastname, birthdate, email, password, type) 
-                                VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
-                        $stmt = mysqli_stmt_init($conn);
-
-                        if (!mysqli_stmt_prepare($stmt, $sql)) {
-                            echo "SQL-Fehler";
-                            return;
-                        }
-
-                        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                        $birthdate = date("Y-m-d", strtotime($birthdate));
-                        mysqli_stmt_bind_param($stmt, "sssssss", $gender, $firstname, $lastname, $birthdate, $email, $hashedPassword, $type);
-                        mysqli_stmt_execute($stmt);
-                        mysqli_stmt_close($stmt);
-
-                        echo "<h3>Herzlich Willkommen " . $_POST["gender"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</h3><br>";
-                        echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-                        $_SESSION["login"] = true;
-                    }
-                    $birth = input($_POST["date"]);
-                    $birthDate = date("d.m.Y", strtotime($birth));
-                    createUser($conn, $dBgender, $_POST["firstname"], $_POST["lastname"], $birthDate, $_POST["email"], $_POST["password"], "user");
-                    setcookie("email", $email, time() + (86400 * 30 + 3600 * 0), "/");
-                }
-                ?>
-            </div>
-        </div>
     </div>
     <!-- Footer-->
     <?php include '../utils/footer.php'; ?>

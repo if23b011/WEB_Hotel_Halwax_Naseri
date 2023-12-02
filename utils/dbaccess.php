@@ -2,11 +2,11 @@
 
 $servername = "localhost";
 $username = "if23b011";
-$password = "Hannes123!?";
-$database = "hoteltropicana";
+$password = "Passwort123";
+$database = "hotel";
 
 $conn = mysqli_connect($servername, $username, $password, $database);
 
-if(!$conn){
+if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
