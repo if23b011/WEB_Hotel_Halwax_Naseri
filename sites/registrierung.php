@@ -133,29 +133,7 @@ session_start();
                 ) {
                     //Daten in Datenbank speichern
                     require_once '../utils/dbaccess.php';
-                    function emailExists($conn, $email)
-                    {
-                        require_once '../utils/dbaccess.php';
-                        $sql = "SELECT * FROM users WHERE email = ?;";
-                        $stmt = mysqli_stmt_init($conn);
 
-                        if (!mysqli_stmt_prepare($stmt, $sql)) {
-                            echo "SQL-Fehler";
-                        }
-
-                        mysqli_stmt_bind_param($stmt, "s", $email);
-                        mysqli_stmt_execute($stmt);
-
-                        $resultData = mysqli_stmt_get_result($stmt);
-
-                        if ($row = mysqli_fetch_assoc($resultData)) {
-                            return $row;
-                        } else {
-                            $result = false;
-                            return $result;
-                        }
-                        mysqli_stmt_close($stmt);
-                    }
 
                     if (emailExists($conn, $_POST["email"])) {
                         echo "<p style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</p>";
@@ -168,32 +146,55 @@ session_start();
                         $dBgender = "W";
                     }
 
-                    function createUser($conn, $gender, $firstname, $lastname, $birthdate, $email, $password, $type)
-                    {
-                        require_once '../utils/dbaccess.php';
-                        $sql = "INSERT INTO users (userId, gender, firstname, lastname, birthdate, email, password, type) 
-                                VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
-                        $stmt = mysqli_stmt_init($conn);
-
-                        if (!mysqli_stmt_prepare($stmt, $sql)) {
-                            echo "SQL-Fehler";
-                            return;
-                        }
-
-                        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                        $birthdate = date("Y-m-d", strtotime($birthdate));
-                        mysqli_stmt_bind_param($stmt, "sssssss", $gender, $firstname, $lastname, $birthdate, $email, $hashedPassword, $type);
-                        mysqli_stmt_execute($stmt);
-                        mysqli_stmt_close($stmt);
-
-                        echo "<h3>Herzlich Willkommen " . $_POST["gender"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</h3><br>";
-                        echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-                        $_SESSION["login"] = true;
-                    }
                     $birth = input($_POST["date"]);
                     $birthDate = date("d.m.Y", strtotime($birth));
                     createUser($conn, $dBgender, $_POST["firstname"], $_POST["lastname"], $birthDate, $_POST["email"], $_POST["password"], "user");
                     setcookie("email", $_POST["email"], time() + (86400 * 30), "/");
+                }
+                function emailExists($conn, $email)
+                {
+                    require_once '../utils/dbaccess.php';
+                    $sql = "SELECT * FROM users WHERE email = ?;";
+                    $stmt = mysqli_stmt_init($conn);
+
+                    if (!mysqli_stmt_prepare($stmt, $sql)) {
+                        echo "SQL-Fehler";
+                    }
+
+                    mysqli_stmt_bind_param($stmt, "s", $email);
+                    mysqli_stmt_execute($stmt);
+
+                    $resultData = mysqli_stmt_get_result($stmt);
+
+                    if ($row = mysqli_fetch_assoc($resultData)) {
+                        return $row;
+                    } else {
+                        $result = false;
+                        return $result;
+                    }
+                    mysqli_stmt_close($stmt);
+                }
+                function createUser($conn, $gender, $firstname, $lastname, $birthdate, $email, $password, $type)
+                {
+                    require_once '../utils/dbaccess.php';
+                    $sql = "INSERT INTO users (userId, gender, firstname, lastname, birthdate, email, password, type) 
+                                VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
+                    $stmt = mysqli_stmt_init($conn);
+
+                    if (!mysqli_stmt_prepare($stmt, $sql)) {
+                        echo "SQL-Fehler";
+                        return;
+                    }
+
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $birthdate = date("Y-m-d", strtotime($birthdate));
+                    mysqli_stmt_bind_param($stmt, "sssssss", $gender, $firstname, $lastname, $birthdate, $email, $hashedPassword, $type);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+
+                    echo "<h3>Herzlich Willkommen " . $_POST["gender"] . " " . $_POST["firstname"] . " " . $_POST["lastname"] . "!</h3><br>";
+                    echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+                    $_SESSION["login"] = true;
                 }
                 ?>
             </div>
@@ -207,13 +208,13 @@ session_start();
                 <div class="mb-3">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="gender" <?php if (isset($gender) && $gender == "Herr")
-                            echo "checked"; ?> value=" Herr">
+                            echo "checked"; ?> value="Herr">
                         <p>Herr</p>
                     </div>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="gender" <?php if (isset($gender) && $gender == "Frau")
-                        echo "checked"; ?> value=" Frau">
+                        echo "checked"; ?> value="Frau">
                     <p>Frau</p>
                 </div>
                 <span class="error">

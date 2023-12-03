@@ -51,7 +51,7 @@
                         </a>
                     </li>
                     <?php
-                    if ($_SESSION["admin"] == true) {
+                    if ($_COOKIE["admin"] == true) {
                         echo '<li class="nav-item">
 <a class="nav-link" href="../sites/newsupload.php">
 <h4 style="color: white">Upload</h4>

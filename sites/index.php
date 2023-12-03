@@ -52,7 +52,7 @@ session_start();
         </div>
         <div class="d-grid gap-3 col-6 mx-auto">
             <?php
-            if ($_SESSION["login"] == true) {
+            if (isset($_COOKIE["email"])) {
                 echo "<a class='btn btn-primary' href='../sites/buchung.php' role='button'>Zu den Zimmern</a>";
             } else {
                 echo "<a class='btn btn-primary' href='../sites/registrierung.php' role='button'>Zur Registrierung</a>";

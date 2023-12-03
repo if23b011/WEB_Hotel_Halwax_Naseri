@@ -60,8 +60,6 @@ session_start();
             </div>
         </div>
     </div>
-    </div>
-    </div>
     <!-- Footer-->
     <?php include '../utils/footer.php'; ?>
     <!-- Bootstrap core JS-->

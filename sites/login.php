@@ -107,6 +107,7 @@ session_start();
                                     }
                                     if ($row['type'] == 'admin') {
                                         $_SESSION['admin'] = true;
+                                        setcookie("admin", true, time() + (86400 * 30), "/");
                                         echo '<h3>Willkommen zurück Admin!</h3>';
                                         echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
                                     } else {
