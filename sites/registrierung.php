@@ -3,7 +3,6 @@
 session_start();
 
 ?>
-<!-- //TODO: Code kommentieren -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +21,6 @@ session_start();
     <!-- Navigation-->
     <?php include '../utils/navbar.php'; ?>
     <!-- Content-->
-    <!--TODO: Für Handy anpassen-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Registrierung</h1>
         <div class="d-grid mx-auto">

@@ -139,13 +139,6 @@ session_start();
                     <h3>News vom 11.11.2023</h3>
                 </div>
             </div>
-            <?php
-            /* //TODO: Wieder anzeigen nach Video
-            if (empty($_SESSION["title"]) && empty($_SESSION["fileToUpload"]) && empty($_SESSION["text"]) && empty($_SESSION["newsDate"])) {
-                echo '<div class="text-center"><h2>Keine News vorhanden</h2></div>';
-            }
-            */
-            ?>
         </div>
     </div>
     <!-- Footer-->

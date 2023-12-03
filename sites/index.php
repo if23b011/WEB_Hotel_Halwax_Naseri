@@ -23,7 +23,6 @@ session_start();
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
         <h1>Hotel Tropicana - hier werden Urlaubsträume wahr!</h1>
-        <!-- TODO: Zimmer - Carousel implementieren-->
         <div id="carouselExampleAutoplaying" class="carousel slide mb-4" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">

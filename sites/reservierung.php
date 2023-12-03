@@ -157,7 +157,6 @@ session_start();
                             createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
                         }
                     }
-                    //TODO: Berechnung der Kosten richtig machen
                     function calculateCost($room, $arrivalDate, $departureDate, $breakfast, $parking, $pets)
                     {
                         $totalCost = 0;
