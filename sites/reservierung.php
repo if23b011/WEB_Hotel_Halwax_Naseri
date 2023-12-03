@@ -23,7 +23,12 @@ session_start();
         <h1>Reservierung</h1>
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $room = $_SESSION['zimmer'];
             $arrival = $departure = $arrivalDate = $departureDate = $breakfast = $parking = $pets = $comments = "";
+            $status = "neu";
+            $time = time();
+            $reservationDate = date("d.m.Y", $time);
+            $FK_userId = $_COOKIE['email'];
             if (isset($_POST["arrivalDate"])) {
                 $arrival = input($_POST["arrivalDate"]);
                 $arrivalDate = date("d.m.Y", strtotime($arrival));
@@ -50,12 +55,7 @@ session_start();
             if (isset($_POST["comments"])) {
                 $comments = input($_POST["comments"]);
             }
-            $_SESSION['arrivalDate'] = $arrivalDate;
-            $_SESSION['departureDate'] = $departureDate;
-            $_SESSION['breakfast'] = $breakfast;
-            $_SESSION['parking'] = $parking;
-            $_SESSION['pets'] = $pets;
-            $_SESSION['comments'] = $comments;
+
         }
         ?>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -120,7 +120,83 @@ session_start();
                                 ' wurde mit folgenden Bemerkungen gebucht: Frühstück ' . $breakfast . ', Parkplatz ' . $parking .
                                 ', Haustiere ' . $pets . '</div>';
                             echo "<a class='btn btn-info' role='button' href='../sites/reservierungen.php'>Meine Reservierungen</a>";
+                            //Daten in Datenbank speichern
+                            require_once '../utils/dbaccess.php';
+                            $totalCost = calculateCost($room, $arrivalDate, $departureDate, $breakfast, $parking, $pets);
+                            $arrivalDate = date("Y-m-d", strtotime($arrivalDate));
+                            $departureDate = date("Y-m-d", strtotime($departureDate));
+                            $reservationDate = date("Y-m-d", strtotime($reservationDate));
+                            if ($breakfast == "inkludiert") {
+                                $breakfast = 1;
+                            } else {
+                                $breakfast = 0;
+                            }
+                            if ($parking == "inkludiert") {
+                                $parking = 1;
+                            } else {
+                                $parking = 0;
+                            }
+                            if ($pets == "inkludiert") {
+                                $pets = 1;
+                            } else {
+                                $pets = 0;
+                            }
+                            $sql = "SELECT userId FROM users WHERE email = ?;";
+                            $stmt = mysqli_stmt_init($conn);
+                            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                                echo "SQL statement failed";
+                                return;
+                            }
+                            mysqli_stmt_bind_param($stmt, "s", $FK_userId);
+                            mysqli_stmt_execute($stmt);
+                            $result = mysqli_stmt_get_result($stmt);
+                            $row = mysqli_fetch_assoc($result);
+                            $FK_userId = $row['userId'];
+                            mysqli_stmt_close($stmt);
+                            
+                            createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
                         }
+                    }
+                    //TODO: Berechnung der Kosten richtig machen
+                    function calculateCost($room, $arrivalDate, $departureDate, $breakfast, $parking, $pets)
+                    {
+                        $totalCost = 0;
+                        $days = (strtotime($departureDate) - strtotime($arrivalDate)) / (60 * 60 * 24);
+                        if ($room == "Einzelzimmer mit Einzelbett") {
+                            $totalCost = $days * 30;
+                        } else if ($room == "Einzelzimmer mit Doppelbett") {
+                            $totalCost = $days * 75;
+                        } else if ($room == "Luxus Zimmer mit Jacuzzi") {
+                            $totalCost = $days * 200;
+                        } else if ($room == "Luxus Suite mit privatem Butler") {
+                            $totalCost = $days * 500;
+                        }
+                        if ($breakfast == "inkludiert") {
+                            $totalCost += $days * 5;
+                        }
+                        if ($parking == "inkludiert") {
+                            $totalCost += $days * 10;
+                        }
+                        if ($pets == "inkludiert") {
+                            $totalCost += 15;
+                        }
+                        return $totalCost;
+                    }
+                    function createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId)
+                    {
+                        require_once '../utils/dbaccess.php';
+                        $sql = "INSERT INTO reservations (room, arrivalDate, departureDate, breakfast, parking, pets, comments, reservationDate, totalCost, status, FK_userId) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        $stmt = mysqli_stmt_init($conn);
+
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            echo "SQL statement failed";
+                            return;
+                        }
+
+                        mysqli_stmt_bind_param($stmt, "sssiiissisi", $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
                     }
                     function input($data)
                     {
@@ -132,8 +208,6 @@ session_start();
                     ?>
                 </div>
         </form>
-    </div>
-    </div>
     </div>
 
 

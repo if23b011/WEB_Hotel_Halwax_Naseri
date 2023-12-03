@@ -134,7 +134,6 @@ session_start();
                     //Daten in Datenbank speichern
                     require_once '../utils/dbaccess.php';
 
-
                     if (emailExists($conn, $_POST["email"])) {
                         echo "<p style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</p>";
                         exit();
@@ -182,7 +181,7 @@ session_start();
                     $stmt = mysqli_stmt_init($conn);
 
                     if (!mysqli_stmt_prepare($stmt, $sql)) {
-                        echo "SQL-Fehler";
+                        echo "SQL statement failed";
                         return;
                     }
 
