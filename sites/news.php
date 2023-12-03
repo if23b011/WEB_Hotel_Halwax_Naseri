@@ -26,6 +26,7 @@ session_start();
                 <div class="text-center">
                     <h2>
                         <?php
+                        //TODO: News aus Datenbank auslesen und anzeigen
                         if (isset($_SESSION["title"])) {
                             echo $_SESSION["title"];
                         }

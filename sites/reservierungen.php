@@ -24,38 +24,7 @@ session_start();
         <div class="d-grid col-12 mx-auto">
             <div class="mb-3 container">
                 <?php
-                if (
-                    empty($_SESSION['zimmer']) && empty($_SESSION['arrivalDate']) && empty($_SESSION['departureDate'])
-                    && empty($_SESSION['breakfast']) && empty($_SESSION['parking']) && empty($_SESSION['pets'])
-                    && empty($_SESSION['comments'])
-                ) {
-                    echo '<h2>Du hast derzeit keine Reservierungen</h2>';
-                } else {
-                    echo "<div class='alert alert-light' role='alert' data-bs-theme='dark'>";
-                    if (isset($_SESSION['zimmer'])) {
-                        echo 'Zimmer: ' . $_SESSION['zimmer'] . '<br>';
-                    }
-                    if (isset($_SESSION['arrivalDate'])) {
-                        echo 'Anreisedatum: ' . $_SESSION['arrivalDate'] . '<br>';
-                    }
-                    if (isset($_SESSION['departureDate'])) {
-                        echo 'Abreisedatum: ' . $_SESSION['departureDate'] . '<br>';
-                    }
-                    if (isset($_SESSION['breakfast'])) {
-                        echo 'Frühstück: ' . $_SESSION['breakfast'] . '<br>';
-                    }
-                    if (isset($_SESSION['parking'])) {
-                        echo 'Parkplatz: ' . $_SESSION['parking'] . '<br>';
-                    }
-                    if (isset($_SESSION['pets'])) {
-                        echo 'Haustiere: ' . $_SESSION['pets'] . '<br>';
-                    }
-                    if ($_SESSION['comments'] != "") {
-                        echo 'Bemerkungen: ' . $_SESSION['comments'];
-                    } else {
-                        echo 'Bemerkungen: keine';
-                    }
-                }
+                //TODO: Reservierungen aus Datenbank auslesen und anzeigen
                 ?>
             </div>
         </div>

@@ -1,4 +1,7 @@
 <?php
+//TODO: Speichern der News in der Datenbank
+?>
+<?php
 
 session_start();
 
