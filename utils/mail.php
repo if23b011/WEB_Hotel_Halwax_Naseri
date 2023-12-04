@@ -31,12 +31,14 @@ try {
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Change Passsword';
-    $mail->Body = 'Click the link to change your Password: ' . $_GET["url"] . '';
+    $mail->Subject = 'Change Password';
+    $mail->Body = 'Click the link to change your Password: ' . $_GET["url"] . '&validator=' . $_GET["validator"];
 
     $mail->send();
-    header("Location: ../sites/resetpassword.php?reset=success");
+
     echo 'Message has been sent';
+    header("Location: ../sites/resetpassword.php?reset=success");
+
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }

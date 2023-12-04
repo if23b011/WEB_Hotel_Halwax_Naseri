@@ -55,11 +55,8 @@ session_start();
         } else {
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                 echo "<p>Der Newsbeitrag wurde erfolgreich hochgeladen.</p>";
-                $_SESSION["text"] = $_POST["text"];
-                $_SESSION["title"] = $_POST["title"];
-                $timestamp = time();
-                $_SESSION["newsDate"] = date("d.m.Y", $timestamp);
-                $_SESSION["fileToUpload"] = $_FILES["fileToUpload"]["name"];
+                //TODO: Speichern der News in der Datenbank
+                header("Location: ../sites/news.php");
             } else {
                 echo "<p>Sorry, there was an error uploading your file.</p>";
             }

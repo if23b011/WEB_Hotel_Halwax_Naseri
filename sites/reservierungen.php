@@ -25,6 +25,7 @@ session_start();
             <div class="mb-3 container">
                 <?php
                 //TODO: Reservierungen aus Datenbank auslesen und anzeigen
+                
                 ?>
             </div>
         </div>

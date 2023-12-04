@@ -5,7 +5,6 @@ if (isset($_POST["resetRequest"])) {
     $token = random_bytes(32);
 
     $url = "http://localhost/hoteltropicana/sites/create-new-password.php?selector=" . $selector . "&validator=" . bin2hex($token);
-    bin2hex($token);
 
     $expires = date("U") + 1800;
 
@@ -37,7 +36,7 @@ if (isset($_POST["resetRequest"])) {
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
 
-    header("Location: ../utils/mail.php?mail= " . $userEmail . "&url=" . $url . "");
+    header("Location: ../utils/mail.php?mail=" . $userEmail . "&url=" . $url . "");
 
 } else {
     header("Location: ../sites/index.php");

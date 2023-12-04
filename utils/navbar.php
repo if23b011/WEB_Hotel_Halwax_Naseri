@@ -25,14 +25,7 @@
                 <ul class="navbar-nav">
                     <?php
                     if (isset($_COOKIE["email"])) {
-                        echo '<li class="nav-item">
-                        <a class="nav-link" href="../utils/logout.php">
-                        <h4 style="color: white">Logout</h4>
-                        </a>
-                        <li class="nav-item">
-                        <a class="nav-link" href="../sites/profil.php">
-                        <h4 style="color: white">Profil</h4>
-                        </a> 
+                        echo '
                         <li class="nav-item">
                         <a class="nav-link" href="../sites/buchung.php">
                         <h4 style="color: white">Reservierung</h4>
@@ -51,13 +44,32 @@
                         </a>
                     </li>
                     <?php
-                    if ($_COOKIE["admin"] == true) {
+                    if (isset($_COOKIE["admin"]) && $_COOKIE["admin"] == true) {
                         echo '<li class="nav-item">
 <a class="nav-link" href="../sites/newsupload.php">
 <h4 style="color: white">Upload</h4>
 </a> ';
                     }
                     ?>
+                </ul>
+            </div>
+            <div class="d-flex">
+                <ul class="navbar-nav ms-auto">
+                    <?php
+                    if (isset($_COOKIE["email"])) {
+                        echo '
+                            <li class="nav-item">
+                            <a class="nav-link" href="../sites/profil.php">
+                                <h4 style="color: white">' . $_COOKIE["email"] . '</h4>
+                            </a>
+                            <li class="nav-item">
+                            <a class="nav-link" href="../utils/logout.php">
+                            <h4 style="color: white">Logout</h4>
+                            </a> 
+                            ';
+                    }
+                    ?>
+
                 </ul>
             </div>
         </div>

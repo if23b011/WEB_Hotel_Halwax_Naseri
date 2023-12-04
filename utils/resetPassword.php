@@ -4,13 +4,15 @@ if (isset($_POST["resetPassword"])) {
 
     $selector = $_POST["selector"];
     $validator = $_POST["validator"];
-    $password = $_POST["pwd"];
-    $passwordRepeat = $_POST["pwd-repeat"];
+    $newPassword = $_POST["password"];
+    $newPasswordRepeat = $_POST["passwordRepeat"];
+    echo $newPassword;
+    echo $newPasswordRepeat;
 
-    if (empty($password) || empty($passwordRepeat)) {
+    if (empty($newPassword) || empty($newPasswordRepeat)) {
         header("Location: ../sites/create-new-password.php?selector=" . $selector . "&validator=" . $validator . "&reset=empty");
         exit();
-    } else if ($password != $passwordRepeat) {
+    } else if ($newPassword != $newPasswordRepeat) {
         header("Location: ../sites/create-new-password.php?selector=" . $selector . "&validator=" . $validator . "&reset=pwdnotsame");
         exit();
     }
@@ -37,7 +39,6 @@ if (isset($_POST["resetPassword"])) {
             $tokenBin = hex2bin($validator);
             $tokenCheck = password_verify($tokenBin, $row["pwdResetToken"]);
 
-
             if ($tokenCheck === false) {
                 echo "You need to re-submit your reset request.";
                 exit();
@@ -63,7 +64,9 @@ if (isset($_POST["resetPassword"])) {
                             echo "Error";
                             exit();
                         } else {
-                            $newPwdHash = password_hash($password, PASSWORD_DEFAULT);
+                            echo $newPassword;
+                            $newPwdHash = password_hash($newPassword, PASSWORD_DEFAULT);
+                            echo $newPwdHash;
                             mysqli_stmt_bind_param($stmt, "ss", $newPwdHash, $tokenEmail);
                             mysqli_stmt_execute($stmt);
 
