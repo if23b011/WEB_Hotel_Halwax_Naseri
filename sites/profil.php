@@ -130,7 +130,7 @@ session_start();
                     <input type="text" class="form-control" name="lastname" placeholder="Nachname" tabindex="2"
                         value="<?php echo $lastname; ?>">
                     <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse" tabindex="3"
-                        value="<?php echo $email; ?>">
+                        value="<?php echo $email; ?>" disabled>
                     <input type="date" class="form-control" name="date" tabindex="4" value="<?php echo $date; ?>">
                     <input class="btn btn-primary" type="submit" value="Änderungen übernehmen" tabindex="5">
                     <p>Passwort ändern:</p>
