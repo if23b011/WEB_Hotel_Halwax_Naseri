@@ -184,6 +184,13 @@ session_start();
                                 </p>
                             </span>
                         </div>
+                        <?php
+                        if (isset($_GET["newpwd"])) {
+                            if ($_GET["newpwd"] == "passwordupdated") {
+                                echo '<p class="text-success">Your password has been reset!</p>';
+                            }
+                        }
+                        ?>
                         <div class="mb-3">
                             <p class="text-center"><a href="../sites/resetpassword.php">Passwort vergessen?</a></p>
                         </div>

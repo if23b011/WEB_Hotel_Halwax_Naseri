@@ -22,15 +22,28 @@ session_start();
     <?php include '../utils/navbar.php'; ?>
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
-        <form method="post" action="../utils/resetRequest.php">
+        <?php
+        $selector = $_GET["selector"];
+        $validator = $_GET["validator"];
+
+        if (empty($selector) || empty($validator)) {
+            echo "Could not validate your request!";
+        } else {
+            if (ctype_xdigit($selector) !== false && ctype_xdigit($validator) !== false) {
+                ?>
+        <form method="post" action="../utils/resetPassword.php">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="mb-1">
-                            <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse">
+                            <input type="hidden" name="selector" value="<?php echo $selector; ?>">
+                            <input type="hidden" name="validator" value="<?php echo $validator; ?>">
+                            <input type="password" class="form-control" name="pwd" placeholder="Neues Passwort">
+                            <input type="password" class="form-control" name="pwd-repeat"
+                                placeholder="Passwort wiederholen">
                         </div>
                         <div class="d-grid gap-2">
-                            <input class="btn btn-primary" type="submit" value="Submit" name="resetRequest">
+                            <input class="btn btn-primary" type="submit" value="Reset Password" name="resetPassword">
                         </div>
                     </div>
                 </div>
