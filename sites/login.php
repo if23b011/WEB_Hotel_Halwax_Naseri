@@ -184,6 +184,9 @@ session_start();
                                 </p>
                             </span>
                         </div>
+                        <div class="mb-3">
+                            <p class="text-center"><a href="../sites/resetpassword.php">Passwort vergessen?</a></p>
+                        </div>
                         <div class="d-grid gap-2">
                             <input class="btn btn-primary" type="submit" value="Submit">
                         </div>
