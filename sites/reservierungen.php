@@ -48,49 +48,54 @@ session_start();
                 mysqli_stmt_bind_param($stmt, "i", $FK_userId);
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
-                $number = 1;
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $room = $row['room'];
-                    $arrivalDate = $row['arrivalDate'];
-                    $departureDate = $row['departureDate'];
-                    $breakfast = $row['breakfast'];
-                    $parking = $row['parking'];
-                    $pets = $row['pets'];
-                    $comments = $row['comments'];
-                    $reservationDate = $row['reservationDate'];
-                    $totalCost = $row['totalCost'];
-                    $status = $row['status'];
-                    if ($breakfast == 1) {
-                        $breakfast = "inkludiert";
-                    } else {
-                        $breakfast = "nicht inkludiert";
+                if ($result->num_rows == 0) {
+                    header("Location: ../sites/buchung.php?reservation=none");
+                    exit();
+                } else {
+                    $number = 1;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $room = $row['room'];
+                        $arrivalDate = $row['arrivalDate'];
+                        $departureDate = $row['departureDate'];
+                        $breakfast = $row['breakfast'];
+                        $parking = $row['parking'];
+                        $pets = $row['pets'];
+                        $comments = $row['comments'];
+                        $reservationDate = $row['reservationDate'];
+                        $totalCost = $row['totalCost'];
+                        $status = $row['status'];
+                        if ($breakfast == 1) {
+                            $breakfast = "inkludiert";
+                        } else {
+                            $breakfast = "nicht inkludiert";
+                        }
+                        if ($parking == 1) {
+                            $parking = "inkludiert";
+                        } else {
+                            $parking = "nicht inkludiert";
+                        }
+                        if ($pets == 1) {
+                            $pets = "inkludiert";
+                        } else {
+                            $pets = "nicht inkludiert";
+                        }
+                        if (empty($comments)) {
+                            $comments = "keine";
+                        }
+                        echo '<p>Reservierungsnummer: ' . $number . '<br></p>';
+                        echo '<p>Zimmer: ' . $room . '<br></p>';
+                        echo '<p>Anreise: ' . date("d.m.Y", strtotime($arrivalDate)) . '<br></p>';
+                        echo '<p>Abreise: ' . date("d.m.Y", strtotime($departureDate)) . '<br></p>';
+                        echo '<p>Frühstück: ' . $breakfast . '<br></p>';
+                        echo '<p>Parkplatz: ' . $parking . '<br></p>';
+                        echo '<p>Haustiere: ' . $pets . '<br></p>';
+                        echo '<p>Kommentare: ' . $comments . '<br></p>';
+                        echo '<p>Reservierungsdatum: ' . date("d.m.Y", strtotime($reservationDate)) . '<br></p>';
+                        echo '<p>Gesamtkosten: ' . $totalCost . '€<br></p>';
+                        echo '<p>Status: ' . $status . '<br></p>';
+                        echo '<p>------------------------<br></p>';
+                        $number++;
                     }
-                    if ($parking == 1) {
-                        $parking = "inkludiert";
-                    } else {
-                        $parking = "nicht inkludiert";
-                    }
-                    if ($pets == 1) {
-                        $pets = "inkludiert";
-                    } else {
-                        $pets = "nicht inkludiert";
-                    }
-                    if (empty($comments)) {
-                        $comments = "keine";
-                    }
-                    echo '<p>Reservierungsnummer: ' . $number . '<br></p>';
-                    echo '<p>Zimmer: ' . $room . '<br></p>';
-                    echo '<p>Anreise: ' . date("d.m.Y", strtotime($arrivalDate)) . '<br></p>';
-                    echo '<p>Abreise: ' . date("d.m.Y", strtotime($departureDate)) . '<br></p>';
-                    echo '<p>Frühstück: ' . $breakfast . '<br></p>';
-                    echo '<p>Parkplatz: ' . $parking . '<br></p>';
-                    echo '<p>Haustiere: ' . $pets . '<br></p>';
-                    echo '<p>Kommentare: ' . $comments . '<br></p>';
-                    echo '<p>Reservierungsdatum: ' . date("d.m.Y", strtotime($reservationDate)) . '<br></p>';
-                    echo '<p>Gesamtkosten: ' . $totalCost . '€<br></p>';
-                    echo '<p>Status: ' . $status . '<br></p>';
-                    echo '<p>------------------------<br></p>';
-                    $number++;
                 }
                 mysqli_stmt_close($stmt);
                 ?>

@@ -55,7 +55,6 @@ session_start();
                         </div>
                         <div class="alert alert-light" role="alert" data-bs-theme="dark">
                             <p style="text-align: justify;">
-                                <br>
                                 <?php
                                 //TODO: Textausgabe fixen
                                 echo $row["text"] . "<br>";
@@ -63,8 +62,8 @@ session_start();
                             </p>
                             <h3>
                                 <?php
-                                $newsDate = date("d.m.Y H:i", strtotime($row["newsDate"]));
-                                echo $newsDate . "<br>";
+                                $newsDate = date("d.m.Y H:i:s", strtotime($row["newsDate"]));
+                                echo "News vom " . $newsDate . "<br>";
                                 ?>
                             </h3>
                         </div>

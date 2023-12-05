@@ -131,22 +131,23 @@ session_start();
                 ) {
                     //Daten in Datenbank speichern
                     require_once '../utils/dbaccess.php';
-
                     if (emailExists($conn, $_POST["email"])) {
-                        echo "<p style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</p>";
-                        exit();
-                    }
-
-                    if ($_POST["gender"] == "Herr") {
-                        $dBgender = "M";
+                        echo "<h3 style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</h3>";
+                        echo "<p>In 1 Sekunde erneut versuchen...</p>";
+                        header("Refresh:1; url=../sites/registrierung.php");
                     } else {
-                        $dBgender = "W";
-                    }
 
-                    $birth = input($_POST["date"]);
-                    $birthDate = date("d.m.Y", strtotime($birth));
-                    createUser($conn, $dBgender, $_POST["firstname"], $_POST["lastname"], $birthDate, $_POST["email"], $_POST["password"], "user");
-                    setcookie("email", $_POST["email"], time() + (86400 * 30), "/");
+                        if ($_POST["gender"] == "Herr") {
+                            $dBgender = "M";
+                        } else {
+                            $dBgender = "W";
+                        }
+
+                        $birth = input($_POST["date"]);
+                        $birthDate = date("d.m.Y", strtotime($birth));
+                        createUser($conn, $dBgender, $_POST["firstname"], $_POST["lastname"], $birthDate, $_POST["email"], $_POST["password"], "user");
+                        setcookie("email", $_POST["email"], time() + (86400 * 30), "/");
+                    }
                 }
                 function emailExists($conn, $email)
                 {
@@ -160,22 +161,14 @@ session_start();
 
                     mysqli_stmt_bind_param($stmt, "s", $email);
                     mysqli_stmt_execute($stmt);
-
-                    $resultData = mysqli_stmt_get_result($stmt);
-
-                    if ($row = mysqli_fetch_assoc($resultData)) {
-                        return $row;
-                    } else {
-                        $result = false;
-                        return $result;
-                    }
-                    mysqli_stmt_close($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
+                    return mysqli_fetch_assoc($result);
                 }
                 function createUser($conn, $gender, $firstname, $lastname, $birthdate, $email, $password, $type)
                 {
                     require_once '../utils/dbaccess.php';
-                    $sql = "INSERT INTO users (userId, gender, firstname, lastname, birthdate, email, password, type) 
-                                VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
+                    $sql = "INSERT INTO users ( gender, firstname, lastname, birthdate, email, password, type) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?);";
                     $stmt = mysqli_stmt_init($conn);
 
                     if (!mysqli_stmt_prepare($stmt, $sql)) {

@@ -39,8 +39,8 @@ session_start();
                             <textarea class="form-control" id="text" rows="3" name="text"></textarea>
                         </div>
                         <div class="mb-3">
-                            <p>Bild auswählen:</p>
-                            <p><input type="file" name="fileToUpload" id="fileToUpload"></p>
+                            <p>Bild auswählen (optional):</p>
+                            <p><input type="file" name="fileToUpload"></p>
                         </div>
                         <div class="d-grid gap-2">
                             <input class="btn btn-primary" type="submit" value="Submit">

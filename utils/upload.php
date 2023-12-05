@@ -29,7 +29,7 @@ session_start();
         $newsDate = date("d.m.Y", time());
         require_once '../utils/dbaccess.php';
         $time = time();
-        $newsDate = date("Y-m-d H:i", strtotime($newsDate));
+        $newsDate = date("Y-m-d H:i:s", strtotime($newsDate));
         $sql = "SELECT userId FROM users WHERE email = ?;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -44,8 +44,7 @@ session_start();
         mysqli_stmt_close($stmt);
 
         //TODO:Bildupload fixen
-        if (isset($_POST["fileToUpload"])) {
-            echo "fileToUpload is set";
+        if (!empty($_FILES["fileToUpload"]["name"])) {
             $target_dir = "../img/thumbnails/";
             $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
             $uploadOk = 1;
@@ -90,7 +89,7 @@ session_start();
         function upload($conn, $title, $text, $target_file, $newsDate, $FK_userId)
         {
             require_once '../utils/dbaccess.php';
-            $newsDate = date("Y-m-d H:i");
+            $newsDate = date("Y-m-d H:i:s");
             $sql = "INSERT INTO news (title, text, filepath, newsDate, FK_userId) VALUES (?, ?, ?, ?, ?);";
             $stmt = mysqli_stmt_init($conn);
             if (!mysqli_stmt_prepare($stmt, $sql)) {

@@ -21,6 +21,16 @@ session_start();
     <!-- Content-->
     <div class="container" style="margin-bottom: 100px;">
         <h1 class="text-center mx-auto">Zimmerauswahl</h1>
+        <div class="mb-4">
+            <?php
+            if (isset($_GET["reservation"])) {
+                if ($_GET["reservation"] == "none") {
+                    echo '<h3 class="text-danger text-center">Sie haben noch keine Reservierung getätigt</h3>';
+                }
+            }
+            ?>
+        </div>
+
         <?php $_SESSION['zimmer'] = '' ?>
         <div class="container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-xxl-4 justify-content-center">
