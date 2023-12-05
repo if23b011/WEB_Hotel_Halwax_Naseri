@@ -43,6 +43,7 @@ session_start();
         $FK_userId = $row['userId'];
         mysqli_stmt_close($stmt);
 
+        //TODO:Bildupload fixen
         if (isset($_POST["fileToUpload"])) {
             echo "fileToUpload is set";
             $target_dir = "../img/thumbnails/";
@@ -98,7 +99,7 @@ session_start();
             }
             mysqli_stmt_bind_param($stmt, "ssssi", $title, $text, $target_file, $newsDate, $FK_userId);
             mysqli_stmt_execute($stmt);
-            //header("Location: ../sites/news.php?upload=success");
+            header("Location: ../sites/news.php?upload=success");
         }
         ?>
     </div>
