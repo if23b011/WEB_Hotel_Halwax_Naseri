@@ -210,12 +210,17 @@ session_start();
                             mysqli_stmt_execute($stmt);
                             mysqli_stmt_close($stmt);
                             echo '<div class="alert alert-success" role="alert">
-                    Passwort erfolgreich geändert!
-                    </div>';
+                            Passwort erfolgreich geändert!
+                            </div>';
                         }
                     }
                     ?>
-                    <input class="btn btn-danger" type="submit" value="Passwort ändern" tabindex="8">
+                    <input class="btn btn-warning" type="submit" value="Passwort ändern" tabindex="8">
+                    <?php
+                    if (isset($_COOKIE["email"])) {
+                        echo '<a class="btn btn-danger" role="button" href="../utils/logout.php">Logout</a>"';
+                    }
+                    ?>
                 </div>
             </form>
         </div>
