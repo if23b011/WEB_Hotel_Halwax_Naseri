@@ -26,8 +26,7 @@ session_start();
             $room = $_SESSION['zimmer'];
             $arrival = $departure = $arrivalDate = $departureDate = $breakfast = $parking = $pets = $comments = "";
             $status = "neu";
-            $time = time();
-            $reservationDate = date("d.m.Y", $time);
+            $reservationDate = date("d.m.Y", time());
             $FK_userId = $_COOKIE['email'];
             if (isset($_POST["arrivalDate"])) {
                 $arrival = input($_POST["arrivalDate"]);
@@ -55,7 +54,6 @@ session_start();
             if (isset($_POST["comments"])) {
                 $comments = input($_POST["comments"]);
             }
-
         }
         ?>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -153,7 +151,6 @@ session_start();
                             $row = mysqli_fetch_assoc($result);
                             $FK_userId = $row['userId'];
                             mysqli_stmt_close($stmt);
-                            
                             createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
                         }
                     }
