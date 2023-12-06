@@ -46,9 +46,9 @@
                     <?php
                     if (isset($_COOKIE["admin"]) && $_COOKIE["admin"] == true) {
                         echo '<li class="nav-item">
-<a class="nav-link" href="../sites/newsupload.php">
-<h4 style="color: white">Upload</h4>
-</a> ';
+                        <a class="nav-link" href="../sites/newsupload.php">
+                        <h4 style="color: white">Upload</h4>
+                        </a> ';
                     }
                     ?>
                 </ul>
@@ -58,7 +58,7 @@
                         echo '
                             <li class="nav-item">
                             <a class="nav-link" href="../sites/profil.php">
-                                <h4 style="color: white">' . $_COOKIE["email"] . '</h4>
+                                <h4 style="color: white">Profil</h4>
                             </a>
                             ';
                     }

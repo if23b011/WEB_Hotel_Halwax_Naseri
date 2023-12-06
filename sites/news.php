@@ -34,7 +34,7 @@ session_start();
                 require_once '../utils/dbaccess.php';
                 $sql = "SELECT * FROM news ORDER BY newsdate DESC";
                 $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
+                if ($result->num_rows < 0) {
                     ?>
                     <?php
                     while ($row = $result->fetch_assoc()) {
@@ -47,11 +47,14 @@ session_start();
                             </h2>
                         </div>
                         <div class="text-center mb-4">
-                            <?php
-                            if (!empty($row["filePath"])) {
-                                echo '<img src="' . $row["filePath"] . '" alt="Thumbnail" class="img-fluid img-thumbnail " style="max-width: 50%;">';
-                            }
-                            ?>
+                            <div class="container">
+                                <?php
+                                if (!empty($row["filePath"])) {
+                                    echo '<img src="' . $row["filePath"] . '" alt="Thumbnail" class="img-thumbnail img-fluid">';
+                                }
+                                ?>
+
+                            </div>
                         </div>
                         <div class="alert alert-light" role="alert" data-bs-theme="dark">
                             <p style="text-align: justify;">
@@ -72,13 +75,9 @@ session_start();
                 } else {
                     echo '
                 <h3>Keine News vorhanden!</h3>
-                <p>Es sind keine News vorhanden.</p>
-                <hr>
-                <p class="mb-0">Bitte versuchen Sie es später erneut.</p>
                 </div>';
+                header("Location: ../sites/index.php?error=noNews");
                 }
-
-
                 ?>
             </div>
         </div>

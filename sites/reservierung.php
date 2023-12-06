@@ -190,7 +190,7 @@ session_start();
                             return;
                         }
 
-                        mysqli_stmt_bind_param($stmt, "sssiiissisi", $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
+                        mysqli_stmt_bind_param($stmt, "sssiiissdsi", $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
                         mysqli_stmt_execute($stmt);
                         mysqli_stmt_close($stmt);
                     }
