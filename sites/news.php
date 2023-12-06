@@ -24,8 +24,8 @@ session_start();
         <div class="d-grid col-12 mx-auto">
             <div class="mb-3 container">
                 <?php
-                if (isset($_GET["upload"])) {
-                    if ($_GET["upload"] == "success") {
+                if(isset($_GET["upload"])) {
+                    if($_GET["upload"] == "success") {
                         echo '<p class="text-success">News hochgeladen</p>';
                     }
                 }
@@ -34,23 +34,23 @@ session_start();
                 require_once '../utils/dbaccess.php';
                 $sql = "SELECT * FROM news ORDER BY newsdate DESC";
                 $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
+                if($result->num_rows > 0) {
                     ?>
                     <?php
-                    while ($row = $result->fetch_assoc()) {
+                    while($row = $result->fetch_assoc()) {
                         ?>
                         <div class="text-center">
                             <h2>
                                 <?php
-                                echo $row["title"] . "<br>";
+                                echo $row["title"]."<br>";
                                 ?>
                             </h2>
                         </div>
                         <div class="text-center mb-4">
                             <div class="container">
                                 <?php
-                                if (!empty($row["filePath"])) {
-                                    echo '<img src="' . $row["filePath"] . '" alt="Thumbnail" class="img-thumbnail img-fluid">';
+                                if(!empty($row["filePath"])) {
+                                    echo '<img src="'.$row["filePath"].'" alt="Thumbnail" class="img-thumbnail img-fluid">';
                                 }
                                 ?>
 
@@ -60,13 +60,13 @@ session_start();
                             <p style="text-align: justify;">
                                 <?php
                                 //TODO: Textausgabe fixen
-                                echo $row["text"] . "<br>";
+                                echo $row["text"]."<br>";
                                 ?>
                             </p>
                             <h3>
                                 <?php
                                 $newsDate = date("d.m.Y H:i:s", strtotime($row["newsDate"]));
-                                echo "News vom " . $newsDate . "<br>";
+                                echo "News vom ".$newsDate."<br>";
                                 ?>
                             </h3>
                         </div>
@@ -76,7 +76,7 @@ session_start();
                     echo '
                 <h3>Keine News vorhanden!</h3>
                 </div>';
-                header("Location: ../sites/index.php?error=noNews");
+                    header("Location: ../sites/index.php?error=noNews");
                 }
                 ?>
             </div>
