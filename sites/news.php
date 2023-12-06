@@ -34,7 +34,7 @@ session_start();
                 require_once '../utils/dbaccess.php';
                 $sql = "SELECT * FROM news ORDER BY newsdate DESC";
                 $result = $conn->query($sql);
-                if ($result->num_rows < 0) {
+                if ($result->num_rows > 0) {
                     ?>
                     <?php
                     while ($row = $result->fetch_assoc()) {
