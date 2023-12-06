@@ -74,13 +74,53 @@ session_start();
                 // if everything is ok, try to upload file
             } else {
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                    // Load the image
+                    $source_image = null;
+                    if ($imageFileType == "jpg" || $imageFileType == "jpeg") {
+                        $source_image = imagecreatefromjpeg($target_file);
+                    } else if ($imageFileType == "png") {
+                        $source_image = imagecreatefrompng($target_file);
+                    } else if ($imageFileType == "gif") {
+                        $source_image = imagecreatefromgif($target_file);
+                    }
+
+                    // Check if image was successfully loaded
+                    if ($source_image) {
+                        // Get the original image dimensions
+                        $orig_width = imagesx($source_image);
+                        $orig_height = imagesy($source_image);
+
+                        // Calculate the new dimensions
+                        $max_size = 720; // Set the maximum size here
+                        $ratio = $max_size / max($orig_width, $orig_height);
+                        $new_width = $orig_width * $ratio;
+                        $new_height = $orig_height * $ratio;
+
+                        // Create a new image with the new dimensions
+                        $new_image = imagecreatetruecolor($new_width, $new_height);
+
+                        // Copy and resize the old image into the new image
+                        imagecopyresampled($new_image, $source_image, 0, 0, 0, 0, $new_width, $new_height, $orig_width, $orig_height);
+
+                        // Save the new image over the old one
+                        if ($imageFileType == "jpg" || $imageFileType == "jpeg") {
+                            imagejpeg($new_image, $target_file);
+                        } else if ($imageFileType == "png") {
+                            imagepng($new_image, $target_file);
+                        } else if ($imageFileType == "gif") {
+                            imagegif($new_image, $target_file);
+                        }
+
+                        // Free up memory
+                        imagedestroy($source_image);
+                        imagedestroy($new_image);
+                    }
+
                     upload($conn, $_POST["title"], $_POST["text"], $target_file, $newsDate, $FK_userId);
                 } else {
                     echo "<p>Sorry, there was an error uploading your file.</p>";
-                    // Fügen Sie die folgende Zeile für detailliertere Fehlerinformationen hinzu
                     echo "Error: " . $_FILES["fileToUpload"]["error"];
                 }
-
             }
         } else {
             upload($conn, $_POST["title"], $_POST["text"], null, $newsDate, $FK_userId);
