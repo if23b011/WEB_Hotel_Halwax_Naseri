@@ -26,11 +26,13 @@ session_start();
         <div class="d-grid mx-auto">
             <div class="text-center">
                 <?php
+                if ($_GET["email"] == "exists") {
+                    echo "<h3 style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</h3>";
+                }
                 //serverseitige Validierung
                 $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
                 $genderErr = $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrUp =
                     $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen = $password2Err = $dateErr = "";
-
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (empty($_POST["gender"])) {
                         $genderErr = "*erforderlich";
@@ -132,9 +134,7 @@ session_start();
                     //Daten in Datenbank speichern
                     require_once '../utils/dbaccess.php';
                     if (emailExists($conn, $_POST["email"])) {
-                        echo "<h3 style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</h3>";
-                        echo "<p>In 1 Sekunde erneut versuchen...</p>";
-                        header("Refresh:1; url=../sites/registrierung.php");
+                        header("url=../sites/registrierung.php?email=exists");
                     } else {
 
                         if ($_POST["gender"] == "Herr") {

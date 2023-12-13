@@ -108,13 +108,11 @@ session_start();
                                     if ($row['type'] == 'admin') {
                                         $_SESSION['admin'] = true;
                                         setcookie("admin", true, time() + (86400 * 30), "/");
-                                        echo '<h3>Willkommen zurück Admin!</h3>';
-                                        echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+                                        header("Location: ../sites/index.php");
                                     } else {
                                         $firstname = $row['firstname'];
                                         $lastname = $row['lastname'];
-                                        echo '<h3>Willkommen zurück ' . $gender . " " . $firstname . " " . $lastname . '!</h3>';
-                                        echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
+                                        header("Location: ../sites/index.php");
                                     }
                                 } else {
                                     // Incorrect password
@@ -128,20 +126,6 @@ session_start();
                     }
                 }
                 loginUser($conn, $email, $password);
-                /*if ($email == 'admin@gmail.com') {
-                    $_SESSION['login'] = true;
-                    $_SESSION['admin'] = true;
-                    echo '<h3>Willkommen ' . $_SESSION['firstname'] . '!</h3>';
-                    echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-                } else if ($email == $_SESSION['email'] && $password == $_SESSION['password'] && isset($_POST["email"]) && isset($_POST["password"])) {
-                    $_SESSION['login'] = true;
-                    echo '<h3>Willkommen zurück ' . $_SESSION['gender'] . ' ' . $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . '!</h3>';
-                    echo "<a class='btn btn-primary' role='button' href='../sites/profil.php'<h2>Zum Profil</h2></a>";
-                } else if (isset($_POST["email"]) && isset($_POST["password"])) {
-                    echo '<h3 style="color: red;">Du bist noch nicht registriert!</h3>';
-                    echo "<a class='btn btn-primary' role='button' href='../sites/registrierung.php'<h2>Zur Registrierung</h2></a>";
-                }
-                */
                 ?>
             </div>
         </div>
