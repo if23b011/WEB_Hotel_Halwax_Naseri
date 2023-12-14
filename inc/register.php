@@ -3,9 +3,9 @@
     <div class="d-grid mx-auto">
         <div class="text-center">
             <?php
-            if (isset($_GET["email"]) && $_GET["email"] == "exists") {
-                echo "<h3 style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</h3>";
-            }
+            if (isset($_GET["email"]) && $_GET["email"] == "exists") { ?>
+                <h3 style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</h3>
+            <?php }
             //? serverseitige Validierung
             $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
             $genderErr = $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrUp =
@@ -130,9 +130,9 @@
                 $sql = "SELECT * FROM users WHERE email = ?;";
                 $stmt = mysqli_stmt_init($conn);
 
-                if (!mysqli_stmt_prepare($stmt, $sql)) {
-                    echo "SQL-Fehler";
-                }
+                if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+                    <p>SQL-Fehler</p>
+                <?php }
 
                 mysqli_stmt_bind_param($stmt, "s", $email);
                 mysqli_stmt_execute($stmt);
@@ -146,9 +146,9 @@
                                 VALUES (?, ?, ?, ?, ?, ?, ?);";
                 $stmt = mysqli_stmt_init($conn);
 
-                if (!mysqli_stmt_prepare($stmt, $sql)) {
-                    echo "SQL statement failed";
-                    return;
+                if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+                    <p>SQL statement failed";</p>
+                    <?php return;
                 }
 
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

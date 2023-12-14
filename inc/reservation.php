@@ -35,7 +35,7 @@
         }
     }
     ?>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=reservation"); ?>">
         <div class="container">
             <div class="d-grid gap-3 col-md-6 mx-auto">
                 <input type="text" id="disabledTextInput" class="form-control" value="<?php echo $_SESSION['zimmer'] ?>"
@@ -88,15 +88,11 @@
                     $today = date("d.m.Y", $timestamp);
                     if (strtotime($arrival) <= strtotime($today)) {
                         echo '<p style="color: red;">Anreisedatum muss nach ' . $today . ' sein!</p>';
-                    } else if (strtotime($departure) <= strtotime($arrival)) {
-                        echo '<p style="color: red;">Anreisedatum muss vor Abreisedatum liegen!</p>';
-                    } else {
-                        echo '<div class="alert alert-success" role="alert">Deine Reise vom ' . $arrivalDate . ' bis ' . $departureDate .
-                            ' wurde mit folgenden Bemerkungen gebucht: Frühstück ' . $breakfast . ', Parkplatz ' . $parking .
-                            ', Haustiere ' . $pets . '</div>';
-                        echo "<a class='btn btn-info' role='button' href='index.php?page=reservations'>Meine Reservierungen</a>";
+                    } else if (strtotime($departure) <= strtotime($arrival)) { ?>
+                            <p style="color: red;">Anreisedatum muss vor Abreisedatum liegen!</p>
+                    <?php } else {
                         //? Daten in Datenbank speichern
-                        require_once '../utils/dbaccess.php';
+                        require_once 'utils/dbaccess.php';
                         $totalCost = calculateCost($room, $arrivalDate, $departureDate, $breakfast, $parking, $pets);
                         $arrivalDate = date("Y-m-d", strtotime($arrivalDate));
                         $departureDate = date("Y-m-d", strtotime($departureDate));
@@ -118,9 +114,9 @@
                         }
                         $sql = "SELECT userId FROM users WHERE email = ?;";
                         $stmt = mysqli_stmt_init($conn);
-                        if (!mysqli_stmt_prepare($stmt, $sql)) {
-                            echo "SQL statement failed";
-                            return;
+                        if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+                                <p>SQL statement failed</p>
+                            <?php return;
                         }
                         mysqli_stmt_bind_param($stmt, "s", $FK_userId);
                         mysqli_stmt_execute($stmt);
@@ -129,6 +125,8 @@
                         $FK_userId = $row['userId'];
                         mysqli_stmt_close($stmt);
                         createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
+                        //TODO: Weiterleitung fixen
+                        header("Location: index.php?page=reservations&reservation=success");
                     }
                 }
                 function calculateCost($room, $arrivalDate, $departureDate, $breakfast, $parking, $pets)
@@ -157,14 +155,14 @@
                 }
                 function createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId)
                 {
-                    require_once '../utils/dbaccess.php';
+                    require_once 'utils/dbaccess.php';
                     $sql = "INSERT INTO reservations (room, arrivalDate, departureDate, breakfast, parking, pets, comments, reservationDate, totalCost, status, FK_userId) 
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     $stmt = mysqli_stmt_init($conn);
 
-                    if (!mysqli_stmt_prepare($stmt, $sql)) {
-                        echo "SQL statement failed";
-                        return;
+                    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+                        <p>SQL statement failed</p>
+                        <?php return;
                     }
 
                     mysqli_stmt_bind_param($stmt, "sssiiissdsi", $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);

@@ -1,7 +1,20 @@
 <?php
 
 session_start();
-
+//TODO: Überprüfen, ob User Seite aufrufen darf (z.B. nur eingeloggte User dürfen auf Reservierungsseite)
+//TODO: Fehlermeldungen verbessern
+//TODO: Code aufräumen
+//TODO: Code kommentieren
+//TODO: SESSIONS und COOKIES überprüfen
+//TODO: Funktionen in utils/functions.php auslagern
+//TODO: Userverwaltung für Admins (User löschen, etc.)
+//TODO: Newsverwaltung für Admins (News löschen, etc.)
+//TODO: Bei Zimmerbuchung überprüfen, ob Zimmer noch frei ist
+//TODO: Adresseingabe bei Buchung hinzufügen
+//TODO: Reservierungsverwaltung für Admins (Reservierungen stornieren, etc.)
+//TODO: Responsive Design Code verbessern
+//TODO: Usability und Accessibility verbessern
+//TODO: Design verschönern
 ?>
 <!doctype html>
 <html lang="en">

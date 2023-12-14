@@ -32,9 +32,9 @@
 
         $sql = "UPDATE users SET firstname = ? , lastname = ? , birthdate = ? WHERE email = ?";
         $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            echo "SQL-Fehler";
-            return;
+        if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+            <p>SQL-Fehler</p>
+            <?php return;
         }
         mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $birthDate, $_SESSION["email"]);
         mysqli_stmt_execute($stmt);
@@ -179,24 +179,24 @@
                         $password = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
                         $sql = "UPDATE users SET password = ? WHERE email = ?";
                         $stmt = mysqli_stmt_init($conn);
-                        if (!mysqli_stmt_prepare($stmt, $sql)) {
-                            echo "SQL-Fehler";
-                            return;
+                        if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+                            SQL-Fehler
+                            <?php return;
                         }
                         mysqli_stmt_bind_param($stmt, "ss", $password, $_SESSION["email"]);
                         mysqli_stmt_execute($stmt);
-                        mysqli_stmt_close($stmt);
-                        echo '<div class="alert alert-success" role="alert">
+                        mysqli_stmt_close($stmt); ?>
+                        <div class="alert alert-success" role="alert">
                             Passwort erfolgreich geändert!
-                            </div>';
-                    }
+                        </div>
+                    <?php }
                 }
                 ?>
                 <input class="btn btn-warning" type="submit" value="Passwort ändern" tabindex="8">
                 <?php
-                if (isset($_COOKIE["email"])) {
-                    echo '<a class="btn btn-danger" role="button" href="utils/logout.php">Logout</a>"';
-                }
+                if (isset($_COOKIE["email"])) { ?>
+                    <a class="btn btn-danger" role="button" href="utils/logout.php">Logout</a>
+                <?php }
                 ?>
             </div>
         </form>

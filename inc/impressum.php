@@ -47,7 +47,7 @@
         <div class="row">
             <div class="col">
                 <div class="card" style="width: 18rem;" data-bs-theme="dark">
-                    <img src="../img/jan.gif" class="card-img-top" alt="Jan Halwax">
+                    <img src="res/img/jan.gif" class="card-img-top" alt="Jan Halwax">
                     <div class="card-body">
                         <h5 class="card-title">
                             <h3>Jan Halwax</h3>
@@ -57,7 +57,7 @@
             </div>
             <div class="col">
                 <div class="card" style="width: 18rem;" data-bs-theme="dark">
-                    <img src="../img/armin.gif" class="card-img-top" alt="Armin Naseri">
+                    <img src="res/img/armin.gif" class="card-img-top" alt="Armin Naseri">
                     <div class="card-body">
                         <h5 class="card-title">
                             <h3>Armin Naseri</h3>

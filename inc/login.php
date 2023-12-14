@@ -52,9 +52,9 @@
                     $sql = "SELECT * FROM users WHERE email = ?;";
                     $stmt = mysqli_stmt_init($conn);
 
-                    if (!mysqli_stmt_prepare($stmt, $sql)) {
-                        echo "SQL-Fehler";
-                        return;
+                    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+                        <p>SQL-Fehler</p>
+                        <?php return;
                     }
 
                     mysqli_stmt_bind_param($stmt, "s", $email);
@@ -97,13 +97,13 @@
                                     } else {
                                         header("Location: index.php");
                                     }
-                                } else {
-                                    echo '<p style="color: red;">Falsches Passwort!</p>';
-                                }
-                            } else {
-                                //?  User does not exist
-                                echo '<p style="color: red;">Benutzer existiert nicht!</p>';
-                            }
+                                } else { ?>
+                                    <p style="color: red;">Falsches Passwort!</p>
+                                <?php }
+                            } else { ?>
+                                //? User does not exist
+                                <p style="color: red;">Benutzer existiert nicht!</p>
+                            <?php }
                         }
                     }
                 }

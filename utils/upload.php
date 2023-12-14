@@ -5,9 +5,9 @@ $time = time();
 $newsDate = date("Y-m-d H:i:s", strtotime($newsDate));
 $sql = "SELECT userId FROM users WHERE email = ?;";
 $stmt = mysqli_stmt_init($conn);
-if (!mysqli_stmt_prepare($stmt, $sql)) {
-    echo "SQL statement failed";
-    return;
+if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+    <p>SQL statement failed</p>
+    <?php return;
 }
 mysqli_stmt_bind_param($stmt, "s", $_COOKIE["email"]);
 mysqli_stmt_execute($stmt);
@@ -17,9 +17,9 @@ if ($row) {
     $FK_userId = $row['userId'];
     mysqli_stmt_close($stmt);
     upload($conn, $_POST["title"], $_POST["text"], $target_file, $newsDate, $FK_userId);
-} else {
-    echo "User not found or other error occurred.";
-}
+} else { ?>
+    <p>User not found or other error occurred.</p>
+<?php }
 
 if (!empty($_FILES["fileToUpload"]["name"])) {
     $target_dir = "../uploads/news/";
@@ -31,23 +31,23 @@ if (!empty($_FILES["fileToUpload"]["name"])) {
         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
         if ($check !== false) {
             $uploadOk = 1;
-        } else {
-            echo "File is not an image.";
-            $uploadOk = 0;
+        } else { ?>
+            <p>File is not an image.</p>
+            <?php $uploadOk = 0;
         }
     }
     //? Allow certain file formats
     if (
         $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif"
-    ) {
-        echo "<p>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</p>";
-        $uploadOk = 0;
+    ) { ?>
+        <p>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</p>
+        <?php $uploadOk = 0;
     }
     //? Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "<p>Sorry, your file was not uploaded.</p>";
-        //? if everything is ok, try to upload file
+    if ($uploadOk == 0) { ?>
+        <p>Sorry, your file was not uploaded.</p>
+    <?php //? if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
             //? Load the image
@@ -93,9 +93,9 @@ if (!empty($_FILES["fileToUpload"]["name"])) {
             }
 
             upload($conn, $_POST["title"], $_POST["text"], $target_file, $newsDate, $FK_userId);
-        } else {
-            echo "<p>Sorry, there was an error uploading your file.</p>";
-            echo "Error: " . $_FILES["fileToUpload"]["error"];
+        } else { ?>
+            <p>Sorry, there was an error uploading your file.</p>
+            <?php echo "Error: " . $_FILES["fileToUpload"]["error"];
         }
     }
 } else {
@@ -108,9 +108,9 @@ function upload($conn, $title, $text, $target_file, $newsDate, $FK_userId)
     $newsDate = date("Y-m-d H:i:s");
     $sql = "INSERT INTO news (title, text, filepath, newsDate, FK_userId) VALUES (?, ?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        echo "SQL statement failed";
-        return;
+    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+        <p>SQL statement failed</p>
+        <?php return;
     }
     mysqli_stmt_bind_param($stmt, "ssssi", $title, $text, $target_file, $newsDate, $FK_userId);
     mysqli_stmt_execute($stmt);
