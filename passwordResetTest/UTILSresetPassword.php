@@ -10,10 +10,10 @@ if (isset($_POST["resetPassword"])) {
     echo $newPasswordRepeat;
 
     if (empty($newPassword) || empty($newPasswordRepeat)) {
-        header("Location: ../sites/create-new-password.php?selector=" . $selector . "&validator=" . $validator . "&reset=empty");
+        header("Location: index.php?page=create-new-password.php&selector=" . $selector . "&validator=" . $validator . "&reset=empty");
         exit();
     } else if ($newPassword != $newPasswordRepeat) {
-        header("Location: ../sites/create-new-password.php?selector=" . $selector . "&validator=" . $validator . "&reset=pwdnotsame");
+        header("Location: index.php?page=create-new-password.php&selector=" . $selector . "&validator=" . $validator . "&reset=pwdnotsame");
         exit();
     }
 
@@ -78,7 +78,7 @@ if (isset($_POST["resetPassword"])) {
                             } else {
                                 mysqli_stmt_bind_param($stmt, "s", $tokenEmail);
                                 mysqli_stmt_execute($stmt);
-                                header("Location: ../sites/login.php?newpwd=passwordupdated");
+                                header("Location: index.php?page=login&newpwd=passwordupdated");
                             }
                         }
                     }
@@ -86,8 +86,6 @@ if (isset($_POST["resetPassword"])) {
             }
         }
     }
-
-
 } else {
-    header("Location: ../sites/index.php");
+    header("Location: index.php");
 }

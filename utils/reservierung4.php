@@ -3,6 +3,5 @@ session_start();
 
 $_SESSION['zimmer'] = 'Luxus Suite mit privatem Butler';
 
-header("Location: ../sites/reservierung.php");
+header("Location: ../index.php?page=reservation");
 exit();
-?>

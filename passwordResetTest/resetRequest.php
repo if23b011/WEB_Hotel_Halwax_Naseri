@@ -4,7 +4,7 @@ if (isset($_POST["resetRequest"])) {
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
 
-    $url = "https://obliging-dolphin-meet.ngrok-free.app/hoteltropicana/sites/create-new-password.php?selector=" . $selector . "&validator=" . bin2hex($token);
+    $url = "https://obliging-dolphin-meet.ngrok-free.app/hoteltropicana/index.php?page=create-new-password&selector=" . $selector . "&validator=" . bin2hex($token);
 
     $expires = date("U") + 1800;
 
@@ -39,6 +39,6 @@ if (isset($_POST["resetRequest"])) {
     header("Location: ../utils/mail.php?mail=" . $userEmail . "&url=" . $url . "");
 
 } else {
-    header("Location: ../sites/index.php");
+    header("Location: index.php");
     exit();
 }

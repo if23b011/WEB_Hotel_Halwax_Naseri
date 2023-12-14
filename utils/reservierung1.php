@@ -3,6 +3,5 @@ session_start();
 
 $_SESSION['zimmer'] = 'Einzelzimmer mit Einzelbett';
 
-header("Location: ../sites/reservierung.php");
+header("Location: ../index.php?page=reservation");
 exit();
-?>

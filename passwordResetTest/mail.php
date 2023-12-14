@@ -37,7 +37,7 @@ try {
     $mail->send();
 
     echo 'Message has been sent';
-    header("Location: ../sites/resetpassword.php?reset=success");
+    header("Location: index.php?page=resetpassword&reset=success");
 
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
