@@ -14,6 +14,7 @@
         <div class="d-grid mx-auto mt-4">
             <div class="text-center">
                 <?php
+                require_once 'utils/functions.php';
                 //? serverseitige Validierung
                 $email = $password = "";
                 $emailErr = $passwordErr = "";
