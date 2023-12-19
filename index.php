@@ -6,7 +6,7 @@ session_start();
 //TODO: Code aufräumen
 //TODO: Code kommentieren
 //TODO: SESSIONS und COOKIES überprüfen
-//TODO: Funktionen in utils/functions.php auslagern
+//TODO: Adresseingabe bei Buchung hinzufügen
 //TODO: Userverwaltung für Admins (User löschen, etc.)
 //TODO: Newsverwaltung für Admins (News löschen, etc.)
 //TODO: Bei Zimmerbuchung überprüfen, ob Zimmer noch frei ist
@@ -29,7 +29,6 @@ session_start();
     $page = (isset($_GET['page'])) ? $_GET['page'] : "landing";
     $pages = [
         "buchung" => "inc/buchung.php",
-        "create-new-pasword" => "inc/create-new-password.php",
         "faq" => "inc/faq.php",
         "impressum" => "inc/impressum.php",
         "landing" => "./inc/landing.php",
@@ -40,7 +39,7 @@ session_start();
         "register" => "inc/register.php",
         "reservation" => "inc/reservation.php",
         "reservations" => "inc/reservations.php",
-        "resetPassword" => "inc/resetPassword.php",
+        "userManagement" => "inc/userManagement.php"
     ];
 
     if (isset($pages[$page])) {

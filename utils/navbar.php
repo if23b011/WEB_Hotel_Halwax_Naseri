@@ -34,6 +34,10 @@
                         <a class="nav-link" href="index.php?page=upload">
                             <h4 style="color: white">Upload</h4>
                         </a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=userManagement">
+                            <h4 style="color: white">User</h4>
+                        </a>
                     <?php } ?>
             </ul>
             <ul class="navbar-nav ms-auto">
