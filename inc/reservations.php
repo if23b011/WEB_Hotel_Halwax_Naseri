@@ -28,7 +28,6 @@
             $result = mysqli_stmt_get_result($stmt);
             if ($result->num_rows == 0) {
                 header("Location: index.php?page=buchung&reservation=none");
-                exit();
             } else {
                 $number = 1;
                 while ($row = mysqli_fetch_assoc($result)) {

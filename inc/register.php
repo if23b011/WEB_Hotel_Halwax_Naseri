@@ -7,6 +7,7 @@
                 <h3 style='color: red;'>Diese E-Mail-Adresse ist bereits registriert!</h3>
             <?php }
             //? serverseitige Validierung
+            require_once 'utils/dbaccess.php';
             $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
             $genderErr = $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrUp =
                 $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen = $password2Err = $dateErr = "";
@@ -95,13 +96,6 @@
                     $date = input($_POST["date"]);
                 }
             }
-            function input($data)
-            {
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            }
             if (
                 $genderErr == "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" &&
                 $password2Err == "" && $dateErr == "" && $passwordErrUp == "" && $passwordErrLow == "" &&
@@ -109,7 +103,7 @@
             ) {
                 //? Daten in Datenbank speichern
                 require_once 'utils/dbaccess.php';
-                if (emailExists($conn, $_POST["email"])) {
+                if (registerEmailExists($conn, $_POST["email"])) {
                     header("Location: index.php?page=register&email=exists");
                 } else {
 
@@ -124,21 +118,7 @@
                     createUser($conn, $dBgender, $_POST["firstname"], $_POST["lastname"], $birthDate, $_POST["email"], $_POST["password"], "user");
                 }
             }
-            function emailExists($conn, $email)
-            {
-                require_once 'utils/dbaccess.php';
-                $sql = "SELECT * FROM users WHERE email = ?;";
-                $stmt = mysqli_stmt_init($conn);
 
-                if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-                    <p>SQL-Fehler</p>
-                <?php }
-
-                mysqli_stmt_bind_param($stmt, "s", $email);
-                mysqli_stmt_execute($stmt);
-                $result = mysqli_stmt_get_result($stmt);
-                return mysqli_fetch_assoc($result);
-            }
             function createUser($conn, $gender, $firstname, $lastname, $birthdate, $email, $password, $type)
             {
                 require_once 'utils/dbaccess.php';

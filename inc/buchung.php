@@ -5,7 +5,10 @@
         if (isset($_GET["reservation"])) {
             if ($_GET["reservation"] == "none") { ?>
                 <h3 class="text-danger text-center">Sie haben noch keine Reservierung getätigt</h3>
-            <?php }
+
+            <?php
+                header("Refresh: 1; url=index.php?page=buchung");
+            }
         }
         ?>
     </div>

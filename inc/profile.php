@@ -5,6 +5,8 @@
     $passwordErr = $passwordErrUp = $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen =
         $passwordErrIdent = $wrongOldPassword = "";
     require_once 'utils/dbaccess.php';
+    require_once 'utils/functions.php';
+    
     $_SESSION["email"] = $_COOKIE["email"];
     $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
     $result = mysqli_query($conn, $sql);
@@ -87,13 +89,6 @@
                 $wrongOldPassword = "Falsches Passwort!";
             }
         }
-    }
-    function input($data)
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
     }
     ?>
     <div class="container">

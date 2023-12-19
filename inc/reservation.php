@@ -45,14 +45,13 @@
                         <label for="date" class="form-label">
                             <p>Anreisedatum</p>
                         </label>
-                        <input type="date" class="form-control" name="arrivalDate" value="<?php echo $arrivalDate; ?>">
+                        <input type="date" class="form-control" name="arrivalDate">
                     </div>
                     <div class="col">
                         <label for="date" class="form-label">
                             <p>Abreisedatum</p>
                         </label>
-                        <input type="date" class="form-control" name="departureDate"
-                            value="<?php echo $departureDate; ?>">
+                        <input type="date" class="form-control" name="departureDate">
                     </div>
                 </div>
                 <div class="form-check">
@@ -83,6 +82,8 @@
                     <input class="btn btn-primary" type="submit" value="Buchen">
                 </div>
                 <?php
+                require_once 'utils/dbaccess.php';
+                require_once 'utils/functions.php';
                 if (isset($departureDate) && isset($arrivalDate)) {
                     $timestamp = time();
                     $today = date("d.m.Y", $timestamp);
@@ -92,7 +93,6 @@
                             <p style="color: red;">Anreisedatum muss vor Abreisedatum liegen!</p>
                     <?php } else {
                         //? Daten in Datenbank speichern
-                        require_once 'utils/dbaccess.php';
                         $totalCost = calculateCost($room, $arrivalDate, $departureDate, $breakfast, $parking, $pets);
                         $arrivalDate = date("Y-m-d", strtotime($arrivalDate));
                         $departureDate = date("Y-m-d", strtotime($departureDate));
@@ -128,53 +128,6 @@
                         //TODO: Weiterleitung fixen
                         header("Location: index.php?page=reservations&reservation=success");
                     }
-                }
-                function calculateCost($room, $arrivalDate, $departureDate, $breakfast, $parking, $pets)
-                {
-                    $totalCost = 0;
-                    $days = (strtotime($departureDate) - strtotime($arrivalDate)) / (60 * 60 * 24);
-                    if ($room == "Einzelzimmer mit Einzelbett") {
-                        $totalCost = $days * 30;
-                    } else if ($room == "Einzelzimmer mit Doppelbett") {
-                        $totalCost = $days * 75;
-                    } else if ($room == "Luxus Zimmer mit Jacuzzi") {
-                        $totalCost = $days * 200;
-                    } else if ($room == "Luxus Suite mit privatem Butler") {
-                        $totalCost = $days * 500;
-                    }
-                    if ($breakfast == "inkludiert") {
-                        $totalCost += $days * 5;
-                    }
-                    if ($parking == "inkludiert") {
-                        $totalCost += $days * 10;
-                    }
-                    if ($pets == "inkludiert") {
-                        $totalCost += 15;
-                    }
-                    return $totalCost;
-                }
-                function createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId)
-                {
-                    require_once 'utils/dbaccess.php';
-                    $sql = "INSERT INTO reservations (room, arrivalDate, departureDate, breakfast, parking, pets, comments, reservationDate, totalCost, status, FK_userId) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                    $stmt = mysqli_stmt_init($conn);
-
-                    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-                        <p>SQL statement failed</p>
-                        <?php return;
-                    }
-
-                    mysqli_stmt_bind_param($stmt, "sssiiissdsi", $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
-                    mysqli_stmt_execute($stmt);
-                    mysqli_stmt_close($stmt);
-                }
-                function input($data)
-                {
-                    $data = trim($data);
-                    $data = stripslashes($data);
-                    $data = htmlspecialchars($data);
-                    return $data;
                 }
                 ?>
             </div>

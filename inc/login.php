@@ -36,77 +36,9 @@
                         $password = input($_POST["password"]);
                     }
                 }
-
-                function input($data)
-                {
-                    $data = trim($data);
-                    $data = stripslashes($data);
-                    $data = htmlspecialchars($data);
-                    return $data;
-                }
                 //? Daten mit Datenbank vergleichen
                 require_once 'utils/dbaccess.php';
-                function emailExists($conn, $email)
-                {
-                    require_once 'utils/dbaccess.php';
-                    $sql = "SELECT * FROM users WHERE email = ?;";
-                    $stmt = mysqli_stmt_init($conn);
-
-                    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-                        <p>SQL-Fehler</p>
-                        <?php return;
-                    }
-
-                    mysqli_stmt_bind_param($stmt, "s", $email);
-                    mysqli_stmt_execute($stmt);
-
-                    $resultData = mysqli_stmt_get_result($stmt);
-
-                    if ($row = mysqli_fetch_assoc($resultData)) {
-                        return $row;
-                    } else {
-                        $result = false;
-                        return $result;
-                    }
-                }
-                function loginUser($conn, $email, $password)
-                {
-                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                        $email = input($_POST["email"]);
-                        $password = input($_POST["password"]);
-
-                        //?  Validate the email and password
-                        if (!empty($email) && !empty($password)) {
-                            //?  Check if the user exists in the database
-                            $userData = emailExists($conn, $email);
-
-                            if ($userData) {
-                                //?  Verify the password
-                                if (password_verify($password, $userData['password'])) {
-                                    //?  Password is correct
-                                    $_SESSION['login'] = true;
-                                    setcookie("email", $_POST["email"], time() + (86400 * 30), "/");
-                                    //? Datenbankabfrage
-                                    $sql = "SELECT * FROM users WHERE email = '$email'";
-                                    $result = mysqli_query($conn, $sql);
-                                    $row = mysqli_fetch_assoc($result);
-                                    if ($row['type'] == 'admin') {
-                                        $_SESSION['admin'] = true;
-                                        setcookie("admin", true, time() + (86400 * 30), "/");
-                                        header("Location: index.php");
-                                    } else {
-                                        header("Location: index.php");
-                                    }
-                                } else { ?>
-                                    <p style="color: red;">Falsches Passwort!</p>
-                                <?php }
-                            } else { ?>
-                                //? User does not exist
-                                <p style="color: red;">Benutzer existiert nicht!</p>
-                            <?php }
-                        }
-                    }
-                }
+                require_once 'utils/functions.php';
                 loginUser($conn, $email, $password);
                 ?>
             </div>

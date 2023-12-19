@@ -1,4 +1,5 @@
 <?php
+require_once '../utils/functions.php';
 $newsDate = date("d.m.Y", time());
 require_once '../utils/dbaccess.php';
 $time = time();
@@ -100,19 +101,4 @@ if (!empty($_FILES["fileToUpload"]["name"])) {
     }
 } else {
     upload($conn, $_POST["title"], $_POST["text"], null, $newsDate, $FK_userId);
-}
-
-function upload($conn, $title, $text, $target_file, $newsDate, $FK_userId)
-{
-    require_once '../utils/dbaccess.php';
-    $newsDate = date("Y-m-d H:i:s");
-    $sql = "INSERT INTO news (title, text, filepath, newsDate, FK_userId) VALUES (?, ?, ?, ?, ?);";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-        <p>SQL statement failed</p>
-        <?php return;
-    }
-    mysqli_stmt_bind_param($stmt, "ssssi", $title, $text, $target_file, $newsDate, $FK_userId);
-    mysqli_stmt_execute($stmt);
-    header("Location: ../index.php?page=news&upload=success");
 }

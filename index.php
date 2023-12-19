@@ -49,7 +49,9 @@ session_start();
         }
     } else { ?>
         <h1>404 NOT FOUND</h1>
-    <?php } ?>
+    <?php
+        header("Refresh: 1; url=index.php");
+    } ?>
     <!-- Footer-->
     <?php include 'utils/footer.php'; ?>
     <!-- Bootstrap core JS-->
