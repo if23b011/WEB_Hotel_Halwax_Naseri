@@ -1,7 +1,7 @@
 <?php
 require_once '../utils/functions.php';
-$newsDate = date("d.m.Y", time());
 require_once '../utils/dbaccess.php';
+$newsDate = date("d.m.Y", time());
 $time = time();
 $newsDate = date("Y-m-d H:i:s", strtotime($newsDate));
 $sql = "SELECT userId FROM users WHERE email = ?;";
@@ -14,42 +14,35 @@ mysqli_stmt_bind_param($stmt, "s", $_COOKIE["email"]);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
+$target_file = null;
 if ($row) {
     $FK_userId = $row['userId'];
     mysqli_stmt_close($stmt);
-    upload($conn, $_POST["title"], $_POST["text"], $target_file, $newsDate, $FK_userId);
-} else { ?>
-    <p>User not found or other error occurred.</p>
-<?php }
-
-if (!empty($_FILES["fileToUpload"]["name"])) {
-    $target_dir = "../uploads/news/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    //? Check if image file is a actual image or fake image
-    if (isset($_FILES["fileToUpload"])) {
-        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-        if ($check !== false) {
-            $uploadOk = 1;
-        } else { ?>
-            <p>File is not an image.</p>
+    if (!empty($_FILES["fileToUpload"]["name"])) {
+        $target_dir = "../uploads/news/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        //? Check if image file is a actual image or fake image
+        if (isset($_FILES["fileToUpload"])) {
+            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+            if ($check !== false) {
+                $uploadOk = 1;
+            } else { ?>
+                <p>File is not an image.</p>
+                <?php $uploadOk = 0;
+            }
+        }
+        //? Allow certain file formats
+        if (
+            $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif"
+        ) { ?>
+            <p>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</p>
             <?php $uploadOk = 0;
         }
-    }
-    //? Allow certain file formats
-    if (
-        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif"
-    ) { ?>
-        <p>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</p>
-        <?php $uploadOk = 0;
-    }
-    //? Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) { ?>
-        <p>Sorry, your file was not uploaded.</p>
-    <?php //? if everything is ok, try to upload file
-    } else {
+    } 
+    if ($uploadOk == 1) {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
             //? Load the image
             $source_image = null;
@@ -98,7 +91,9 @@ if (!empty($_FILES["fileToUpload"]["name"])) {
             <p>Sorry, there was an error uploading your file.</p>
             <?php echo "Error: " . $_FILES["fileToUpload"]["error"];
         }
-    }
-} else {
-    upload($conn, $_POST["title"], $_POST["text"], null, $newsDate, $FK_userId);
-}
+    } else { ?>
+        <p>Sorry, your file was not uploaded.</p>
+    <?php }
+} else { ?>
+    <p>User not found or other error occurred.</p>
+<?php }

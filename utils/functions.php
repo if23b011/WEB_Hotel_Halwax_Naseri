@@ -140,7 +140,8 @@ function upload($conn, $title, $text, $target_file, $newsDate, $FK_userId)
         <p>SQL statement failed</p>
         <?php return;
     }
-    mysqli_stmt_bind_param($stmt, "ssssi", $title, $text, $target_file, $newsDate, $FK_userId);
+    $target_file_db = substr($target_file, 3);
+    mysqli_stmt_bind_param($stmt, "ssssi", $title, $text, $target_file_db, $newsDate, $FK_userId);
     mysqli_stmt_execute($stmt);
     header("Location: ../index.php?page=news&upload=success");
 }

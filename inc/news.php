@@ -6,7 +6,9 @@
             if (isset($_GET["upload"])) {
                 if ($_GET["upload"] == "success") { ?>
                     <p class="text-success">News hochgeladen</p>
-                <?php }
+                <?php 
+                header("Refresh: 2; url=index.php?page=news");
+                }
             }
             ?>
             <?php
@@ -32,7 +34,6 @@
                                 echo '<img src="' . $row["filePath"] . '" alt="Thumbnail" class="img-thumbnail img-fluid">';
                             }
                             ?>
-
                         </div>
                     </div>
                     <div class="alert alert-light" role="alert" data-bs-theme="dark">
