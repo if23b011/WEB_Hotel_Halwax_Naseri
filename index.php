@@ -21,36 +21,37 @@ session_start();
 
 <?php include 'utils/head.php'; ?>
 
+
 <body>
     <!-- Navigation-->
     <?php include 'utils/navbar.php' ?>
     <!-- Content-->
-    <?php
-    $page = (isset($_GET['page'])) ? $_GET['page'] : "landing";
-    $pages = [
-        "buchung" => "inc/buchung.php",
-        "faq" => "inc/faq.php",
-        "impressum" => "inc/impressum.php",
-        "landing" => "./inc/landing.php",
-        "login" => "inc/login.php",
-        "news" => "inc/news.php",
-        "upload" => "inc/upload.php",
-        "profile" => "inc/profile.php",
-        "register" => "inc/register.php",
-        "reservation" => "inc/reservation.php",
-        "reservations" => "inc/reservations.php",
-        "userManagement" => "inc/userManagement.php"
-    ];
+        <?php
+        $page = (isset($_GET['page'])) ? $_GET['page'] : "landing";
+        $pages = [
+            "buchung" => "inc/buchung.php",
+            "faq" => "inc/faq.php",
+            "impressum" => "inc/impressum.php",
+            "landing" => "./inc/landing.php",
+            "login" => "inc/login.php",
+            "news" => "inc/news.php",
+            "upload" => "inc/upload.php",
+            "profile" => "inc/profile.php",
+            "register" => "inc/register.php",
+            "reservation" => "inc/reservation.php",
+            "reservations" => "inc/reservations.php",
+            "userManagement" => "inc/userManagement.php"
+        ];
 
-    if (isset($pages[$page])) {
-        if (file_exists($pages[$page])) {
-            include $pages[$page];
-        }
-    } else { ?>
-        <h1>404 NOT FOUND</h1>
-    <?php
-        header("Refresh: 1; url=index.php");
-    } ?>
+        if (isset($pages[$page])) {
+            if (file_exists($pages[$page])) {
+                include $pages[$page];
+            }
+        } else { ?>
+            <h1>404 NOT FOUND</h1>
+            <?php
+            header("Refresh: 1; url=index.php");
+        } ?>
     <!-- Footer-->
     <?php include 'utils/footer.php'; ?>
     <!-- Bootstrap core JS-->

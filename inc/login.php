@@ -38,7 +38,6 @@
                     }
                 }
                 //? Daten mit Datenbank vergleichen
-                require_once 'utils/dbaccess.php';
                 require_once 'utils/functions.php';
                 loginUser($conn, $email, $password);
                 ?>

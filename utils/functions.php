@@ -1,5 +1,5 @@
 <?php
-require_once '../utils/dbaccess.php';
+require_once 'utils/dbaccess.php';
 //? allgemeine Funktionen
 function input($data)
 {

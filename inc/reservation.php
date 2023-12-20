@@ -1,6 +1,8 @@
 <div class="container" style="margin-bottom: 100px;">
     <h1>Reservierung</h1>
     <?php
+    require_once 'utils/functions.php';
+    ob_start();
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $room = $_SESSION['zimmer'];
         $arrival = $departure = $arrivalDate = $departureDate = $breakfast = $parking = $pets = $comments = "";
@@ -82,8 +84,6 @@
                     <input class="btn btn-primary" type="submit" value="Buchen">
                 </div>
                 <?php
-                require_once 'utils/dbaccess.php';
-                require_once 'utils/functions.php';
                 if (isset($departureDate) && isset($arrivalDate)) {
                     $timestamp = time();
                     $today = date("d.m.Y", $timestamp);
@@ -127,6 +127,7 @@
                         createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
                         //TODO: Weiterleitung fixen
                         header("Location: index.php?page=reservations&reservation=success");
+                        ob_end_flush();
                     }
                 }
                 ?>
