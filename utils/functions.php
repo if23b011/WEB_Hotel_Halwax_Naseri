@@ -1,4 +1,5 @@
 <?php
+require_once '../utils/dbaccess.php';
 //? allgemeine Funktionen
 function input($data)
 {
@@ -11,7 +12,6 @@ function input($data)
 //? Funktionen für Login und Registrierung
 function loginEmailExists($conn, $email)
 {
-    require_once 'utils/dbaccess.php';
     $sql = "SELECT * FROM users WHERE email = ?;";
     $stmt = mysqli_stmt_init($conn);
 
@@ -35,7 +35,6 @@ function loginEmailExists($conn, $email)
 
 function registerEmailExists($conn, $email)
 {
-    require_once 'utils/dbaccess.php';
     $sql = "SELECT * FROM users WHERE email = ?;";
     $stmt = mysqli_stmt_init($conn);
 
@@ -114,7 +113,6 @@ function calculateCost($room, $arrivalDate, $departureDate, $breakfast, $parking
 }
 function createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId)
 {
-    require_once 'utils/dbaccess.php';
     $sql = "INSERT INTO reservations (room, arrivalDate, departureDate, breakfast, parking, pets, comments, reservationDate, totalCost, status, FK_userId) 
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_stmt_init($conn);
@@ -132,7 +130,6 @@ function createReservation($conn, $room, $arrivalDate, $departureDate, $breakfas
 //? Funktionen für Newsupload
 function upload($conn, $title, $text, $target_file, $newsDate, $FK_userId)
 {
-    require_once '../utils/dbaccess.php';
     $newsDate = date("Y-m-d H:i:s");
     $sql = "INSERT INTO news (title, text, filepath, newsDate, FK_userId) VALUES (?, ?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);

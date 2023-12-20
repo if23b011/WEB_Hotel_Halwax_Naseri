@@ -49,6 +49,7 @@
                             ?>
                         </h3>
                     </div>
+                    //TODO News löschen
                     <?php
                 }
             } else { ?>
