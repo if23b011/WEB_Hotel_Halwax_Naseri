@@ -85,7 +85,6 @@ if ($row) {
                 imagedestroy($source_image);
                 imagedestroy($new_image);
             }
-
             upload($conn, $_POST["title"], $_POST["text"], $target_file, $newsDate, $FK_userId);
         } else { ?>
             <p>Sorry, there was an error uploading your file.</p>
