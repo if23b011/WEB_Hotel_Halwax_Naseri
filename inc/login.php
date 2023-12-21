@@ -15,6 +15,7 @@
             <div class="text-center">
                 <?php
                 require_once 'utils/functions.php';
+                require_once 'utils/dbaccess.php';
                 //? serverseitige Validierung
                 $email = $password = "";
                 $emailErr = $passwordErr = "";
@@ -27,7 +28,6 @@
                             $emailErr = "Das ist keine richtige Email-Adresse";
                         }
                     }
-
                     if (empty($_POST["password"])) {
                         $passwordErr = "*erforderlich";
                     } else {
@@ -35,7 +35,6 @@
                     }
                 }
                 //? Daten mit Datenbank vergleichen
-                require_once 'utils/functions.php';
                 loginUser($conn, $email, $password);
                 ?>
             </div>
