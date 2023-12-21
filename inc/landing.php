@@ -1,5 +1,5 @@
 <div class="container" style="margin-bottom: 100px;">
-    <h1>Hotel Tropicana - hier werden Urlaubsträume wahr!</h1>
+    <h1>Hotel Tropicana</h1>
     <?php
     if (isset($_GET["error"])) {
         if ($_GET["error"] == "noNews") { ?>

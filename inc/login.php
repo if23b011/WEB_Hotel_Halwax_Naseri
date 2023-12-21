@@ -18,9 +18,6 @@
                 //? serverseitige Validierung
                 $email = $password = "";
                 $emailErr = $passwordErr = "";
-                if (isset($_SESSION["email"])) {
-                    $email = $_SESSION["email"];
-                }
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (empty($_POST["email"])) {
                         $emailErr = "*erforderlich";

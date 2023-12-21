@@ -6,9 +6,7 @@ session_start();
 //TODO: Code aufräumen
 //TODO: Code kommentieren
 //TODO: SESSIONS und COOKIES überprüfen
-//TODO: Adresseingabe bei Buchung hinzufügen
 //TODO: Userverwaltung für Admins (User löschen, etc.)
-//TODO: Newsverwaltung für Admins (News löschen, etc.)
 //TODO: Bei Zimmerbuchung überprüfen, ob Zimmer noch frei ist
 //TODO: Adresseingabe bei Buchung hinzufügen
 //TODO: Reservierungsverwaltung für Admins (Reservierungen stornieren, etc.)

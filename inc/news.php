@@ -10,62 +10,90 @@
                     header("Refresh: 2; url=index.php?page=news");
                 }
             }
-            if (isset($_GET["deleteNews"])) {
-                if ($_GET["deleteNews"] == "success") { ?>
-                    <p class="text-success">News gelöscht</p>
+            if (isset($_GET["offlineNews"])) {
+                if ($_GET["offlineNews"] == "success") { ?>
+                    <p class="text-success">News offline</p>
+                    <?php
+                    header("Refresh: 2; url=index.php?page=news");
+                }
+            }
+            if (isset($_GET["onlineNews"])) {
+                if ($_GET["onlineNews"] == "success") { ?>
+                    <p class="text-success">News online</p>
                     <?php
                     header("Refresh: 2; url=index.php?page=news");
                 }
             }
             ?>
-            <?php
+            <?php if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
+                $sql = "SELECT * FROM news ORDER BY newsDate DESC";
+            } else {
+                $sql = "SELECT * FROM news where newsOnline = 1 ORDER BY newsDate DESC";
+            }
             require_once 'utils/dbaccess.php';
-            $sql = "SELECT * FROM news where newsOnline = 1 ORDER BY newsDate DESC";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 ?>
                 <?php
                 while ($row = $result->fetch_assoc()) {
-                    if ($row["newsOnline"] == 1) {
-                        ?>
-                        <div class="text-center">
-                            <h2>
-                                <?php
-                                echo $row["title"] . "<br>";
-                                ?>
-                            </h2>
+                    ?>
+                    <div class="text-center">
+                        <h2>
+                            <?php
+                            echo $row["title"] . "<br>";
+                            ?>
+                        </h2>
+                    </div>
+                    <div class="text-center mb-4">
+                        <div class="container">
+                            <?php
+                            if (!empty($row["filePath"])) {
+                                echo '<img src="' . $row["filePath"] . '" alt="Thumbnail" class="img-thumbnail img-fluid">';
+                            }
+                            ?>
                         </div>
-                        <div class="text-center mb-4">
-                            <div class="container">
-                                <?php
-                                if (!empty($row["filePath"])) {
-                                    echo '<img src="' . $row["filePath"] . '" alt="Thumbnail" class="img-thumbnail img-fluid">';
-                                }
-                                ?>
-                            </div>
-                        </div>
-                        <div class="alert alert-light" role="alert" data-bs-theme="dark">
-                            <p style="text-align: justify;">
-                                <?php
-                                echo $row["text"] . "<br>";
-                                ?>
-                            </p>
-                            <h3>
-                                <?php
-                                $newsDate = date("d.m.Y H:i:s", strtotime($row["newsDate"]));
-                                echo "News vom " . $newsDate . "<br>";
-                                ?>
-                            </h3>
-                        </div>
+                    </div>
+                    <div class="alert alert-light" role="alert" data-bs-theme="dark">
+                        <p style="text-align: justify;">
+                            <?php
+                            echo $row["text"] . "<br>";
+                            ?>
+                        </p>
+                        <h3>
+                            <?php
+                            $newsDate = date("d.m.Y H:i:s", strtotime($row["newsDate"]));
+                            echo "News vom " . $newsDate . "<br>";
+                            ?>
+                        </h3>
                         <!-- Button zum Löschen der News -->
-                        <div class="text-center">
-                            <form action="utils/deleteNews.php" method="post">
-                                <input type="hidden" name="newsId" value="<?php echo $row["newsId"]; ?>">
-                                <button type="submit" class="btn btn-danger">News löschen</button>
-                            </form>
-                        </div>
+                        <?php if (isset($_COOKIE["admin"])) {
+                            if ($row["newsOnline"] == 1) {
+                                $newsOnline = "online"; ?>
+                                <h4 class="text-info">News ist
+                                    <?php echo $newsOnline ?>
+                                </h4>
+                                <form action="utils/offlineNews.php" method="post">
+                                    <input type="hidden" name="newsId" value="<?php echo $row["newsId"]; ?>">
+                                    <div class="d-flex">
+                                        <button type="submit" class="btn btn-danger ms-auto">News offline stellen</button>
+                                    </div>
+                                </form>
+                            <?php } else {
+                                $newsOnline = "offline"; ?>
+                                <h4 class="text-info">News ist
+                                    <?php echo $newsOnline ?>
+                                </h4>
+                                <form action="utils/onlineNews.php" method="post">
+                                    <input type="hidden" name="newsId" value="<?php echo $row["newsId"]; ?>">
+                                    <div class="d-flex">
+                                        <button type="submit" class="btn btn-success ms-auto">News online stellen</button>
+                                    </div>
+                                </form>
+                            <?php }
+                            ?>
+                        <?php } ?>
+                    </div>
                     <?php
-                    }
                 }
             } else { ?>
                 <h3>Keine News vorhanden!</h3>
@@ -74,5 +102,4 @@
             }
             ?>
     </div>
-</div>
 </div>

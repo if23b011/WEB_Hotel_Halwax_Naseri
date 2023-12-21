@@ -8,4 +8,4 @@ if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
 }
 mysqli_stmt_execute($stmt);
 mysqli_stmt_close($stmt);
-header("Location: ../index.php?page=news&deleteNews=success");
+header("Location: ../index.php?page=news&offlineNews=success");

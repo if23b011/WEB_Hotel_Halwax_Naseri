@@ -1,5 +1,5 @@
 <?php
-require_once 'utils/dbaccess.php';
+require_once 'utils/functions.php';
 //? allgemeine Funktionen
 function input($data)
 {
@@ -63,6 +63,7 @@ function loginUser($conn, $email, $password)
                 if (password_verify($password, $userData['password'])) {
                     //?  Password is correct
                     $_SESSION['login'] = true;
+                    //FIXME Cookie ist nicht sicher
                     setcookie("email", $_POST["email"], time() + (86400 * 30), "/");
                     //? Datenbankabfrage
                     $sql = "SELECT * FROM users WHERE email = '$email'";
@@ -125,20 +126,4 @@ function createReservation($conn, $room, $arrivalDate, $departureDate, $breakfas
     mysqli_stmt_bind_param($stmt, "sssiiissdsi", $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-}
-
-//? Funktionen für Newsupload
-function upload($conn, $title, $text, $target_file, $newsDate, $FK_userId)
-{
-    $newsDate = date("Y-m-d H:i:s");
-    $sql = "INSERT INTO news (title, text, filepath, newsDate, FK_userId) VALUES (?, ?, ?, ?, ?);";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-        <p>SQL statement failed</p>
-        <?php return;
-    }
-    $target_file_db = substr($target_file, 3);
-    mysqli_stmt_bind_param($stmt, "ssssi", $title, $text, $target_file_db, $newsDate, $FK_userId);
-    mysqli_stmt_execute($stmt);
-    header("Location: ../index.php?page=news&upload=success");
 }
