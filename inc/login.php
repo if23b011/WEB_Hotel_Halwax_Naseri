@@ -9,64 +9,62 @@
                     </div>
                 </div>
             </div>
-        <?php 
-    } ?>
-    <div class="d-grid mx-auto mt-4">
-        <div class="text-center">
             <?php
-            require_once 'utils/functions.php';
-            require_once 'utils/dbaccess.php';
-            //? serverseitige Validierung
-            $email = $password = "";
-            $emailErr = $passwordErr = "";
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                if (empty($_POST["email"])) {
-                    $emailErr = "*erforderlich";
-                } else {
-                    $email = input($_POST["email"]);
-                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                        $emailErr = "Das ist keine richtige Email-Adresse";
+    } ?>
+        <div class="d-grid mx-auto mt-4 text-center">
+            <h3 style="color: red;">
+                <?php
+                require_once 'utils/functions.php';
+                require_once 'utils/dbaccess.php';
+                //? serverseitige Validierung
+                $email = $password = "";
+                $emailErr = $passwordErr = "";
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    if (empty($_POST["email"])) {
+                        $emailErr = "Email erforderlich";
+                    } else {
+                        $email = input($_POST["email"]);
+                        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                            $emailErr = "Das ist keine richtige Email-Adresse";
+                        }
+                    }
+                    if (empty($_POST["password"])) {
+                        $passwordErr = "Passwort erforderlich";
+                    } else {
+                        $password = input($_POST["password"]);
                     }
                 }
-                if (empty($_POST["password"])) {
-                    $passwordErr = "*erforderlich";
-                } else {
-                    $password = input($_POST["password"]);
+                //? Daten mit Datenbank vergleichen
+                if (empty($emailErr) && empty($passwordErr)) {
+                    loginUser($conn, $email, $password);
                 }
-            }
-            //? Daten mit Datenbank vergleichen
-            loginUser($conn, $email, $password);
-            ?>
+                echo $emailErr . "<br>";
+                echo $passwordErr;
+                ?>
+            </h3>
         </div>
     </div>
-    <div class="login-box" style="display: flex; justify-content: center; align-items: center; height: 65vh;">
+    <div class="login-box" style="display: flex; justify-content: center; align-items: center; height: 50vh;">
         <div style="text-align: center;">
-        <h1>Login</h1>
+            <h1>Login</h1>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=login"); ?>">
                 <?php if (!isset($_GET["register"])) { ?>
                     <p class="text-center">Noch nicht registriert?</p>
-                        <a href="index.php?page=register" class="mb-3"> <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            Zur Registrierung
-                        </a>
+                    <a href="index.php?page=register" class="mb-3">
+                        <span></span>
+                        Zur Registrierung
+                    </a>
                 <?php } ?>
                 <div class="user-box">
-                    <input type="text" name="email">
+                    <input type="text" name="email" required>
                     <label>E-Mail</label>
                 </div>
                 <div class="user-box">
-                    <input type="password" name="password">
+                    <input type="password" name="password" required>
                     <label>Passwort</label>
                 </div>
-                <a href="">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    Login
-                </a>
+                <input type="submit" value="Login" class="loginBoxSubmit">
+                <span></span>
             </form>
         </div>
     </div>

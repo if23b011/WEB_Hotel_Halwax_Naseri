@@ -77,11 +77,12 @@ function loginUser($conn, $email, $password)
                         header("Location: index.php");
                     }
                 } else { ?>
-                    <p style="color: red;">Falsches Passwort!</p>
+                    <h3 style="color: red;">Falsches Passwort!</h3>
                 <?php }
-            } else { ?>
+            } else {
                 //? User does not exist
-                <p style="color: red;">Benutzer existiert nicht!</p>
+                ?>
+                <h3 style="color: red;">Benutzer existiert nicht!</h3>
             <?php }
         }
     }
