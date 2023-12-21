@@ -44,7 +44,8 @@
             </h3>
         </div>
     </div>
-    <div class="login-box" style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+    <div class="login-box d-flex justify-content-center align-items-center"
+        style="height: auto; width: 100%; max-width: 42rem;">
         <div style="text-align: center;">
             <h1>Login</h1>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=login"); ?>">
@@ -64,7 +65,6 @@
                     <label>Passwort</label>
                 </div>
                 <input type="submit" value="Login" class="loginBoxSubmit">
-                <span></span>
             </form>
         </div>
     </div>

@@ -74,21 +74,13 @@ p {
 
 .login-box .user-box label {
     position: absolute;
-    top:0;
-    left: 0;
+    top: -20px;
+    left: 0.5rem;
     padding: 10px 0;
     font-size: 16px;
-    color: #fff;
+    color: #03e9f4;
     pointer-events: none;
     transition: .5s;
-}
-
-.login-box .user-box input:focus ~ label,
-.login-box .user-box input:valid ~ label {
-    top: -20px;
-    left: 0;
-    color: #03e9f4;
-    font-size: 12px;
 }
 
 
