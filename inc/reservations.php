@@ -1,5 +1,4 @@
 <div class="container" style="margin-bottom: 100px;">
-    <h1>Meine Reservierungen</h1>
     <div class="d-grid col-12 mx-auto">
         <div class="mb-3 container">
             <?php
@@ -29,60 +28,93 @@
             if ($result->num_rows == 0) {
                 header("Location: index.php?page=buchung&reservation=none");
             } else {
-                $number = 1;
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $room = $row['room'];
-                    $arrivalDate = $row['arrivalDate'];
-                    $departureDate = $row['departureDate'];
-                    $breakfast = $row['breakfast'];
-                    $parking = $row['parking'];
-                    $pets = $row['pets'];
-                    $comments = $row['comments'];
-                    $reservationDate = $row['reservationDate'];
-                    $totalCost = $row['totalCost'];
-                    $status = $row['status'];
-                    if ($breakfast == 1) {
-                        $breakfast = "inkludiert";
-                    } else {
-                        $breakfast = "nicht inkludiert";
-                    }
-                    if ($parking == 1) {
-                        $parking = "inkludiert";
-                    } else {
-                        $parking = "nicht inkludiert";
-                    }
-                    if ($pets == 1) {
-                        $pets = "inkludiert";
-                    } else {
-                        $pets = "nicht inkludiert";
-                    }
-                    if (empty($comments)) {
-                        $comments = "keine";
-                    }
-                    if (isset($_GET["reservation"]) && $_GET["reservation"] == "success") {
-                        echo '<div class="alert alert-success" role="alert">Deine Reise vom ' . date("d.m.Y", strtotime($arrivalDate)) . ' bis ' . date("d.m.Y", strtotime($departureDate)) .
-                            ' wurde mit folgenden Bemerkungen gebucht: Frühstück ' . $breakfast . ', Parkplatz ' . $parking .
-                            ', Haustiere ' . $pets . '</div>';
-                        //TODO: Weiterleitung fixen
-                        header("Refresh: 3; Location: index.php?page=reservations");
-                    }
-                    echo '<p>Reservierungsnummer: ' . $number . '<br></p>';
-                    echo '<p>Zimmer: ' . $room . '<br></p>';
-                    echo '<p>Anreise: ' . date("d.m.Y", strtotime($arrivalDate)) . '<br></p>';
-                    echo '<p>Abreise: ' . date("d.m.Y", strtotime($departureDate)) . '<br></p>';
-                    echo '<p>Frühstück: ' . $breakfast . '<br></p>';
-                    echo '<p>Parkplatz: ' . $parking . '<br></p>';
-                    echo '<p>Haustiere: ' . $pets . '<br></p>';
-                    echo '<p>Kommentare: ' . $comments . '<br></p>';
-                    echo '<p>Reservierungsdatum: ' . date("d.m.Y", strtotime($reservationDate)) . '<br></p>';
-                    echo '<p>Gesamtkosten: ' . $totalCost . '€<br></p>';
-                    echo '<p>Status: ' . $status . '<br></p>'; ?>
-                    <p>------------------------<br></p>
-                    <?php $number++;
-                }
+                $number = 1; ?>
+                <div class="login-box d-flex justify-content-center align-items-center"
+                    style="width: 100%; max-width: 42rem;">
+                    <div style="text-align: center;">
+                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=login"); ?>">
+                            <a class="mb-3">
+                                <span></span>
+                                <h1>Reservierungen</h1>
+                            </a>
+                            <?php
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $room = $row['room'];
+                                $arrivalDate = $row['arrivalDate'];
+                                $departureDate = $row['departureDate'];
+                                $breakfast = $row['breakfast'];
+                                $parking = $row['parking'];
+                                $pets = $row['pets'];
+                                $comments = $row['comments'];
+                                $reservationDate = $row['reservationDate'];
+                                $totalCost = $row['totalCost'];
+                                $status = $row['status'];
+                                if ($breakfast == 1) {
+                                    $breakfast = "inkludiert";
+                                } else {
+                                    $breakfast = "nicht inkludiert";
+                                }
+                                if ($parking == 1) {
+                                    $parking = "inkludiert";
+                                } else {
+                                    $parking = "nicht inkludiert";
+                                }
+                                if ($pets == 1) {
+                                    $pets = "inkludiert";
+                                } else {
+                                    $pets = "nicht inkludiert";
+                                }
+                                if (empty($comments)) {
+                                    $comments = "keine";
+                                } ?>
+                                <div class="user-box">
+                                    <input type="text" name="number" disabled
+                                        value="Reservierungsnummer: <?php echo $number ?>">
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="room" disabled value="<?php echo $room ?>">
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="arrivalDate" disabled
+                                        value="Anreise: <?php echo date("d.m.Y", strtotime($arrivalDate)) ?>">
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="departureDate" disabled
+                                        value="Abreise: <?php echo date("d.m.Y", strtotime($departureDate)) ?>">
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="breakfast" disabled value="Frühstück: <?php echo $breakfast ?>">
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="parking" disabled value="Parkplatz: <?php echo $parking ?>">
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="pets" disabled value="Haustiere: <?php echo $pets ?>">
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="comments" disabled value="Kommentare: <?php echo $comments ?>">
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="reservationDate" disabled
+                                        value="Reservierungsdatum: <?php echo date("d.m.Y", strtotime($reservationDate)) ?>">
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="totalCost" disabled value="Gesamtkosten: <?php echo $totalCost ?>">
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="status" disabled value="Status: <?php echo $status ?>">
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="---" disabled>
+                                </div>
+                                <?php $number++;
+                            }
             }
             mysqli_stmt_close($stmt);
             ?>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -51,17 +51,18 @@
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=login"); ?>">
                 <?php if (!isset($_GET["register"])) { ?>
                     <p class="text-center">Noch nicht registriert?</p>
-                    <a href="index.php?page=register" class="mb-3">
+                    <a href="index.php?page=register" class="mb-3 a-glow">
                         <span></span>
                         Zur Registrierung
                     </a>
                 <?php } ?>
                 <div class="user-box">
-                    <input type="text" name="email" required>
+                    <input type="text" name="email" tabindex="1" required>
                     <label>E-Mail</label>
                 </div>
                 <div class="user-box">
-                    <input type="password" name="password" required>
+                    <input type="password" name="password" tabindex="2" 
+                    required>
                     <label>Passwort</label>
                 </div>
                 <input type="submit" value="Login" class="loginBoxSubmit">

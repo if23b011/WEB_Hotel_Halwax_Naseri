@@ -146,11 +146,13 @@
     <div class="login-box d-flex justify-content-center align-items-center"
         style="height: auto; width: 100%; max-width: 42rem;">
         <div style="text-align: center;">
-            <h1>Register</h1>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=register"); ?>">
-                <p class="text-center">Bereits registriert?</p>
-                <a href="index.php?page=login" class="mb-3">
+                <a class="mb-3">
                     <span></span>
+                    <h1>Registrierung</h1>
+                </a>
+                <p class="text-center">Bereits registriert?</p>
+                <a href="index.php?page=login" class="mb-3 a-glow">
                     Zum Login
                 </a>
                 <div class="row">
@@ -168,19 +170,19 @@
                         </div>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input type="text" name="firstname" tabindex="1" value="<?php echo $firstname; ?>" required>
+                        <input type="text" name="firstname" tabindex="1" required>
                         <label>Vorname</label>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input type="text" name="lastname" tabindex="2" value="<?php echo $lastname; ?>" required>
+                        <input type="text" name="lastname" tabindex="2" required>
                         <label>Nachname</label>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input type="date" name="date" tabindex="3" value="<?php echo $date; ?>" required>
+                        <input type="date" name="date" tabindex="3" required>
                         <label>Geburtsdatum</label>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input type="text" name="email" tabindex="4" value="<?php echo $email; ?>" required>
+                        <input type="text" name="email" tabindex="4" required>
                         <label>E-Mail</label>
                     </div>
                     <div class="col-12 col-md-6 user-box">
