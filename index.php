@@ -39,7 +39,10 @@ session_start();
         "register" => "inc/register.php",
         "reservation" => "inc/reservation.php",
         "reservations" => "inc/reservations.php",
-        "userManagement" => "inc/userManagement.php"
+        "userManagement" => "inc/userManagement.php",
+        "loginSuccess" => "inc/loginSuccess.php",
+        "registerSuccess" => "inc/registerSuccess.php",
+        "noNews" => "inc/noNews.php",
     ];
 
     if (isset($pages[$page])) {

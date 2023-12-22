@@ -72,9 +72,9 @@ function loginUser($conn, $email, $password)
                     if ($row['type'] == 'admin') {
                         $_SESSION['admin'] = true;
                         setcookie("admin", true, time() + (86400 * 30), "/");
-                        header("Location: index.php");
+                        header("Location: index.php?page=loginSuccess");
                     } else {
-                        header("Location: index.php");
+                        header("Location: index.php?page=loginSuccess");
                     }
                 } else { ?>
                     <h3 style="color: red;">Falsches Passwort!</h3>

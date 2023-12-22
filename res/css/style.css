@@ -1,11 +1,18 @@
-body, h1, h2, h3, p, div, ul, li {
+body,
+h1,
+h2,
+h3,
+p,
+div,
+ul,
+li {
     margin: 0;
     padding: 0;
 }
 
 body {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     background-color: #212529;
 }
 
@@ -38,9 +45,9 @@ p {
     width: 400px;
     padding: 40px;
     transform: translate(-50%, -50%);
-    background: rgba(0,0,0,.7);
+    background: rgba(0, 0, 0, .7);
     box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
 }
 
@@ -106,9 +113,9 @@ p {
     border-radius: 5px;
     border-color: #03e9f4;
     box-shadow: 0 0 5px #03e9f4,
-                0 0 25px #03e9f4,
-                0 0 50px #03e9f4,
-                0 0 100px #03e9f4;
+        0 0 25px #03e9f4,
+        0 0 50px #03e9f4,
+        0 0 100px #03e9f4;
 }
 
 
@@ -127,14 +134,14 @@ p {
     letter-spacing: 4px
 }
 
-.login-box a:hover {
+.login-box .a-glow:hover {
     background: #03e9f4;
     color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 5px #03e9f4,
-                0 0 25px #03e9f4,
-                0 0 50px #03e9f4,
-                0 0 100px #03e9f4;
+        0 0 25px #03e9f4,
+        0 0 50px #03e9f4,
+        0 0 100px #03e9f4;
 }
 
 .login-box a span {
@@ -154,9 +161,82 @@ p {
 
 @keyframes btn-anim1 {
     0% {
-    right: 100%;
+        right: 100%;
     }
-    50%,100% {
-    right: -100%;
+
+    50%,
+    100% {
+        right: -100%;
+    }
+}
+
+:root {
+    --notification-background: #3dd31f;
+    --notification-primary: #16470f;
+    --background: #FAF9FF;
+}
+
+.notification {
+    position: absolute;
+    width: max-content;
+    left: 0;
+    right: 0;
+    bottom: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 6px;
+    background-color: var(--notification-background);
+    color: var(--notification-primary);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(30px);
+    opacity: 0;
+    visibility: hidden;
+    animation: fade-in 3s linear;
+}
+
+.notification__icon {
+    height: 26px;
+    width: 26px;
+    margin-right: 4px;
+}
+
+.notification__body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px 8px;
+}
+
+.notification__progress {
+    position: absolute;
+    left: 4px;
+    bottom: 4px;
+    width: calc(100% - 8px);
+    height: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: linear-gradient(to right,
+            var(--notification-background),
+            var(--notification-primary));
+    border-radius: inherit;
+    animation: progress 2.5s 0.3s linear;
+}
+
+@keyframes fade-in {
+    5% {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    95% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes progress {
+    to {
+        transform: scaleX(1);
     }
 }

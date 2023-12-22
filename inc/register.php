@@ -137,7 +137,7 @@
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
                 $_SESSION["email"] = $email;
-                header("Location: index.php?page=login&register=success");
+                header("Location: index.php?page=registerSuccess");
             }
             ?>
         </div>
@@ -146,13 +146,11 @@
     <div class="login-box d-flex justify-content-center align-items-center"
         style="height: auto; width: 100%; max-width: 42rem;">
         <div style="text-align: center;">
+            <h1>Registrierung</h1>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=register"); ?>">
-                <a class="mb-3">
-                    <span></span>
-                    <h1>Registrierung</h1>
-                </a>
                 <p class="text-center">Bereits registriert?</p>
                 <a href="index.php?page=login" class="mb-3 a-glow">
+                    <span></span>
                     Zum Login
                 </a>
                 <div class="row">

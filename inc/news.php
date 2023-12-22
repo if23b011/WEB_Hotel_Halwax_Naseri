@@ -32,7 +32,7 @@
             }
             require_once 'utils/dbaccess.php';
             $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
+            if ($result->num_rows < 0) {
                 ?>
                 <?php
                 while ($row = $result->fetch_assoc()) {
@@ -96,9 +96,8 @@
                     <?php
                 }
             } else { ?>
-                <h3>Keine News vorhanden!</h3>
             </div>
-            <?php header("Location: index.php?page=landing&error=noNews");
+            <?php header("Location: index.php?page=noNews");
             }
             ?>
     </div>
