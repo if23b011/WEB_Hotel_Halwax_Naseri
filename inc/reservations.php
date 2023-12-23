@@ -73,7 +73,7 @@
                                     <span></span>
                                     <span></span>
                                     <h2>
-                                        <?php echo $number ?>
+                                        Reservierung<?php echo " " . $number ?>
                                     </h2>
                                 </a>
                                 <div class="user-box">

@@ -43,6 +43,7 @@ session_start();
         "loginSuccess" => "ntf/loginSuccess.php",
         "registerSuccess" => "ntf/registerSuccess.php",
         "noNews" => "ntf/noNews.php",
+        "buchungSuccess" => "ntf/buchungSuccess.php",
     ];
 
     if (isset($pages[$page])) {
@@ -51,7 +52,6 @@ session_start();
         }
     } else {
         include 'ntf/404.php';
-        header("Refresh: 1; url=index.php");
     } ?>
     <!-- Footer-->
     <?php include 'utils/footer.php'; ?>

@@ -76,8 +76,7 @@
             $FK_userId = $row['userId'];
             mysqli_stmt_close($stmt);
             createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
-            //FIXME: Weiterleitung fixen
-            header("Location: index.php?page=reservations&reservation=success");
+            header("Location: index.php?page=buchungSuccess");
         }
     }
     ?>
