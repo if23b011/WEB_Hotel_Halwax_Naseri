@@ -2,7 +2,7 @@
 
 session_start();
 //TODO: Überprüfen, ob User Seite aufrufen darf (z.B. nur eingeloggte User dürfen auf Reservierungsseite)
-//TODO: Fehlermeldungen verbessern
+//TODO: Fehlermeldungen verbessern (Notifications mit GET-Parametern (z.B. ?page=loginNtf&loginError=none oder ?page=registerNtf&registerError=none))
 //TODO: Code aufräumen
 //TODO: Code kommentieren
 //TODO: SESSIONS und COOKIES überprüfen
@@ -14,6 +14,7 @@ session_start();
 //TODO: Usability und Accessibility verbessern
 //TODO: Design verschönern
 //TODO: restliche Seiten anpassen
+//TODO: Armin die ganze Scheiße erklären
 ?>
 <!doctype html>
 <html lang="en">

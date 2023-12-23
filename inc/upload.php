@@ -1,30 +1,23 @@
 <div class="container" style="margin-bottom: 100px;">
-    <h1>News uploaden</h1>
-    <form method="post" action="utils/upload.php" enctype="multipart/form-data">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="exampleFormControlText" class="form-label">
-                            <p>Newstitel:</p>
-                        </label>
-                        <input class="form-control" type="text" name="title" id="title">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">
-                            <p>Newstext:</p>
-                        </label>
-                        <textarea class="form-control" id="text" rows="3" name="text"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <p>Bild auswählen (optional):</p>
-                        <p><input type="file" name="fileToUpload"></p>
-                    </div>
-                    <div class="d-grid gap-2">
-                        <input class="btn btn-primary" type="submit" value="Submit">
-                    </div>
+    <div class="login-box d-flex justify-content-center align-items-center"
+        style="height: auto; width: 100%; max-width: 42rem;">
+        <div style="text-align: center;">
+            <h1>News uploaden</h1>
+            <form method="post" action="utils/upload.php" enctype="multipart/form-data">
+                <div class="user-box">
+                    <input type="text" name="title" id="title">
+                    <label>Newstitel:</label>
                 </div>
-            </div>
+                <div class="user-box mb-3">
+                    <textarea class="form-control" id="text" rows="3" name="text"></textarea>
+                    <label>Newstext:</label>
+                </div>
+                <div class="user-box mb-3">
+                    <label>Bild auswählen (optional):</label>
+                </div>
+                <p><input type="file" name="fileToUpload"></p>
+                <input type="submit" value="Upload" class="loginBoxSubmit">
+            </form>
         </div>
-    </form>
+    </div>
 </div>
