@@ -39,16 +39,15 @@ p {
 }
 
 .login-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    padding: 40px;
-    transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, .7);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+    margin: 50px auto;
+    /* Erhöhen Sie den Wert 50px, um den Abstand von der Oberseite zu erhöhen */
+    padding: 20px;
 }
 
 .login-box h2 {
@@ -118,8 +117,6 @@ p {
         0 0 100px #03e9f4;
 }
 
-
-
 .login-box form a {
     position: relative;
     display: inline-block;
@@ -149,44 +146,111 @@ p {
     display: block;
 }
 
+
+
 .login-box a span:nth-child(1) {
-    bottom: 0;
-    right: 100%;
+    top: 0;
+    left: -100%;
     width: 100%;
     height: 2px;
-    background: linear-gradient(270deg, transparent, #03e9f4);
+    background: linear-gradient(90deg, transparent, #03e9f4);
     animation: btn-anim1 1s linear infinite;
-    animation-delay: .1s
 }
 
 @keyframes btn-anim1 {
     0% {
-        right: 100%;
+        left: -100%;
     }
 
     50%,
     100% {
+        left: 100%;
+    }
+}
+
+.login-box a span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+
+.login-box a span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #03e9f4);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+    0% {
         right: -100%;
+    }
+
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+
+.login-box a span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #03e9f4);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+
+    50%,
+    100% {
+        bottom: 100%;
     }
 }
 
 :root {
-    --notification-background: #3dd31f;
-    --notification-primary: #16470f;
+    --success-background: #3dd31f;
+    --success-primary: #16470f;
+    --warning-background: #ff0000;
+    --warning-primary: #ffffff;
     --background: #FAF9FF;
 }
 
-.notification {
+.success {
     position: absolute;
     width: max-content;
     left: 0;
     right: 0;
-    bottom: 100px;
+    bottom: 75px;
+    /* Changed from 100px to 50px */
     margin-left: auto;
     margin-right: auto;
     border-radius: 6px;
-    background-color: var(--notification-background);
-    color: var(--notification-primary);
+    background-color: var(--success-background);
+    color: var(--success-primary);
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
     transform: translateY(30px);
     opacity: 0;
@@ -194,20 +258,20 @@ p {
     animation: fade-in 3s linear;
 }
 
-.notification__icon {
+.success__icon {
     height: 26px;
     width: 26px;
     margin-right: 4px;
 }
 
-.notification__body {
+.success__body {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 16px 8px;
 }
 
-.notification__progress {
+.success__progress {
     position: absolute;
     left: 4px;
     bottom: 4px;
@@ -216,8 +280,73 @@ p {
     transform: scaleX(0);
     transform-origin: left;
     background: linear-gradient(to right,
-            var(--notification-background),
-            var(--notification-primary));
+            var(--success-background),
+            var(--success-primary));
+    border-radius: inherit;
+    animation: progress 2.5s 0.3s linear;
+}
+
+@keyframes fade-in {
+    5% {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    95% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes progress {
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.warning {
+    position: absolute;
+    width: max-content;
+    left: 0;
+    right: 0;
+    bottom: 75px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 6px;
+    background-color: var(--warning-background);
+    color: var(--warning-primary);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(30px);
+    opacity: 0;
+    visibility: hidden;
+    animation: fade-in 3s linear;
+}
+
+.warning__icon {
+    height: 26px;
+    width: 26px;
+    margin-right: 4px;
+}
+
+.warning__body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px 8px;
+}
+
+.warning__progress {
+    position: absolute;
+    left: 4px;
+    bottom: 4px;
+    width: calc(100% - 8px);
+    height: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: linear-gradient(to right,
+            var(--warning-background),
+            var(--warning-primary));
     border-radius: inherit;
     animation: progress 2.5s 0.3s linear;
 }

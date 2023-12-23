@@ -34,7 +34,6 @@
                     <div style="text-align: center;">
                         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=login"); ?>">
                             <a class="mb-3">
-                                <span></span>
                                 <h1>Reservierungen</h1>
                             </a>
                             <?php
@@ -67,10 +66,16 @@
                                 if (empty($comments)) {
                                     $comments = "keine";
                                 } ?>
-                                <div class="user-box">
-                                    <input type="text" name="number" disabled
-                                        value="Reservierungsnummer: <?php echo $number ?>">
-                                </div>
+                                <p></p>
+                                <a>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <h2>
+                                        <?php echo $number ?>
+                                    </h2>
+                                </a>
                                 <div class="user-box">
                                     <input type="text" name="room" disabled value="<?php echo $room ?>">
                                 </div>
@@ -103,9 +108,6 @@
                                 </div>
                                 <div class="user-box">
                                     <input type="text" name="status" disabled value="Status: <?php echo $status ?>">
-                                </div>
-                                <div class="user-box">
-                                    <input type="text" name="---" disabled>
                                 </div>
                                 <?php $number++;
                             }

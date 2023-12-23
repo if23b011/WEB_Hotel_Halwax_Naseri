@@ -40,18 +40,17 @@ session_start();
         "reservation" => "inc/reservation.php",
         "reservations" => "inc/reservations.php",
         "userManagement" => "inc/userManagement.php",
-        "loginSuccess" => "inc/loginSuccess.php",
-        "registerSuccess" => "inc/registerSuccess.php",
-        "noNews" => "inc/noNews.php",
+        "loginSuccess" => "ntf/loginSuccess.php",
+        "registerSuccess" => "ntf/registerSuccess.php",
+        "noNews" => "ntf/noNews.php",
     ];
 
     if (isset($pages[$page])) {
         if (file_exists($pages[$page])) {
             include $pages[$page];
         }
-    } else { ?>
-        <h1>404 NOT FOUND</h1>
-        <?php
+    } else {
+        include 'ntf/404.php';
         header("Refresh: 1; url=index.php");
     } ?>
     <!-- Footer-->
