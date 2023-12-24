@@ -23,14 +23,18 @@
                                     <h2>
                                         <?php
                                         if ($row["gender"] == "M") {
-                                            echo "Herr ";
+                                            $gender = "Herr ";
                                         } else {
-                                            echo "Frau ";
+                                            $gender = "Frau ";
                                         }
-                                        echo $row["firstname"] . " " . $row["lastname"];
+                                        echo $gender . " " . $row["firstname"] . " " . $row["lastname"];
                                         ?>
                                     </h2>
                                 </a>
+                                <div class="user-box">
+                                    <input type="text" name="gender" value="<?php echo $row["gender"] ?>" tabindex="1">
+                                    <label>Geschlecht</label>
+                                </div>
                                 <div class="user-box">
                                     <input type="text" name="firstname" value="<?php echo $row["firstname"] ?>" tabindex="1">
                                     <label>Vorname</label>
@@ -50,6 +54,10 @@
                                 <div class="user-box">
                                     <input type="text" name="type" value="<?php echo $row["type"] ?>" tabindex="4">
                                     <label>Type</label>
+                                </div>
+                                <div class="user-box">
+                                    <input type="text" name="type" value="<?php echo $row["active"] ?>" tabindex="4">
+                                    <label>Account aktiv (1=aktiv, 0 = inkativ)</label>
                                 </div>
                                 <?php
                             }

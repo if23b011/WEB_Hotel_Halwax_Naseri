@@ -99,17 +99,21 @@
                 <div class="user-box">
                     <input type="text" class="form-control" name="firstname" placeholder="Vorname" tabindex="1"
                         value="<?php echo $firstname; ?>">
+                    <label>Vorname</label>
                 </div>
                 <div class="user-box">
                     <input type="text" class="form-control" name="lastname" placeholder="Nachname" tabindex="2"
                         value="<?php echo $lastname; ?>">
+                    <label>Nachname</label>
                 </div>
                 <div class="user-box">
                     <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse" tabindex="3"
                         value="<?php echo $email; ?>" disabled>
+                    <label>E-Mail-Adresse</label>
                 </div>
                 <div class="user-box">
                     <input type="date" class="form-control" name="date" tabindex="4" value="<?php echo $date; ?>">
+                    <label>Geburtstag</label>
                 </div>
                 <input type="submit" value="Änderungen übernehmen" class="loginBoxSubmit" tabindex="5">
             </form>

@@ -48,21 +48,6 @@
                                 $reservationDate = $row['reservationDate'];
                                 $totalCost = $row['totalCost'];
                                 $status = $row['status'];
-                                if ($breakfast == 1) {
-                                    $breakfast = "inkludiert";
-                                } else {
-                                    $breakfast = "nicht inkludiert";
-                                }
-                                if ($parking == 1) {
-                                    $parking = "inkludiert";
-                                } else {
-                                    $parking = "nicht inkludiert";
-                                }
-                                if ($pets == 1) {
-                                    $pets = "inkludiert";
-                                } else {
-                                    $pets = "nicht inkludiert";
-                                }
                                 if (empty($comments)) {
                                     $comments = "keine";
                                 } ?>
@@ -73,7 +58,8 @@
                                     <span></span>
                                     <span></span>
                                     <h2>
-                                        Reservierung<?php echo " " . $number ?>
+                                        Reservierung
+                                        <?php echo " " . $number ?>
                                     </h2>
                                 </a>
                                 <div class="user-box">
@@ -88,13 +74,37 @@
                                         value="Abreise: <?php echo date("d.m.Y", strtotime($departureDate)) ?>">
                                 </div>
                                 <div class="user-box">
-                                    <input type="text" name="breakfast" disabled value="Frühstück: <?php echo $breakfast ?>">
+                                    <?php if ($breakfast == 1) {
+                                        $breakfast = "inkludiert"; ?>
+                                        <input type="text" name="breakfast" disabled style="color: green;"
+                                            value="Frühstück: <?php echo $breakfast ?>">
+                                    <?php } else if ($breakfast == 0) {
+                                        $breakfast = "nicht inkludiert"; ?>
+                                            <input type="text" name="breakfast" disabled style="color: red;"
+                                                value="Frühstück: <?php echo $breakfast ?>">
+                                    <?php } ?>
                                 </div>
                                 <div class="user-box">
-                                    <input type="text" name="parking" disabled value="Parkplatz: <?php echo $parking ?>">
+                                    <?php if ($parking == 1) {
+                                        $parking = "inkludiert"; ?>
+                                        <input type="text" name="parking" disabled style="color: green;"
+                                            value="Parkplatz: <?php echo $parking ?>">
+                                    <?php } else if ($parking == 0) {
+                                        $parking = "nicht inkludiert"; ?>
+                                            <input type="text" name="parking" disabled style="color: red;"
+                                                value="Parkplatz: <?php echo $parking ?>">
+                                    <?php } ?>
                                 </div>
                                 <div class="user-box">
-                                    <input type="text" name="pets" disabled value="Haustiere: <?php echo $pets ?>">
+                                    <?php if ($pets == 1) {
+                                        $pets = "inkludiert"; ?>
+                                        <input type="text" name="pets" disabled style="color: green;"
+                                            value="Haustiere: <?php echo $pets ?>">
+                                    <?php } else if ($pets == 0) {
+                                        $pets = "nicht inkludiert"; ?>
+                                            <input type="text" name="pets" disabled style="color: red;"
+                                                value="Haustiere: <?php echo $pets ?>">
+                                    <?php } ?>
                                 </div>
                                 <div class="user-box">
                                     <input type="text" name="comments" disabled value="Kommentare: <?php echo $comments ?>">
