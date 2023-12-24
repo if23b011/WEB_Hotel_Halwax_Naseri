@@ -4,42 +4,50 @@
     require_once 'utils/dbaccess.php';
     require_once 'utils/functions.php';
     $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
-    $genderErr = $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrUp =
-        $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen = $password2Err = $dateErr = "";
+    $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrSec = $password2Err = $dateErr = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($_POST["gender"])) {
             $gender = input($_POST["gender"]);
         }
 
         if (empty($_POST["email"])) {
-            $email = "*erforderlich";
+            $emailErr = "*erforderlich";
         } else {
             $email = input($_POST["email"]);
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $email = "Das ist keine richtige Email-Adresse";
+                $emailErr = "Das ist keine richtige Email-Adresse";
+                $email = "";
             }
         }
 
         if (empty($_POST["firstname"])) {
-            $firstname = "*erforderlich";
+            $firstnameErr = "*erforderlich";
         } else {
             $firstname = input($_POST["firstname"]);
             if (!preg_match("/^[a-zA-Zäöü]*$/", $firstname)) {
-                $firstname = "Das ist kein richtiger Vorname";
+                $firstnameErr = "Das ist kein richtiger Vorname";
+                $firstname = "";
             }
         }
 
         if (empty($_POST["lastname"])) {
-            $lastname = "*erforderlich";
+            $lastnameErr = "*erforderlich";
         } else {
             $lastname = input($_POST["lastname"]);
             if (!preg_match("/^[a-zA-Zäöü]*$/", $lastname)) {
-                $lastname = "Das ist kein richtiger Nachname";
+                $lastnameErr = "Das ist kein richtiger Nachname";
+                $lastname = "";
             }
         }
 
+        if (empty($_POST["date"])) {
+            $dateErr = "*erforderlich";
+        } else {
+            $date = input($_POST["date"]);
+        }
+
         if (empty($_POST["password"])) {
-            $password = "*erforderlich";
+            $passwordErr = "*erforderlich";
         } else {
             $password = input($_POST["password"]);
         }
@@ -50,47 +58,27 @@
         $number = preg_match('@[0-9]@', $password);
         $specialChars = preg_match('@[^\w]@', $password);
 
-        if (strlen($password) < 8 && !(empty($_POST["password"]))) {
-            $password = "*erforderlich:";
-            $password = "8 Zeichen";
-        }
-
-        if (!$uppercase && !(empty($_POST["password"]))) {
-            $password = "*erforderlich:";
-            $password = "1 Großbuchstabe";
-        }
-
-        if (!$lowercase && !(empty($_POST["password"]))) {
-            $password = "*erforderlich:";
-            $password = "1 Kleinbuchstabe";
-        }
-
-        if (!$number && !(empty($_POST["password"]))) {
-            $password = "*erforderlich:";
-            $password = "1 Zahl";
-        }
-
-        if (!$specialChars && !(empty($_POST["password"]))) {
-            $password = "*erforderlich:";
-            $password = "1 Sonderzeichen";
+        if (
+            !(empty($_POST["password"])) && (strlen($password) < 8 || !$uppercase || !$lowercase
+                || !$number || !$specialChars)
+        ) {
+            $passwordErrSec = "Das Passwort muss 8 Zeichen lang sein und mindestens: 
+            1 Großbuchstabe, 1 Kleinbuchstabe, 1 Zahl und 1 Sonderzeichen enthalten";
+            $password = "";
         }
 
         if (empty($_POST["password2"])) {
-            $password2 = "*erforderlich";
+            $password2Err = "*erforderlich";
+            $password2 = "";
         } else if ($_POST['password'] != $_POST['password2']) {
-            $password2 = "Passwort ist nicht ident!";
+            $password2Err = "Passwort ist nicht ident!";
+            $password2 = "";
         } else {
             $password2 = input($_POST["password2"]);
         }
-
-        if (empty($_POST["date"])) {
-            $date = "*erforderlich";
-        } else {
-            $date = input($_POST["date"]);
-        }
     }
     //FIXME
-    if ($allesOK) {
+    if ($emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" && $password2Err == "" && $passwordErrSec == "") {
         //? Daten in Datenbank speichern
         require_once 'utils/dbaccess.php';
         if (registerEmailExists($conn, $_POST["email"])) {
@@ -142,6 +130,7 @@
                     Zum Login
                 </a>
                 <div class="row">
+                    <p style="color: red" class="text-start">*erforderlich</p>
                     <div class="mb-5 d-flex justify-content-center align-items-center">
                         <div class="col-12 col-md-6 d-flex align-items-center form-group">
                             <select class="form-select" name="gender" id="gender"
@@ -156,29 +145,38 @@
                         </div>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input type="text" name="firstname" value="<?php echo $firstname ?>" tabindex="1">
-                        <label>Vorname</label>
+                        <input type="text" name="firstname" value="<?php echo $firstname ?>"
+                            placeholder="<?php echo $firstnameErr ?>" tabindex="1">
+                        <label>Vorname*</label>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input type="text" name="lastname" value="<?php echo $lastname ?>" tabindex="2">
-                        <label>Nachname</label>
+                        <input type="text" name="lastname" value="<?php echo $lastname ?>"
+                            placeholder="<?php echo $lastnameErr ?>" tabindex="2">
+                        <label>Nachname*</label>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input type="date" name="date" value="<?php echo $date ?>" tabindex="3">
-                        <label>Geburtsdatum</label>
+                        <input type="date" name="date" value="<?php echo $date ?>" placeholder="<?php echo $dateErr ?>"
+                            tabindex="3">
+                        <label>Geburtsdatum*</label>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input type="text" name="email" value="<?php echo $email ?>" tabindex="4">
-                        <label>E-Mail</label>
+                        <input type="text" name="email" value="<?php echo $email ?>"
+                            placeholder="<?php echo $emailErr ?>" tabindex="4">
+                        <label>E-Mail*</label>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input data-toggle="password" type="password" name="password" value="<?php echo $password ?>" tabindex="5">
-                        <label>Passwort</label>
+                        <input data-toggle="password" type="password" name="password" value="<?php echo $password ?>"
+                            placeholder="<?php echo $passwordErr ?>" tabindex="5">
+                        <label>Passwort*</label>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input data-toggle="password" type="password" name="password2" value="<?php echo $password2 ?>" tabindex="6">
-                        <label>Passwort wiederholen</label>
+                        <input data-toggle="password" type="password" name="password2" value="<?php echo $password2 ?>"
+                            placeholder="<?php echo $password2Err ?>" tabindex="6">
+                        <label>Passwort wiederholen*</label>
                     </div>
+                    <p style="color: red" class="text-center">
+                        <?php echo $passwordErrSec ?>
+                    </p>
                 </div>
                 <input type="submit" value="Register" class="loginBoxSubmit">
             </form>
