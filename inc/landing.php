@@ -8,19 +8,19 @@
     <div id="carouselExampleAutoplaying" class="carousel slide mb-4" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="res/img/zimmer1.jpg" class="d-block w-100 img-fluid" style="max-height: 550px;"
+                <img src="res/img/zimmer1.jpg" class="d-block w-100 img-fluid img-thumbnail" style="max-height: 550px;"
                     alt="Zimmer 1">
             </div>
             <div class="carousel-item">
-                <img src="res/img/zimmer2.jpg" class="d-block w-100 img-fluid" style="max-height: 550px;"
+                <img src="res/img/zimmer2.jpg" class="d-block w-100 img-fluid img-thumbnail" style="max-height: 550px;"
                     alt="Zimmer 2">
             </div>
             <div class="carousel-item">
-                <img src="res/img/zimmer3.jpg" class="d-block w-100 img-fluid" style="max-height: 550px;"
+                <img src="res/img/zimmer3.jpg" class="d-block w-100 img-fluid img-thumbnail" style="max-height: 550px;"
                     alt="Zimmer 3">
             </div>
             <div class="carousel-item">
-                <img src="res/img/zimmer4.jpg" class="d-block w-100 img-fluid" style="max-height: 550px;"
+                <img src="res/img/zimmer4.jpg" class="d-block w-100 img-fluid img-thumbnail" style="max-height: 550px;"
                     alt="Zimmer 4">
             </div>
         </div>

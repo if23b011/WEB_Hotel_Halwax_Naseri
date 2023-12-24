@@ -1,49 +1,42 @@
 <div style="margin-bottom: 100px;">
-    <h1>NEWS</h1>
-    <div class="d-grid col-12 mx-auto">
-        <div class="mb-3 container">
+    <?php
+    if (isset($_GET["upload"])) {
+        if ($_GET["upload"] == "success") { ?>
+            <p class="text-success">News hochgeladen</p>
             <?php
-            if (isset($_GET["upload"])) {
-                if ($_GET["upload"] == "success") { ?>
-                    <p class="text-success">News hochgeladen</p>
-                    <?php
-                    header("Refresh: 2; url=index.php?page=news");
-                }
-            }
-            if (isset($_GET["offlineNews"])) {
-                if ($_GET["offlineNews"] == "success") { ?>
-                    <p class="text-success">News offline</p>
-                    <?php
-                    header("Refresh: 2; url=index.php?page=news");
-                }
-            }
-            if (isset($_GET["onlineNews"])) {
-                if ($_GET["onlineNews"] == "success") { ?>
-                    <p class="text-success">News online</p>
-                    <?php
-                    header("Refresh: 2; url=index.php?page=news");
-                }
-            }
-            ?>
-            <?php if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
-                $sql = "SELECT * FROM news ORDER BY newsDate DESC";
-            } else {
-                $sql = "SELECT * FROM news where newsOnline = 1 ORDER BY newsDate DESC";
-            }
-            require_once 'utils/dbaccess.php';
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
+            header("Refresh: 2; url=index.php?page=news");
+        }
+    }
+    if (isset($_GET["offlineNews"])) {
+        if ($_GET["offlineNews"] == "success") { ?>
+            <p class="text-success">News offline</p>
+            <?php
+            header("Refresh: 2; url=index.php?page=news");
+        }
+    }
+    if (isset($_GET["onlineNews"])) {
+        if ($_GET["onlineNews"] == "success") { ?>
+            <p class="text-success">News online</p>
+            <?php
+            header("Refresh: 2; url=index.php?page=news");
+        }
+    }
+    ?>
+    <?php if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
+        $sql = "SELECT * FROM news ORDER BY newsDate DESC";
+    } else {
+        $sql = "SELECT * FROM news where newsOnline = 1 ORDER BY newsDate DESC";
+    }
+    require_once 'utils/dbaccess.php';
+    $result = $conn->query($sql); ?>
+    <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 75rem;">
+        <div style="text-align: center;">
+            <h1 style="color: grey">Die neuesten News des Hotel Tropicana</h1>
+            <?php if ($result->num_rows > 0) {
                 ?>
                 <?php
                 while ($row = $result->fetch_assoc()) {
                     ?>
-                    <div class="text-center">
-                        <h2>
-                            <?php
-                            echo $row["title"] . "<br>";
-                            ?>
-                        </h2>
-                    </div>
                     <div class="text-center mb-4">
                         <div class="container">
                             <?php
@@ -52,6 +45,13 @@
                             }
                             ?>
                         </div>
+                    </div>
+                    <div class="text-center">
+                        <h2>
+                            <?php
+                            echo $row["title"] . "<br>";
+                            ?>
+                        </h2>
                     </div>
                     <div class="alert alert-light" role="alert" data-bs-theme="dark">
                         <p style="text-align: justify;">
@@ -96,9 +96,10 @@
                     <?php
                 }
             } else { ?>
-            </div>
-            <?php header("Location: index.php?page=noNews");
+                <?php header("Location: index.php?page=noNews");
             }
             ?>
+            </form>
+        </div>
     </div>
 </div>

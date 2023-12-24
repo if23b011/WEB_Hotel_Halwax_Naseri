@@ -76,7 +76,7 @@
             $FK_userId = $row['userId'];
             mysqli_stmt_close($stmt);
             createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
-            header("Location: index.php?page=buchungSuccess");
+            header("Location: index.php?page=buchungNtf&error=none");
         }
     }
     ?>

@@ -72,17 +72,16 @@ function loginUser($conn, $email, $password)
                     if ($row['type'] == 'admin') {
                         $_SESSION['admin'] = true;
                         setcookie("admin", true, time() + (86400 * 30), "/");
-                        header("Location: index.php?page=loginSuccess");
+                        header("Location: index.php?page=profileNtf&error=none");
                     } else {
-                        header("Location: index.php?page=loginSuccess");
+                        header("Location: index.php?page=profileNtf&error=none");
                     }
-                } else { ?>
-                    <h3 style="color: red;">Falsches Passwort!</h3>
+                } else {
+                    header("Location: index.php?page=loginNtf&error=wrongPassword"); ?>
                 <?php }
             } else {
                 //? User does not exist
-                ?>
-                <h3 style="color: red;">Benutzer existiert nicht!</h3>
+                header("Location: index.php?page=loginNtf&error=wrongEmail"); ?>
             <?php }
         }
     }

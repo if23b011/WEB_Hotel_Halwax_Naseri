@@ -2,12 +2,17 @@
     <h1 class="text-center mx-auto">Zimmerauswahl</h1>
     <div class="mb-4">
         <?php
-        if (isset($_GET["reservation"])) {
-            if ($_GET["reservation"] == "none") { ?>
-                <h3 class="text-danger text-center">Sie haben noch keine Reservierung getätigt</h3>
-
-            <?php
-                header("Refresh: 1; url=index.php?page=buchung");
+        if (isset($_GET["error"])) {
+            if ($_GET["error"] == "noReservations") { ?>
+                <div class="warning">
+                    <div class="warning__body">
+                        <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
+                        Sie haben noch keine Reservierungen getätigt!
+                    </div>
+                    <div class="warning__progress"></div>
+                </div>
+                <?php
+                header("Refresh: 3; url=index.php?page=buchung");
             }
         }
         ?>

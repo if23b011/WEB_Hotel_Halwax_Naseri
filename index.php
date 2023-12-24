@@ -41,10 +41,11 @@ session_start();
         "reservation" => "inc/reservation.php",
         "reservations" => "inc/reservations.php",
         "userManagement" => "inc/userManagement.php",
-        "loginSuccess" => "ntf/loginSuccess.php",
-        "registerSuccess" => "ntf/registerSuccess.php",
-        "noNews" => "ntf/noNews.php",
-        "buchungSuccess" => "ntf/buchungSuccess.php",
+        "loginNtf" => "ntf/loginNtf.php",
+        "registerNtf" => "ntf/registerNtf.php",
+        "newsNtf" => "ntf/newsNtf.php",
+        "buchungNtf" => "ntf/buchungNtf.php",
+        "profileNtf" => "ntf/profileNtf.php",
     ];
 
     if (isset($pages[$page])) {

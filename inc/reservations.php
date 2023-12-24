@@ -26,7 +26,7 @@
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             if ($result->num_rows == 0) {
-                header("Location: index.php?page=buchung&reservation=none");
+                header("Location: index.php?page=buchung&error=noReservations");
             } else {
                 $number = 1; ?>
                 <div class="login-box d-flex justify-content-center align-items-center"
