@@ -32,7 +32,7 @@
     <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 75rem;">
         <div style="text-align: center;">
             <h1 style="color: grey">Die neuesten News des Hotel Tropicana</h1>
-            <?php if ($result->num_rows > 0) {
+            <?php if ($result->num_rows < 0) {
                 ?>
                 <?php
                 while ($row = $result->fetch_assoc()) {
@@ -96,7 +96,7 @@
                     <?php
                 }
             } else { ?>
-                <?php header("Location: index.php?page=noNews");
+                <?php header("Location: index.php?page=landingNtf&error=noNews");
             }
             ?>
             </form>

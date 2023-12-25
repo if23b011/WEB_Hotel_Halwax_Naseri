@@ -1,8 +1,9 @@
 <div class="container" style="margin-bottom: 100px;">
     <?php
-    $firstname = $lastname = $email = $date = $password = "";
-    $passwordErr = $passwordErrUp = $passwordErrLow = $passwordErrNum = $passwordErrSpecial = $passwordErrLen =
-        $passwordErrIdent = $wrongOldPassword = "";
+    $firstname = $lastname = $email = $date = $oldPassword = $password = $password2 = "";
+    $oldPasswordErr = $passwordErr = $password2Err = $newPasswordErr = "";
+    $passwordErrSec = "Das neue Passwort muss 8 Zeichen lang sein und mindestens: 
+    1 Großbuchstabe, 1 Kleinbuchstabe, 1 Zahl und 1 Sonderzeichen enthalten";
     require_once 'utils/dbaccess.php';
     require_once 'utils/functions.php';
 
@@ -15,7 +16,6 @@
     $email = input($row['email']);
     $date = input($row['birthdate']);
     $birthDate = date("Y-m-d", strtotime($date));
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["firstname"])) {
             $firstname = input($_POST["firstname"]);
@@ -39,8 +39,10 @@
         mysqli_stmt_close($stmt);
 
         //? Passwortvalidierung
-        if (isset($_POST["newPassword"])) {
-            $password = input($_POST["newPassword"]);
+        if (empty($_POST["password"])) {
+            $passwordErr = "*erforderlich";
+        } else {
+            $password = input($_POST["password"]);
         }
 
         $uppercase = preg_match('@[A-Z]@', $password);
@@ -48,42 +50,66 @@
         $number = preg_match('@[0-9]@', $password);
         $specialChars = preg_match('@[^\w]@', $password);
 
-        if (strlen($password) < 8 && !(empty($_POST["newPassword"]))) {
-            $passwordErr = "*erforderlich:";
-            $passwordErrLen = "8 Zeichen";
+        if (
+            !(empty($_POST["password"])) && (strlen($password) < 8 || !$uppercase || !$lowercase
+                || !$number || !$specialChars)
+        ) {
+            $passwordErrSec = "Das neue Passwort muss 8 Zeichen lang sein und mindestens: 
+            1 Großbuchstabe, 1 Kleinbuchstabe, 1 Zahl und 1 Sonderzeichen enthalten!";
+            $password = "";
+        } else {
+            $passwordErrSec = "";
         }
 
-        if (!$uppercase && !(empty($_POST["newPassword"]))) {
-            $passwordErr = "*erforderlich:";
-            $passwordErrUp = "1 Großbuchstabe";
+        if (empty($_POST["password2"])) {
+            $password2Err = "*erforderlich";
+            $password2 = "";
+        } else if ($_POST['password'] != $_POST['password2']) {
+            $password2Err = "Passwort ist nicht ident!";
+            $password2 = "";
+        } else {
+            $password2 = input($_POST["password2"]);
         }
 
-        if (!$lowercase && !(empty($_POST["newPassword"]))) {
-            $passwordErr = "*erforderlich:";
-            $passwordErrLow = "1 Kleinbuchstabe";
-        }
-
-        if (!$number && !(empty($_POST["newPassword"]))) {
-            $passwordErr = "*erforderlich:";
-            $passwordErrNum = "1 Zahl";
-        }
-
-        if (!$specialChars && !(empty($_POST["newPassword"]))) {
-            $passwordErr = "*erforderlich:";
-            $passwordErrSpecial = "1 Sonderzeichen";
-        }
-        if (isset($_POST["newPassword"])) {
-            if ($_POST["newPassword"] != $_POST["newPassword2"]) {
-                $passwordErrIdent = "Passwörter stimmen nicht überein!";
-            }
-        }
-
-        if (isset($_POST["oldPassword"])) {
+        if (!empty($_POST["oldPassword"])) {
             $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
             $result = mysqli_query($conn, $sql);
             if (!password_verify($_POST['oldPassword'], $row['password'])) {
-                $wrongOldPassword = "Falsches Passwort!";
+                $oldPasswordErr = "Falsches Passwort!";
+                $oldPassword = "";
+            } else {
+                $oldPassword = input($_POST["oldPassword"]);
             }
+        } else {
+            $oldPasswordErr = "*erforderlich";
+            $oldPassword = "";
+        }
+
+        if ($password == $row['password']) {
+            $newPasswordErr = "Das neue Passwort darf nicht dem alten Passwort entsprechen!";
+        }
+    }
+    if (isset($_POST["password"])) {
+        $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
+        $result = mysqli_query($conn, $sql);
+        if (
+            ($password != "") && ($password2 != "") && ($oldPassword != "") &&
+            ($password == $password2) && password_verify($oldPassword, $row['password']) &&
+            ($passwordErr == "") && ($passwordErrSec == "") && ($password2Err == "") &&
+            ($oldPasswordErr == "") && ($password != $row['password'])
+        ) {
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $sql = "UPDATE users SET password = ? WHERE email = ?";
+            $stmt = mysqli_stmt_init($conn);
+            if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+                SQL-Fehler
+                <?php return;
+            }
+            mysqli_stmt_bind_param($stmt, "ss", $password, $_SESSION["email"]);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt); ?>
+            <?php
+            header("Location: index.php?page=profileNtf&error=nonePassword");
         }
     }
     ?>
@@ -125,41 +151,29 @@
         style="height: auto; width: 100%; max-width: 42rem;">
         <div style="text-align: center;">
             <h1>Passwort ändern:</h1>
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <p class="mb-5" style="color: red" class="text-center">
+                <?php echo $passwordErrSec ?>
+            </p>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=profile"); ?>">
                 <div class="user-box">
-                    <input type="password" name="oldPassword" placeholder="Altes Passwort" tabindex="6">
+                    <input type="password" name="oldPassword" value="<?php echo $oldPassword ?>"
+                        placeholder="<?php echo $oldPasswordErr ?>" tabindex="6">
+                    <label>Altes Passwort*</label>
                 </div>
                 <div class="user-box">
-                    <input type="password" name="newPassword" placeholder="Neues Passwort" tabindex="7">
+                    <input type="password" name="password" value="<?php echo $password ?>"
+                        placeholder="<?php echo $passwordErr ?>" tabindex="7">
+                    <label>Neues Passwort*</label>
                 </div>
                 <div class="user-box">
-                    <input type="password" name="newPassword2" placeholder="Neues Passwort wiederholen" tabindex="8">
+                    <input type="password" name="password2" value="<?php echo $password2 ?>"
+                        placeholder="<?php echo $password2Err ?>" tabindex="8">
+                    <label>Neues Passwort wiederholen*</label>
                 </div>
-                <?php
-                if (isset($_POST["newPassword"])) {
-                    $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
-                    $result = mysqli_query($conn, $sql);
-                    if (
-                        ($_POST["newPassword"] == $_POST["newPassword2"]) && password_verify($_POST['oldPassword'], $row['password']) &&
-                        ($passwordErr == "") && ($passwordErrUp == "") && ($passwordErrLow == "") && ($passwordErrNum == "") &&
-                        ($passwordErrSpecial == "") && ($passwordErrLen == "") && ($passwordErrIdent == "") && ($wrongOldPassword == "")
-                    ) {
-                        $password = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
-                        $sql = "UPDATE users SET password = ? WHERE email = ?";
-                        $stmt = mysqli_stmt_init($conn);
-                        if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-                            SQL-Fehler
-                            <?php return;
-                        }
-                        mysqli_stmt_bind_param($stmt, "ss", $password, $_SESSION["email"]);
-                        mysqli_stmt_execute($stmt);
-                        mysqli_stmt_close($stmt); ?>
-                        <div class="alert alert-success" role="alert">
-                            Passwort erfolgreich geändert!
-                        </div>
-                    <?php }
-                }
-                ?>
+                <p style="color: red" class="text-center">
+                    <?php echo $newPasswordErr ?>
+                </p>
+                <p style="color: red" class="text-start">*erforderlich</p>
                 <input type="submit" value="Passwort ändern" class="loginBoxSubmit" tabindex="8">
             </form>
         </div>

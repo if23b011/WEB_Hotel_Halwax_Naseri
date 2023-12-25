@@ -1,10 +1,5 @@
 <div class="container" style="margin-bottom: 100px;">
     <h1>Hotel Tropicana</h1>
-    <?php
-    if (isset($_GET["error"]) && $_GET["error"] == "noNews") { ?>
-        <h1 class="text-danger">Keine News vorhanden</h1>
-        <?php header("Refresh: 1; url=index.php?page=landing");
-    } ?>
     <div id="carouselExampleAutoplaying" class="carousel slide mb-4" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">

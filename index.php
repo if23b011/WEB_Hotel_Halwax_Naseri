@@ -43,7 +43,7 @@ session_start();
         "userManagement" => "inc/userManagement.php",
         "loginNtf" => "ntf/loginNtf.php",
         "registerNtf" => "ntf/registerNtf.php",
-        "newsNtf" => "ntf/newsNtf.php",
+        "landingNtf" => "ntf/landingNtf.php",
         "buchungNtf" => "ntf/buchungNtf.php",
         "profileNtf" => "ntf/profileNtf.php",
     ];

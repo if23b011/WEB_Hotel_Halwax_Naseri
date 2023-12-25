@@ -72,9 +72,9 @@ function loginUser($conn, $email, $password)
                     if ($row['type'] == 'admin') {
                         $_SESSION['admin'] = true;
                         setcookie("admin", true, time() + (86400 * 30), "/");
-                        header("Location: index.php?page=profileNtf&error=none");
+                        header("Location: index.php?page=landingNtf&error=noneLogin");
                     } else {
-                        header("Location: index.php?page=profileNtf&error=none");
+                        header("Location: index.php?page=landingNtf&error=noneLogin");
                     }
                 } else {
                     header("Location: index.php?page=loginNtf&error=wrongPassword"); ?>

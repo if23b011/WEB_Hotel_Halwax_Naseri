@@ -4,7 +4,7 @@
         require_once 'utils/functions.php';
         require_once 'utils/dbaccess.php';
         if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) {
-            header("Refresh: 3; url=index.php?page=profile");
+            header("Location: index.php?page=profile");
             exit();
         }
         //? serverseitige Validierung

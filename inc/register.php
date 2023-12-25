@@ -3,8 +3,14 @@
     //? serverseitige Validierung
     require_once 'utils/dbaccess.php';
     require_once 'utils/functions.php';
+    if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) {
+        header("Location: index.php?page=profile");
+        exit();
+    }
     $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
-    $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $passwordErrSec = $password2Err = $dateErr = "";
+    $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $password2Err = $dateErr = "";
+    $passwordErrSec = "Das Passwort muss 8 Zeichen lang sein und mindestens: 
+    1 Großbuchstabe, 1 Kleinbuchstabe, 1 Zahl und 1 Sonderzeichen enthalten";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($_POST["gender"])) {
             $gender = input($_POST["gender"]);
@@ -53,6 +59,11 @@
         }
 
         //? Passwortvalidierung
+        if (empty($_POST["password"])) {
+            $passwordErr = "*erforderlich";
+        } else {
+            $password = input($_POST["password"]);
+        }
         $uppercase = preg_match('@[A-Z]@', $password);
         $lowercase = preg_match('@[a-z]@', $password);
         $number = preg_match('@[0-9]@', $password);
@@ -63,8 +74,10 @@
                 || !$number || !$specialChars)
         ) {
             $passwordErrSec = "Das Passwort muss 8 Zeichen lang sein und mindestens: 
-            1 Großbuchstabe, 1 Kleinbuchstabe, 1 Zahl und 1 Sonderzeichen enthalten";
+            1 Großbuchstabe, 1 Kleinbuchstabe, 1 Zahl und 1 Sonderzeichen enthalten!";
             $password = "";
+        } else {
+            $passwordErrSec = "";
         }
 
         if (empty($_POST["password2"])) {
@@ -77,8 +90,11 @@
             $password2 = input($_POST["password2"]);
         }
     }
-    //FIXME
-    if ($emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $passwordErr == "" && $password2Err == "" && $passwordErrSec == "") {
+    if (
+        $gender != "" && $email != "" && $firstname != "" && $lastname != "" && $password != "" &&
+        $password2 != "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" &&
+        $passwordErr == "" && $password2Err == "" && $passwordErrSec == ""
+    ) {
         //? Daten in Datenbank speichern
         require_once 'utils/dbaccess.php';
         if (registerEmailExists($conn, $_POST["email"])) {
@@ -93,7 +109,7 @@
 
             $birth = input($_POST["date"]);
             $birthDate = date("d.m.Y", strtotime($birth));
-            createUser($conn, $dBgender, $_POST["firstname"], $_POST["lastname"], $birthDate, $_POST["email"], $_POST["password"], "user");
+            createUser($conn, $dBgender, $firstname, $lastname, $birthDate, $email, $password, "user");
         }
     }
 
@@ -130,7 +146,6 @@
                     Zum Login
                 </a>
                 <div class="row">
-                    <p style="color: red" class="text-start">*erforderlich</p>
                     <div class="mb-5 d-flex justify-content-center align-items-center">
                         <div class="col-12 col-md-6 d-flex align-items-center form-group">
                             <select class="form-select" name="gender" id="gender"
@@ -165,12 +180,12 @@
                         <label>E-Mail*</label>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input data-toggle="password" type="password" name="password" value="<?php echo $password ?>"
+                        <input type="password" name="password" value="<?php echo $password ?>"
                             placeholder="<?php echo $passwordErr ?>" tabindex="5">
                         <label>Passwort*</label>
                     </div>
                     <div class="col-12 col-md-6 user-box">
-                        <input data-toggle="password" type="password" name="password2" value="<?php echo $password2 ?>"
+                        <input type="password" name="password2" value="<?php echo $password2 ?>"
                             placeholder="<?php echo $password2Err ?>" tabindex="6">
                         <label>Passwort wiederholen*</label>
                     </div>
@@ -178,6 +193,7 @@
                         <?php echo $passwordErrSec ?>
                     </p>
                 </div>
+                <p style="color: red" class="text-start">*erforderlich</p>
                 <input type="submit" value="Register" class="loginBoxSubmit">
             </form>
         </div>
