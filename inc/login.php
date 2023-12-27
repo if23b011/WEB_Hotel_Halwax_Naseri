@@ -29,8 +29,6 @@
         if (empty($emailErr) && empty($passwordErr)) {
             loginUser($conn, $email, $password);
         }
-        echo $emailErr . "<br>";
-        echo $passwordErr;
         ?>
     </h3>
     <div class="login-box d-flex justify-content-center align-items-center"

@@ -1,5 +1,6 @@
 <div style="margin-bottom: 100px;">
     <?php
+    require_once 'utils/dbaccess.php';
     if (isset($_GET["upload"])) {
         if ($_GET["upload"] == "success") { ?>
             <p class="text-success">News hochgeladen</p>
@@ -27,7 +28,6 @@
     } else {
         $sql = "SELECT * FROM news where newsOnline = 1 ORDER BY newsDate DESC";
     }
-    require_once 'utils/dbaccess.php';
     $result = $conn->query($sql); ?>
     <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 75rem;">
         <div style="text-align: center;">

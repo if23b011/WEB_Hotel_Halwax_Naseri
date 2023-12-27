@@ -96,7 +96,6 @@
         $passwordErr == "" && $password2Err == "" && $passwordErrSec == ""
     ) {
         //? Daten in Datenbank speichern
-        require_once 'utils/dbaccess.php';
         if (emailExists($conn, $_POST["email"])) {
             header("Location: index.php?page=registerNtf&error=emailExists");
         } else {
@@ -115,7 +114,6 @@
 
     function createUser($conn, $gender, $firstname, $lastname, $birthdate, $email, $password, $type)
     {
-        require_once 'utils/dbaccess.php';
         $sql = "INSERT INTO users ( gender, firstname, lastname, birthdate, email, password, type) 
                                 VALUES (?, ?, ?, ?, ?, ?, ?);";
         $stmt = mysqli_stmt_init($conn);
