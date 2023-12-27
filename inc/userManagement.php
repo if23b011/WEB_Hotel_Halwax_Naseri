@@ -1,8 +1,26 @@
 <div style="margin-bottom: 100px;">
     <?php
-    $userId = $gender = $firstname = $lastname = $email = $date = $type = $active = "";
     require_once 'utils/dbaccess.php';
     require_once 'utils/functions.php';
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST["userId"])) {
+            $userId = input($_POST["userId"]);
+            $gender = isset($_POST["gender"]) ? input($_POST["gender"]) : $gender;
+            $firstname = isset($_POST["firstname"]) ? input($_POST["firstname"]) : $firstname;
+            $lastname = isset($_POST["lastname"]) ? input($_POST["lastname"]) : $lastname;
+            $date = isset($_POST["date"]) ? input($_POST["date"]) : $date;
+            $birthDate = date("Y-m-d", strtotime($date));
+            $type = isset($_POST["type"]) ? input($_POST["type"]) : $type;
+            $active = isset($_POST["active"]) ? input($_POST["active"]) : $active;
+
+            $sql = "UPDATE users SET gender = ?, firstname = ? , lastname = ? , birthdate = ? , type = ? , active = ? WHERE userId = ?";
+            $stmt = mysqli_stmt_init($conn);
+            if (mysqli_stmt_prepare($stmt, $sql)) {
+                mysqli_stmt_bind_param($stmt, "sssssii", $gender, $firstname, $lastname, $birthDate, $type, $active, $userId);
+                mysqli_stmt_execute($stmt);
+            }
+        }
+    }
     $sql = "SELECT * FROM users";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
@@ -15,15 +33,15 @@
                     </a>
                     <?php
                     while ($row = $result->fetch_assoc()) {
-                        $userId = input($row["userId"]);
-                        $gender = input($row["gender"]);
-                        $firstname = input($row["firstname"]);
-                        $lastname = input($row["lastname"]);
-                        $email = input($row["email"]);
-                        $date = input($row["birthdate"]);
+                        $userId = $row["userId"];
+                        $gender = $row["gender"];
+                        $firstname = $row["firstname"];
+                        $lastname = $row["lastname"];
+                        $email = $row["email"];
+                        $date = $row["birthdate"];
                         $birthDate = date("Y-m-d", strtotime($date));
-                        $type = input($row["type"]);
-                        $active = input($row["active"]); ?>
+                        $type = $row["type"];
+                        $active = $row["active"]; ?>
                         <p></p>
                         <a>
                             <span></span>
@@ -72,25 +90,7 @@
                         </div>
                         <input type="submit" value="Änderungen übernehmen" class="loginBoxSubmit">
                     <?php }
-                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                        if (isset($_POST["userId"])) {
-                            $userId = input($_POST["userId"]);
-                            $gender = isset($_POST["gender"]) ? input($_POST["gender"]) : $gender;
-                            $firstname = isset($_POST["firstname"]) ? input($_POST["firstname"]) : $firstname;
-                            $lastname = isset($_POST["lastname"]) ? input($_POST["lastname"]) : $lastname;
-                            $date = isset($_POST["date"]) ? input($_POST["date"]) : $date;
-                            $birthDate = date("Y-m-d", strtotime($date));
-                            $type = isset($_POST["type"]) ? input($_POST["type"]) : $type;
-                            $active = isset($_POST["active"]) ? input($_POST["active"]) : $active;
 
-                            $sql = "UPDATE users SET gender = ?, firstname = ? , lastname = ? , birthdate = ? , type = ? , active = ? WHERE userId = ?";
-                            $stmt = mysqli_stmt_init($conn);
-                            if (mysqli_stmt_prepare($stmt, $sql)) {
-                                mysqli_stmt_bind_param($stmt, "sssssii", $gender, $firstname, $lastname, $birthDate, $type, $active, $userId);
-                                mysqli_stmt_execute($stmt);
-                            }
-                        }
-                    }
     } ?>
             </form>
         </div>
