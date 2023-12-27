@@ -16,38 +16,69 @@
                         <a class="nav-link" href="index.php?page=buchung">
                             <h4 style="color: white">Reservierung</h4>
                         </a>
-                    <?php } else {
+                    </li>
+                <?php } else {
                     $_SESSION["login"] = false; ?>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?page=login">
                             <h4 style="color: white">Login</h4>
                         </a>
-                    <?php } ?>
+                    </li>
+                <?php } ?>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="index.php?page=news">
                         <h4 style="color: white">News</h4>
                     </a>
                 </li>
                 <?php
-                if (isset($_COOKIE["admin"]) && $_COOKIE["admin"] == true) { ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?page=upload">
-                            <h4 style="color: white">Upload</h4>
+                if (isset($_COOKIE["admin"]) && $_COOKIE["admin"] == true) {
+                    //FIXME Design anpassen
+                    ?>
+                    <div class="btn-group">
+                        <a class="btn btn-dark" role="button">
+                            <h4 style="color: white">Management</h4>
+                            </h4>
                         </a>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?page=userManagement">
-                            <h4 style="color: white">User</h4>
-                        </a>
-                    <?php } ?>
+                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="index.php?page=userManagement">
+                                    <h4 style="color: white">User</h4>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="index.php?page=reservationManagement">
+                                    <h4 style="color: white">Reservierungen</h4>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                <?php } ?>
             </ul>
             <ul class="navbar-nav ms-auto">
                 <?php
-                if (isset($_COOKIE["email"])) { ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?page=profile">
+                if (isset($_COOKIE["email"])) {
+                    ?>
+                    <div class="btn-group">
+                        <a class="btn btn-dark" href="index.php?page=profile" role="button">
                             <h4 style="color: white">Profil</h4>
                         </a>
-                    <?php } ?>
+                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" style="margin-left: -50px">
+                            <li>
+                                <a class="dropdown-item" href="utils/logout.php">
+                                    <h4 style="color: red">Logout</h4>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                <?php } ?>
             </ul>
         </div>
     </div>

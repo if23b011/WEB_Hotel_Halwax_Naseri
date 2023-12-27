@@ -2,28 +2,45 @@
     <?php
     require_once 'utils/dbaccess.php';
     require_once 'utils/functions.php';
-    $sql = "SELECT * FROM users";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $userId = $_POST['userId'];
+        $gender = $_POST['gender'];
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $birthdate = $_POST['birthdate'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $type = $_POST['type'];
+        $active = $_POST['active'];
+
+        $sql = "UPDATE users SET gender=?, firstname=?, lastname=?, birthdate=?, email=?, password = ?, type=?, active=? WHERE userId=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sssssssii", $gender, $firstname, $lastname, $birthdate, $email, $password, $type, $active, $userId);
+        $stmt->execute();
+    }
+    $sql = "SELECT * FROM users WHERE type='user'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         ?>
         <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 42rem;">
             <div style="text-align: center;">
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=userManagement"); ?>">
-                    <a class="mb-3">
-                        <h1>User</h1>
-                    </a>
+                <h1>User</h1>
+                <?php
+                while ($row = $result->fetch_assoc()) { ?>
                     <?php
-                    while ($row = $result->fetch_assoc()) {
-                        $userId = $row["userId"];
-                        $gender = $row["gender"];
-                        $firstname = $row["firstname"];
-                        $lastname = $row["lastname"];
-                        $email = $row["email"];
-                        $date = $row["birthdate"];
-                        $birthDate = date("Y-m-d", strtotime($date));
-                        $type = $row["type"];
-                        $active = $row["active"]; ?>
-                        <p></p>
+                    $userId = $row["userId"];
+                    $gender = $row["gender"];
+                    $firstname = $row["firstname"];
+                    $lastname = $row["lastname"];
+                    $date = $row["birthdate"];
+                    $birthDate = date("Y-m-d", strtotime($date));
+                    $email = $row["email"];
+                    $password = "";
+                    $type = $row["type"];
+                    $active = $row["active"]; ?>
+                    <form method="post" id="form<?php echo $userId; ?>"
+                        action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=userManagement"); ?>">
                         <a>
                             <span></span>
                             <h2>
@@ -37,10 +54,7 @@
                                 ?>
                             </h2>
                         </a>
-                        <div class="user-box">
-                            <input type="text" name="userId" value="<?php echo $userId ?>" disabled>
-                            <label>UserID</label>
-                        </div>
+                        <input type="text" name="userId" value="<?php echo $userId ?>" hidden>
                         <div class="user-box">
                             <input type="text" name="gender" value="<?php echo $gender ?>">
                             <label>Geschlecht (M=männlich, W=weiblich)</label>
@@ -54,12 +68,16 @@
                             <label>Nachname</label>
                         </div>
                         <div class="user-box">
+                            <input type="date" name="birthdate" value="<?php echo $date ?>">
+                            <label>Geburtstag</label>
+                        </div>
+                        <div class="user-box">
                             <input type="text" name="email" value="<?php echo $email ?>">
                             <label>E-Mail</label>
                         </div>
                         <div class="user-box">
-                            <input type="date" name="birthdate" value="<?php echo $date ?>">
-                            <label>Geburtstag</label>
+                            <input type="password" name="password" value="<?php echo $password ?>">
+                            <label>Passwort bei Bedarf ändern</label>
                         </div>
                         <div class="user-box">
                             <input type="text" name="type" value="<?php echo $type ?>">
@@ -70,10 +88,9 @@
                             <label>Account aktiv (1=aktiv, 0 = inkativ)</label>
                         </div>
                         <input type="submit" value="Änderungen übernehmen" class="loginBoxSubmit">
-                    <?php }
-
+                    </form>
+                <?php }
     } ?>
-            </form>
         </div>
     </div>
 </div>

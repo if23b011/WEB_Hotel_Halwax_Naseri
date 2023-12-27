@@ -43,6 +43,7 @@
     </svg>
     <!-- Hotelverwaltung -->
     <h3>Hotelverwaltung:</h3>
+    <br>
     <div class="container text-center">
         <div class="row">
             <div class="col">

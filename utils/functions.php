@@ -35,30 +35,39 @@ function loginUser($conn, $email, $password)
             //?  Check if the user exists in the database
             $userData = emailExists($conn, $email);
             if ($userData) {
-                //?  Verify the password
-                if (password_verify($password, $userData['password'])) {
-                    //?  Password is correct
-                    $_SESSION['login'] = true;
-                    //FIXME Cookie ist nicht sicher
-                    setcookie("email", $_POST["email"], time() + (86400 * 30), "/");
-                    //? Datenbankabfrage
-                    $sql = "SELECT * FROM users WHERE email = '$email'";
-                    $result = mysqli_query($conn, $sql);
-                    $row = mysqli_fetch_assoc($result);
-                    if ($row['type'] == 'admin') {
-                        $_SESSION['admin'] = true;
-                        setcookie("admin", true, time() + (86400 * 30), "/");
-                        header("Location: index.php?page=landingNtf&error=noneLogin");
+                //?  Check if the user is active
+                $sql = "SELECT * FROM users WHERE email = '$email'";
+                $result = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($result);
+                if ($row['active'] == 1) {
+                    //?  Verify the password
+                    if (password_verify($password, $userData['password'])) {
+                        //?  Password is correct
+                        $_SESSION['login'] = true;
+                        //FIXME Cookie ist nicht sicher
+                        setcookie("email", $_POST["email"], time() + (86400 * 30), "/");
+                        //? Datenbankabfrage
+                        $sql = "SELECT * FROM users WHERE email = '$email'";
+                        $result = mysqli_query($conn, $sql);
+                        $row = mysqli_fetch_assoc($result);
+                        if ($row['type'] == 'admin') {
+                            $_SESSION['admin'] = true;
+                            setcookie("admin", true, time() + (86400 * 30), "/");
+                            header("Location: index.php?page=landingNtf&error=noneLogin");
+                        } else {
+                            header("Location: index.php?page=landingNtf&error=noneLogin");
+                        }
                     } else {
-                        header("Location: index.php?page=landingNtf&error=noneLogin");
-                    }
+                        header("Location: index.php?page=loginNtf&error=wrongPassword"); ?>
+                    <?php }
                 } else {
-                    header("Location: index.php?page=loginNtf&error=wrongPassword"); ?>
-                <?php }
+                    //? User is not active
+                    header("Location: index.php?page=loginNtf&error=notActive");
+                }
             } else {
                 //? User does not exist
-                header("Location: index.php?page=loginNtf&error=wrongEmail"); ?>
-            <?php }
+                header("Location: index.php?page=loginNtf&error=wrongEmail");
+            }
         }
     }
 }

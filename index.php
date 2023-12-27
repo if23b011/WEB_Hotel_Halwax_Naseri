@@ -14,7 +14,7 @@ session_start();
 //TODO: Usability und Accessibility verbessern
 //TODO: Design verschönern
 //TODO: restliche Seiten anpassen
-//TODO: Armin die ganze Scheiße erklären
+//TODO: UserManagement: Button für Aktivität
 ?>
 <!doctype html>
 <html lang="en">
@@ -41,6 +41,7 @@ session_start();
         "reservation" => "inc/reservation.php",
         "reservations" => "inc/reservations.php",
         "userManagement" => "inc/userManagement.php",
+        "reservationManagement" => "inc/reservationManagement.php",
         "loginNtf" => "ntf/loginNtf.php",
         "registerNtf" => "ntf/registerNtf.php",
         "landingNtf" => "ntf/landingNtf.php",

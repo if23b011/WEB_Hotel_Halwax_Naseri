@@ -31,5 +31,14 @@ if (isset($_GET['error'])) {
                     <div class="warning__progress"></div>
                 </div>
         <?php
+    } else if ($_GET['error'] == "notActive") { ?>
+                    <div class="warning">
+                        <div class="warning__body">
+                            <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
+                            Benutzer ist nicht aktiviert
+                        </div>
+                        <div class="warning__progress"></div>
+                    </div>
+        <?php
     }
 } ?>
