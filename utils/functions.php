@@ -10,30 +10,7 @@ function input($data)
 }
 
 //? Funktionen für Login und Registrierung
-function loginEmailExists($conn, $email)
-{
-    $sql = "SELECT * FROM users WHERE email = ?;";
-    $stmt = mysqli_stmt_init($conn);
-
-    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-        <p>SQL-Fehler</p>
-        <?php return;
-    }
-
-    mysqli_stmt_bind_param($stmt, "s", $email);
-    mysqli_stmt_execute($stmt);
-
-    $resultData = mysqli_stmt_get_result($stmt);
-
-    if ($row = mysqli_fetch_assoc($resultData)) {
-        return $row;
-    } else {
-        $result = false;
-        return $result;
-    }
-}
-
-function registerEmailExists($conn, $email)
+function emailExists($conn, $email)
 {
     $sql = "SELECT * FROM users WHERE email = ?;";
     $stmt = mysqli_stmt_init($conn);
@@ -56,8 +33,7 @@ function loginUser($conn, $email, $password)
         //?  Validate the email and password
         if (!empty($email) && !empty($password)) {
             //?  Check if the user exists in the database
-            $userData = loginEmailExists($conn, $email);
-
+            $userData = emailExists($conn, $email);
             if ($userData) {
                 //?  Verify the password
                 if (password_verify($password, $userData['password'])) {
