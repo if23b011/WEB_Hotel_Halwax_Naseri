@@ -13,8 +13,12 @@ session_start();
 //TODO: Responsive Design Code verbessern
 //TODO: Usability und Accessibility verbessern
 //TODO: Design verschönern
+        //TODO: Editor-Notizen
+        //TODO: Titel   
+        //TODO: Durchsichtigkeit
 //TODO: restliche Seiten anpassen
 //TODO: UserManagement: Button für Aktivität
+//TODO: ReservierungsÜbersicht: Fehler beheben, evtl. Design ändern
 ?>
 <!doctype html>
 <html lang="en">
