@@ -97,7 +97,7 @@
     ) {
         //? Daten in Datenbank speichern
         require_once 'utils/dbaccess.php';
-        if (registerEmailExists($conn, $_POST["email"])) {
+        if (emailExists($conn, $_POST["email"])) {
             header("Location: index.php?page=registerNtf&error=emailExists");
         } else {
 
