@@ -114,7 +114,8 @@
                                         value="Reservierungsdatum: <?php echo date("d.m.Y", strtotime($reservationDate)) ?>">
                                 </div>
                                 <div class="user-box">
-                                    <input type="text" name="totalCost" disabled value="Gesamtkosten: <?php echo $totalCost ?>">
+                                    <input type="text" name="totalCost" disabled
+                                        value="Gesamtkosten: <?php echo $totalCost . "€" ?>">
                                 </div>
                                 <div class="user-box">
                                     <input type="text" name="status" disabled value="Status: <?php echo $status ?>">

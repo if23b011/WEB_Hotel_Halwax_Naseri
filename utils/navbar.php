@@ -35,8 +35,8 @@
                     //FIXME Design anpassen
                     ?>
                     <div class="btn-group">
-                        <a class="btn btn-dark" role="button">
-                            <h4 style="color: white">Management</h4>
+                        <a class="btn btn-dark" href="index.php?page=userManagement" role="button">
+                            <h4 style="color: white">User</h4>
                             </h4>
                         </a>
                         <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"
@@ -44,11 +44,6 @@
                             <span class="visually-hidden">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="index.php?page=userManagement">
-                                    <h4 style="color: white">User</h4>
-                                </a>
-                            </li>
                             <li>
                                 <a class="dropdown-item" href="index.php?page=reservationManagement">
                                     <h4 style="color: white">Reservierungen</h4>

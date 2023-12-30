@@ -6,16 +6,14 @@ session_start();
 //TODO: Code aufräumen
 //TODO: Code kommentieren
 //TODO: SESSIONS und COOKIES überprüfen
-//TODO: Userverwaltung für Admins (User löschen, etc.)
 //TODO: Bei Zimmerbuchung überprüfen, ob Zimmer noch frei ist
 //TODO: Adresseingabe bei Buchung hinzufügen
-//TODO: Reservierungsverwaltung für Admins (Reservierungen stornieren, etc.)
 //TODO: Responsive Design Code verbessern
 //TODO: Usability und Accessibility verbessern
 //TODO: Design verschönern
-        //TODO: Editor-Notizen
-        //TODO: Titel   
-        //TODO: Durchsichtigkeit
+//TODO: Editor-Notizen
+//TODO: Titel   
+//TODO: Durchsichtigkeit
 //TODO: restliche Seiten anpassen
 //TODO: UserManagement: Button für Aktivität
 //TODO: ReservierungsÜbersicht: Fehler beheben, evtl. Design ändern

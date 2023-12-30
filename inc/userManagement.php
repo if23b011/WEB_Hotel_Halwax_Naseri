@@ -18,6 +18,7 @@
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssssssii", $gender, $firstname, $lastname, $birthdate, $email, $password, $type, $active, $userId);
         $stmt->execute();
+        $stmt->close();
     }
     $sql = "SELECT * FROM users WHERE type='user'";
     $result = $conn->query($sql);
@@ -26,6 +27,7 @@
         <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 42rem;">
             <div style="text-align: center;">
                 <h1>User</h1>
+                <p>Bearbeiten Sie jeweils nur einen Benutzer</p>
                 <?php
                 while ($row = $result->fetch_assoc()) { ?>
                     <?php
@@ -34,7 +36,6 @@
                     $firstname = $row["firstname"];
                     $lastname = $row["lastname"];
                     $date = $row["birthdate"];
-                    $birthDate = date("Y-m-d", strtotime($date));
                     $email = $row["email"];
                     $password = "";
                     $type = $row["type"];
@@ -85,7 +86,7 @@
                         </div>
                         <div class="user-box">
                             <input type="text" name="active" value="<?php echo $active ?>">
-                            <label>Account aktiv (1=aktiv, 0 = inkativ)</label>
+                            <label>Account aktiv (1=aktiv, 0 = inaktiv)</label>
                         </div>
                         <input type="submit" value="Änderungen übernehmen" class="loginBoxSubmit">
                     </form>

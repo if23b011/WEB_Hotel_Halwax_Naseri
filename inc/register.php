@@ -1,12 +1,13 @@
+<?php
+if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) {
+    header("Location: index.php?page=profile");
+    exit();
+} ?>
 <div class="container" style="margin-bottom: 100px;">
     <?php
     //? serverseitige Validierung
     require_once 'utils/dbaccess.php';
     require_once 'utils/functions.php';
-    if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) {
-        header("Location: index.php?page=profile");
-        exit();
-    }
     $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
     $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $password2Err = $dateErr = "";
     $passwordErrSec = "Das Passwort muss 8 Zeichen lang sein und mindestens: 
