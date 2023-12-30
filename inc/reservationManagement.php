@@ -29,8 +29,8 @@
                     <?php
                     $reservationId = $row["reservationId"];
                     $room = $row["room"];
-                    $arrival = $row["arrival"];
-                    $departure = $row["departure"];
+                    $arrival = $row["arrivalDate"];
+                    $departure = $row["departureDate"];
                     $breakfast = $row["breakfast"];
                     $parking = $row["parking"];
                     $pets = $row["pets"];
