@@ -1,8 +1,7 @@
 <?php
-//FIXME: funktioniert nicht
-header("Refresh: 5; url=index.php?page=news");
-include 'inc/landing.php';
-require_once 'dbaccess.php';
+header("Refresh: 1; url=index.php?page=news");
+include 'inc/news.php';
+require_once 'utils/dbaccess.php';
 ?>
 <?php if (isset($_GET["msg"])) {
     if ($_GET["msg"] == "newsOnline") {
@@ -33,12 +32,12 @@ require_once 'dbaccess.php';
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         ?>
-            <div class="success">
-                <div class="success__body">
-                    <img src="res/img/check-circle.svg" alt="Success" class="success__icon">
+            <div class="warning">
+                <div class="warning__body">
+                    <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
                     News offline gestellt!
                 </div>
-                <div class="success__progress"></div>
+                <div class="warning__progress"></div>
             </div>
         <?php
     } else if ($_GET["msg"] == "uploadSuccess") {
