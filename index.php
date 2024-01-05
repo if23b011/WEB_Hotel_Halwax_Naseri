@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 //TODO: Überprüfen, ob User Seite aufrufen darf (z.B. nur eingeloggte User dürfen auf Reservierungsseite)
 //TODO: Fehlermeldungen verbessern (Notifications mit GET-Parametern (z.B. ?page=loginNtf&loginError=none oder ?page=registerNtf&registerError=none))
 //TODO: Code aufräumen
@@ -15,6 +14,34 @@ session_start();
 //TODO: Durchsichtigkeit
 //TODO: restliche Seiten anpassen
 //TODO: UserManagement: Button für Aktivität
+    
+ini_set('session.use_only_cookies', 1);
+ini_set('session.use_strict_mode', 1);
+
+session_set_cookie_params([
+    'lifetime' => 1800,
+    'path' => '/',
+    'domain' => 'localhost',
+    'secure' => true,
+    'httponly' => true
+]);
+
+session_start();
+
+if (!isset($_SESSION['last_regeneration'])) {
+
+    session_regenerate_id(true);
+    $_SESSION['last_regeneration'] = time();
+} else {
+
+    $interval = 60 * 30;
+
+    if (time() - $_SESSION['last_regeneration'] > $interval) {
+
+        session_regenerate_id(true);
+        $_SESSION['last_regeneration'] = time();
+    }
+}
 ?>
 <!doctype html>
 <html lang="en">

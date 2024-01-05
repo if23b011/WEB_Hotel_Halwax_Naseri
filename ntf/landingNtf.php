@@ -1,5 +1,5 @@
 <?php
-header("Refresh: 3; url=index.php?page=landing");
+header("Refresh: 1; url=index.php?page=landing");
 include 'inc/landing.php';
 ?>
 <?php if (isset($_GET["error"])) {

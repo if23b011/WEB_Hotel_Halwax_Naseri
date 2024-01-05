@@ -2,138 +2,136 @@
 if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) {
     header("Location: index.php?page=profile");
     exit();
-} ?>
-<div class="container" style="margin-bottom: 100px;">
-    <?php
-    //? serverseitige Validierung
-    require_once 'utils/dbaccess.php';
-    require_once 'utils/functions.php';
-    $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
-    $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $password2Err = $dateErr = "";
-    $passwordErrSec = "Das Passwort muss 8 Zeichen lang sein und mindestens: 
+}
+//? serverseitige Validierung
+require_once 'utils/dbaccess.php';
+require_once 'utils/functions.php';
+$gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
+$emailErr = $firstnameErr = $lastnameErr = $passwordErr = $password2Err = $dateErr = "";
+$passwordErrSec = "Das Passwort muss 8 Zeichen lang sein und mindestens: 
     1 Großbuchstabe, 1 Kleinbuchstabe, 1 Zahl und 1 Sonderzeichen enthalten";
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (!empty($_POST["gender"])) {
-            $gender = input($_POST["gender"]);
-        }
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (!empty($_POST["gender"])) {
+        $gender = input($_POST["gender"]);
+    }
 
-        if (empty($_POST["email"])) {
-            $emailErr = "*erforderlich";
-        } else {
-            $email = input($_POST["email"]);
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $emailErr = "Das ist keine richtige Email-Adresse";
-                $email = "";
-            }
-        }
-
-        if (empty($_POST["firstname"])) {
-            $firstnameErr = "*erforderlich";
-        } else {
-            $firstname = input($_POST["firstname"]);
-            if (!preg_match("/^[a-zA-Zäöü]*$/", $firstname)) {
-                $firstnameErr = "Das ist kein richtiger Vorname";
-                $firstname = "";
-            }
-        }
-
-        if (empty($_POST["lastname"])) {
-            $lastnameErr = "*erforderlich";
-        } else {
-            $lastname = input($_POST["lastname"]);
-            if (!preg_match("/^[a-zA-Zäöü]*$/", $lastname)) {
-                $lastnameErr = "Das ist kein richtiger Nachname";
-                $lastname = "";
-            }
-        }
-
-        if (empty($_POST["date"])) {
-            $dateErr = "*erforderlich";
-        } else {
-            $date = input($_POST["date"]);
-        }
-
-        if (empty($_POST["password"])) {
-            $passwordErr = "*erforderlich";
-        } else {
-            $password = input($_POST["password"]);
-        }
-
-        //? Passwortvalidierung
-        if (empty($_POST["password"])) {
-            $passwordErr = "*erforderlich";
-        } else {
-            $password = input($_POST["password"]);
-        }
-        $uppercase = preg_match('@[A-Z]@', $password);
-        $lowercase = preg_match('@[a-z]@', $password);
-        $number = preg_match('@[0-9]@', $password);
-        $specialChars = preg_match('@[^\w]@', $password);
-
-        if (
-            !(empty($_POST["password"])) && (strlen($password) < 8 || !$uppercase || !$lowercase
-                || !$number || !$specialChars)
-        ) {
-            $passwordErrSec = "Das Passwort muss 8 Zeichen lang sein und mindestens: 
-            1 Großbuchstabe, 1 Kleinbuchstabe, 1 Zahl und 1 Sonderzeichen enthalten!";
-            $password = "";
-        } else {
-            $passwordErrSec = "";
-        }
-
-        if (empty($_POST["password2"])) {
-            $password2Err = "*erforderlich";
-            $password2 = "";
-        } else if ($_POST['password'] != $_POST['password2']) {
-            $password2Err = "Passwort ist nicht ident!";
-            $password2 = "";
-        } else {
-            $password2 = input($_POST["password2"]);
+    if (empty($_POST["email"])) {
+        $emailErr = "*erforderlich";
+    } else {
+        $email = input($_POST["email"]);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Das ist keine richtige Email-Adresse";
+            $email = "";
         }
     }
+
+    if (empty($_POST["firstname"])) {
+        $firstnameErr = "*erforderlich";
+    } else {
+        $firstname = input($_POST["firstname"]);
+        if (!preg_match("/^[a-zA-Zäöü]*$/", $firstname)) {
+            $firstnameErr = "Das ist kein richtiger Vorname";
+            $firstname = "";
+        }
+    }
+
+    if (empty($_POST["lastname"])) {
+        $lastnameErr = "*erforderlich";
+    } else {
+        $lastname = input($_POST["lastname"]);
+        if (!preg_match("/^[a-zA-Zäöü]*$/", $lastname)) {
+            $lastnameErr = "Das ist kein richtiger Nachname";
+            $lastname = "";
+        }
+    }
+
+    if (empty($_POST["date"])) {
+        $dateErr = "*erforderlich";
+    } else {
+        $date = input($_POST["date"]);
+    }
+
+    if (empty($_POST["password"])) {
+        $passwordErr = "*erforderlich";
+    } else {
+        $password = input($_POST["password"]);
+    }
+
+    //? Passwortvalidierung
+    if (empty($_POST["password"])) {
+        $passwordErr = "*erforderlich";
+    } else {
+        $password = input($_POST["password"]);
+    }
+    $uppercase = preg_match('@[A-Z]@', $password);
+    $lowercase = preg_match('@[a-z]@', $password);
+    $number = preg_match('@[0-9]@', $password);
+    $specialChars = preg_match('@[^\w]@', $password);
+
     if (
-        $gender != "" && $email != "" && $firstname != "" && $lastname != "" && $password != "" &&
-        $password2 != "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" &&
-        $passwordErr == "" && $password2Err == "" && $passwordErrSec == ""
+        !(empty($_POST["password"])) && (strlen($password) < 8 || !$uppercase || !$lowercase
+            || !$number || !$specialChars)
     ) {
-        //? Daten in Datenbank speichern
-        if (emailExists($conn, $_POST["email"])) {
-            header("Location: index.php?page=registerNtf&error=emailExists");
+        $passwordErrSec = "Das Passwort muss 8 Zeichen lang sein und mindestens: 
+            1 Großbuchstabe, 1 Kleinbuchstabe, 1 Zahl und 1 Sonderzeichen enthalten!";
+        $password = "";
+    } else {
+        $passwordErrSec = "";
+    }
+
+    if (empty($_POST["password2"])) {
+        $password2Err = "*erforderlich";
+        $password2 = "";
+    } else if ($_POST['password'] != $_POST['password2']) {
+        $password2Err = "Passwort ist nicht ident!";
+        $password2 = "";
+    } else {
+        $password2 = input($_POST["password2"]);
+    }
+}
+if (
+    $gender != "" && $email != "" && $firstname != "" && $lastname != "" && $password != "" &&
+    $password2 != "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" &&
+    $passwordErr == "" && $password2Err == "" && $passwordErrSec == ""
+) {
+    //? Daten in Datenbank speichern
+    if (emailExists($conn, $_POST["email"])) {
+        header("Location: index.php?page=registerNtf&error=emailExists");
+    } else {
+
+        if ($_POST["gender"] == "Herr") {
+            $dBgender = "M";
         } else {
-
-            if ($_POST["gender"] == "Herr") {
-                $dBgender = "M";
-            } else {
-                $dBgender = "W";
-            }
-
-            $birth = input($_POST["date"]);
-            $birthDate = date("d.m.Y", strtotime($birth));
-            createUser($conn, $dBgender, $firstname, $lastname, $birthDate, $email, $password, "user");
+            $dBgender = "W";
         }
-    }
 
-    function createUser($conn, $gender, $firstname, $lastname, $birthdate, $email, $password, $type)
-    {
-        $sql = "INSERT INTO users ( gender, firstname, lastname, birthdate, email, password, type) 
+        $birth = input($_POST["date"]);
+        $birthDate = date("d.m.Y", strtotime($birth));
+        createUser($conn, $dBgender, $firstname, $lastname, $birthDate, $email, $password, "user");
+    }
+}
+
+function createUser($conn, $gender, $firstname, $lastname, $birthdate, $email, $password, $type)
+{
+    $sql = "INSERT INTO users ( gender, firstname, lastname, birthdate, email, password, type) 
                                 VALUES (?, ?, ?, ?, ?, ?, ?);";
-        $stmt = mysqli_stmt_init($conn);
+    $stmt = mysqli_stmt_init($conn);
 
-        if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-            <p>SQL statement failed";</p>
-            <?php return;
-        }
-
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $birthdate = date("Y-m-d", strtotime($birthdate));
-        mysqli_stmt_bind_param($stmt, "sssssss", $gender, $firstname, $lastname, $birthdate, $email, $hashedPassword, $type);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-        $_SESSION["email"] = $email;
-        header("Location: index.php?page=loginNtf&error=none");
+    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+        <p>SQL statement failed";</p>
+        <?php return;
     }
-    ?>
-    <!-- Formular -->
+
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $birthdate = date("Y-m-d", strtotime($birthdate));
+    mysqli_stmt_bind_param($stmt, "sssssss", $gender, $firstname, $lastname, $birthdate, $email, $hashedPassword, $type);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    $_SESSION["email"] = $email;
+    header("Location: index.php?page=loginNtf&error=none");
+}
+?>
+<div class="container" style="margin-bottom: 100px;">
     <div class="login-box d-flex justify-content-center align-items-center"
         style="height: auto; width: 100%; max-width: 50rem;">
         <div style="text-align: center;">

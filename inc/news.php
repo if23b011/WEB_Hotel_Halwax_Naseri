@@ -1,39 +1,41 @@
-<div style="margin-bottom: 100px;">
-    <?php
-    require_once 'utils/dbaccess.php';
-    if (isset($_GET["upload"])) {
-        if ($_GET["upload"] == "success") { ?>
-            <p class="text-success">News hochgeladen</p>
-            <?php
-            header("Refresh: 2; url=index.php?page=news");
-        }
+<?php
+require_once 'utils/dbaccess.php';
+if (isset($_GET["upload"])) {
+    if ($_GET["upload"] == "success") { ?>
+        <p class="text-success">News hochgeladen</p>
+        <?php
+        header("Refresh: 1; url=index.php?page=news");
     }
-    if (isset($_GET["offlineNews"])) {
-        if ($_GET["offlineNews"] == "success") { ?>
-            <p class="text-success">News offline</p>
-            <?php
-            header("Refresh: 2; url=index.php?page=news");
-        }
+}
+if (isset($_GET["offlineNews"])) {
+    if ($_GET["offlineNews"] == "success") { ?>
+        <p class="text-success">News offline</p>
+        <?php
+        header("Refresh: 1; url=index.php?page=news");
     }
-    if (isset($_GET["onlineNews"])) {
-        if ($_GET["onlineNews"] == "success") { ?>
-            <p class="text-success">News online</p>
-            <?php
-            header("Refresh: 2; url=index.php?page=news");
-        }
+}
+if (isset($_GET["onlineNews"])) {
+    if ($_GET["onlineNews"] == "success") { ?>
+        <p class="text-success">News online</p>
+        <?php
+        header("Refresh: 1; url=index.php?page=news");
     }
+}
+?>
+<?php if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
+    $sql = "SELECT * FROM news ORDER BY newsDate DESC";
+} else {
+    $sql = "SELECT * FROM news where newsOnline = 1 ORDER BY newsDate DESC";
+}
+$result = $conn->query($sql); ?>
+<?php if ($result->num_rows < 0) {
+    header("Location: index.php?page=landingNtf&error=noNews");
+} else {
     ?>
-    <?php if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
-        $sql = "SELECT * FROM news ORDER BY newsDate DESC";
-    } else {
-        $sql = "SELECT * FROM news where newsOnline = 1 ORDER BY newsDate DESC";
-    }
-    $result = $conn->query($sql); ?>
-    <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 75rem;">
-        <div style="text-align: center;">
-            <h1 style="color: grey">Die neuesten News des Hotel Tropicana</h1>
-            <?php if ($result->num_rows > 0) {
-                ?>
+    <div style="margin-bottom: 100px;">
+        <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 75rem;">
+            <div style="text-align: center;">
+                <h1 style="color: grey">Die neuesten News des Hotel Tropicana</h1>
                 <?php
                 while ($row = $result->fetch_assoc()) {
                     ?>
@@ -95,10 +97,8 @@
                     </div>
                     <?php
                 }
-            } else { ?>
-                <?php header("Location: index.php?page=landingNtf&error=noNews");
-            }
-            ?>
+}
+?>
             </form>
         </div>
     </div>

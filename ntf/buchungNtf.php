@@ -1,5 +1,5 @@
 <?php
-header("Refresh: 3; url=index.php?page=reservations");
+header("Refresh: 1; url=index.php?page=reservations");
 include 'inc/reservations.php';
 ?>
 <div class="success">
