@@ -1,4 +1,5 @@
 <?php
+//FIXME: funktioniert nicht
 header("Refresh: 5; url=index.php?page=news");
 include 'inc/landing.php';
 require_once 'dbaccess.php';
