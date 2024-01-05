@@ -1,5 +1,4 @@
 <?php
-require_once 'utils/functions.php';
 require_once 'utils/dbaccess.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $room = $_SESSION['zimmer'];
@@ -34,6 +33,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $comments = input($_POST["comments"]);
     }
 }
+
+//? Funktionen für Reservierung
+function calculateCost($room, $arrivalDate, $departureDate, $breakfast, $parking, $pets)
+{
+    $totalCost = 0;
+    $days = (strtotime($departureDate) - strtotime($arrivalDate)) / (60 * 60 * 24);
+    if ($room == "Einzelzimmer mit Einzelbett") {
+        $totalCost = $days * 30;
+    } else if ($room == "Einzelzimmer mit Doppelbett") {
+        $totalCost = $days * 75;
+    } else if ($room == "Luxus Zimmer mit Jacuzzi") {
+        $totalCost = $days * 200;
+    } else if ($room == "Luxus Suite mit privatem Butler") {
+        $totalCost = $days * 500;
+    }
+    if ($breakfast == "inkludiert") {
+        $totalCost += $days * 5;
+    }
+    if ($parking == "inkludiert") {
+        $totalCost += $days * 10;
+    }
+    if ($pets == "inkludiert") {
+        $totalCost += 15;
+    }
+    return $totalCost;
+}
+function createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId)
+{
+    $sql = "INSERT INTO reservations (room, arrivalDate, departureDate, breakfast, parking, pets, comments, reservationDate, totalCost, status, FK_userId) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+        <p>SQL statement failed</p>
+        <?php return;
+    }
+
+    mysqli_stmt_bind_param($stmt, "sssiiissdsi", $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
 function roomIsBooked($conn, $room, $arrivalDate, $departureDate)
 {
     $sql = "SELECT * FROM reservations WHERE room = ?;";
@@ -55,6 +95,7 @@ function roomIsBooked($conn, $room, $arrivalDate, $departureDate)
         }
     }
 }
+
 if (isset($departureDate) && isset($arrivalDate)) {
     $timestamp = time();
     $today = date("d.m.Y", $timestamp);

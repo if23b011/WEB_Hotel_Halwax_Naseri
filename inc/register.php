@@ -6,6 +6,7 @@ if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) {
 //? serverseitige Validierung
 require_once 'utils/dbaccess.php';
 require_once 'utils/functions.php';
+//? Variablen deklarieren
 $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
 $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $password2Err = $dateErr = "";
 $passwordErrSec = "Das Passwort muss 8 Zeichen lang sein und mindestens: 
@@ -16,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if (empty($_POST["email"])) {
-        $emailErr = "*erforderlich";
+        $emailErr = "Email erforderlich";
     } else {
         $email = input($_POST["email"]);
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -58,77 +59,73 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     //? Passwortvalidierung
-    if (empty($_POST["password"])) {
-        $passwordErr = "*erforderlich";
-    } else {
-        $password = input($_POST["password"]);
-    }
     $uppercase = preg_match('@[A-Z]@', $password);
     $lowercase = preg_match('@[a-z]@', $password);
     $number = preg_match('@[0-9]@', $password);
     $specialChars = preg_match('@[^\w]@', $password);
-
-    if (
-        !(empty($_POST["password"])) && (strlen($password) < 8 || !$uppercase || !$lowercase
-            || !$number || !$specialChars)
+    if (empty($_POST["password"])) {
+        $passwordErr = "*erforderlich";
+    } else if (
+        (strlen($password) < 8 || !$uppercase || !$lowercase || !$number || !$specialChars)
     ) {
         $passwordErrSec = "Das Passwort muss 8 Zeichen lang sein und mindestens: 
             1 Großbuchstabe, 1 Kleinbuchstabe, 1 Zahl und 1 Sonderzeichen enthalten!";
         $password = "";
+        $password2 = "";
+        $passwordErr = "Passwort nicht sicher genug!";
     } else {
+        $password = input($_POST["password"]);
+        $passwordErr = "";
         $passwordErrSec = "";
     }
-
     if (empty($_POST["password2"])) {
         $password2Err = "*erforderlich";
-        $password2 = "";
     } else if ($_POST['password'] != $_POST['password2']) {
         $password2Err = "Passwort ist nicht ident!";
+        $password = "";
         $password2 = "";
     } else {
         $password2 = input($_POST["password2"]);
+        $password2Err = "";
     }
 }
+//? Bei keiner Fehlermeldung und allen ausgefüllten Feldern wird der User in die Datenbank eingetragen
 if (
-    $gender != "" && $email != "" && $firstname != "" && $lastname != "" && $password != "" &&
-    $password2 != "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" &&
+    $gender != "" && $email != "" && $firstname != "" && $lastname != "" && $date != "" && $password != "" &&
+    $password2 != "" && $emailErr == "" && $firstnameErr == "" && $lastnameErr == "" && $dateErr == "" &&
     $passwordErr == "" && $password2Err == "" && $passwordErrSec == ""
 ) {
     //? Daten in Datenbank speichern
     if (emailExists($conn, $_POST["email"])) {
         header("Location: index.php?page=registerNtf&error=emailExists");
     } else {
-
+        //? Geschlecht in Datenbank speichern
         if ($_POST["gender"] == "Herr") {
             $dBgender = "M";
         } else {
             $dBgender = "W";
         }
-
+        //? Geburtsdatum in Datenbank speichern
         $birth = input($_POST["date"]);
         $birthDate = date("d.m.Y", strtotime($birth));
-        createUser($conn, $dBgender, $firstname, $lastname, $birthDate, $email, $password, "user");
+        $sql = "INSERT INTO users ( gender, firstname, lastname, birthdate, email, password, type) 
+        VALUES (?, ?, ?, ?, ?, ?, ?);";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
+            <p>SQL statement failed";</p>
+            <?php return;
+        }
+
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $type = "user";
+        mysqli_stmt_bind_param($stmt, "sssssss", $dBgender, $firstname, $lastname, $date, $email, $hashedPassword, $type);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        $_SESSION["email"] = $email;
+        header("Location: index.php?page=loginNtf&error=none");
+
     }
-}
-
-function createUser($conn, $gender, $firstname, $lastname, $birthdate, $email, $password, $type)
-{
-    $sql = "INSERT INTO users ( gender, firstname, lastname, birthdate, email, password, type) 
-                                VALUES (?, ?, ?, ?, ?, ?, ?);";
-    $stmt = mysqli_stmt_init($conn);
-
-    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-        <p>SQL statement failed";</p>
-        <?php return;
-    }
-
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    $birthdate = date("Y-m-d", strtotime($birthdate));
-    mysqli_stmt_bind_param($stmt, "sssssss", $gender, $firstname, $lastname, $birthdate, $email, $hashedPassword, $type);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
-    $_SESSION["email"] = $email;
-    header("Location: index.php?page=loginNtf&error=none");
 }
 ?>
 <div class="container" style="margin-bottom: 100px;">

@@ -61,7 +61,7 @@ $result = $conn->query($sql); ?>
                                     <?php echo $newsOnline ?>
                                 </h4>
                                 <form action="index.php?page=newsNtf&msg=newsOffline&newsId=<?php echo $row["newsId"] ?>" method="post">
-                                    <input type="text" name="newsId" value="<?php echo $row["newsId"]; ?>">
+                                    <input type="hidden" name="newsId" value="<?php echo $row["newsId"]; ?>">
                                     <div class="d-flex">
                                         <button type="submit" class="btn btn-danger ms-auto">News offline stellen</button>
                                     </div>
@@ -72,7 +72,7 @@ $result = $conn->query($sql); ?>
                                     <?php echo $newsOnline ?>
                                 </h4>
                                 <form action="index.php?page=newsNtf&msg=newsOnline&newsId=<?php echo $row["newsId"] ?>" method="post">
-                                    <input type="text" name="newsId" value="<?php echo $row["newsId"]; ?>">
+                                    <input type="hidden" name="newsId" value="<?php echo $row["newsId"]; ?>">
                                     <div class="d-flex">
                                         <button type="submit" class="btn btn-success ms-auto">News online stellen</button>
                                     </div>

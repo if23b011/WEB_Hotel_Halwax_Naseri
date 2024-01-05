@@ -32,7 +32,6 @@
                 </li>
                 <?php
                 if (isset($_COOKIE["admin"]) && $_COOKIE["admin"] == true) {
-                    //FIXME Design anpassen
                     ?>
                     <div class="btn-group">
                         <a class="btn btn-dark" href="index.php?page=userManagement" role="button">
@@ -59,7 +58,7 @@
                     ?>
                     <div class="btn-group">
                         <a class="btn btn-dark" href="index.php?page=profile" role="button">
-                            <h4 style="color: white">Profil</h4>
+                            <h4 style="color: white"> <?php echo strstr($_COOKIE["email"], '@', true); ?> </h4>
                         </a>
                         <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"
                             data-bs-toggle="dropdown" aria-expanded="false">
