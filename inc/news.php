@@ -7,20 +7,6 @@ if (isset($_GET["upload"])) {
         header("Refresh: 1; url=index.php?page=news");
     }
 }
-if (isset($_GET["offlineNews"])) {
-    if ($_GET["offlineNews"] == "success") { ?>
-        <p class="text-success">News offline</p>
-        <?php
-        header("Refresh: 1; url=index.php?page=news");
-    }
-}
-if (isset($_GET["onlineNews"])) {
-    if ($_GET["onlineNews"] == "success") { ?>
-        <p class="text-success">News online</p>
-        <?php
-        header("Refresh: 1; url=index.php?page=news");
-    }
-}
 ?>
 <?php if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
     $sql = "SELECT * FROM news ORDER BY newsDate DESC";
@@ -74,8 +60,8 @@ $result = $conn->query($sql); ?>
                                 <h4 class="text-info">News ist
                                     <?php echo $newsOnline ?>
                                 </h4>
-                                <form action="utils/offlineNews.php" method="post">
-                                    <input type="hidden" name="newsId" value="<?php echo $row["newsId"]; ?>">
+                                <form action="index.php?page=newsNtf&msg=newsOffline&newsId=<?php echo $row["newsId"] ?>" method="post">
+                                    <input type="text" name="newsId" value="<?php echo $row["newsId"]; ?>">
                                     <div class="d-flex">
                                         <button type="submit" class="btn btn-danger ms-auto">News offline stellen</button>
                                     </div>
@@ -85,8 +71,8 @@ $result = $conn->query($sql); ?>
                                 <h4 class="text-info">News ist
                                     <?php echo $newsOnline ?>
                                 </h4>
-                                <form action="utils/onlineNews.php" method="post">
-                                    <input type="hidden" name="newsId" value="<?php echo $row["newsId"]; ?>">
+                                <form action="index.php?page=newsNtf&msg=newsOnline&newsId=<?php echo $row["newsId"] ?>" method="post">
+                                    <input type="text" name="newsId" value="<?php echo $row["newsId"]; ?>">
                                     <div class="d-flex">
                                         <button type="submit" class="btn btn-success ms-auto">News online stellen</button>
                                     </div>

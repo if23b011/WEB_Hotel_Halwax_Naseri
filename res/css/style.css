@@ -287,7 +287,7 @@ p {
             var(--success-background),
             var(--success-primary));
     border-radius: inherit;
-    animation: progress 2.5s 0.3s linear;
+    animation: progress 0.75s 0.5s linear;
 }
 
 @keyframes fade-in {

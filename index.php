@@ -74,6 +74,7 @@ if (!isset($_SESSION['last_regeneration'])) {
         "landingNtf" => "ntf/landingNtf.php",
         "buchungNtf" => "ntf/buchungNtf.php",
         "profileNtf" => "ntf/profileNtf.php",
+        "newsNtf" => "ntf/newsNtf.php",
     ];
 
     if (isset($pages[$page])) {
