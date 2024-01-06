@@ -1,5 +1,6 @@
 <?php
 require_once 'utils/dbaccess.php';
+require_once 'utils/functions.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $room = $_SESSION['zimmer'];
     $arrival = $departure = $arrivalDate = $departureDate = $breakfast = $parking = $pets = $comments = "";

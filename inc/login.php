@@ -45,9 +45,9 @@ if (empty($emailErr) && empty($passwordErr)) {
                 }
                 mysqli_stmt_bind_param($stmt, "s", $email);
                 mysqli_stmt_execute($stmt);
-                $result = mysqli_query($conn, $sql);
+                $result = mysqli_stmt_get_result($stmt);
                 $row = mysqli_fetch_assoc($result);
-                
+
                 if ($row['active'] == 1) {
                     //?  Verify the password
                     if (password_verify($password, $userData['password'])) {
@@ -63,8 +63,7 @@ if (empty($emailErr) && empty($passwordErr)) {
                         }
                         mysqli_stmt_bind_param($stmt, "s", $email);
                         mysqli_stmt_execute($stmt);
-                        
-                        $result = mysqli_query($conn, $sql);
+                        $result = mysqli_stmt_get_result($stmt);
                         $row = mysqli_fetch_assoc($result);
                         if ($row['type'] == 'admin') {
                             header("Location: index.php?page=landingNtf&error=noneAdminLogin");

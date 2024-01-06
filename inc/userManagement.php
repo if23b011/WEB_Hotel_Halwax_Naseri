@@ -10,21 +10,32 @@
         $birthdate = $_POST['birthdate'];
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $password = password_hash($password, PASSWORD_DEFAULT);
         $type = $_POST['type'];
         $active = $_POST['active'];
-
-        $sql = "UPDATE users SET gender=?, firstname=?, lastname=?, birthdate=?, email=?, password = ?, type=?, active=? WHERE userId=?";
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: index.php?page=landingNtf&error=stmtFailed");
-            exit();
+        if ($password == "") {
+            $sql = "UPDATE users SET gender = ?, firstname = ?, lastname = ?, birthdate = ?, email = ?, type=?, active=? WHERE userId=?";
+            $stmt = mysqli_stmt_init($conn);
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                header("Location: index.php?page=landingNtf&error=stmtFailed");
+                exit();
+            }
+            mysqli_stmt_bind_param($stmt, "ssssssii", $gender, $firstname, $lastname, $birthdate, $email, $type, $active, $userId);
+            mysqli_stmt_execute($stmt);
+        } else {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "UPDATE users SET gender = ?, firstname = ?, lastname = ?, birthdate = ?, email = ?, password = ?, type=?, active=? WHERE userId=?";
+            $stmt = mysqli_stmt_init($conn);
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                header("Location: index.php?page=landingNtf&error=stmtFailed");
+                exit();
+            }
+            mysqli_stmt_bind_param($stmt, "sssssssii", $gender, $firstname, $lastname, $birthdate, $email, $hashedPassword, $type, $active, $userId);
+            mysqli_stmt_execute($stmt);
         }
-        mysqli_stmt_bind_param($stmt, "sssssssii", $gender, $firstname, $lastname, $birthdate, $email, $password, $type, $active, $userId);
-        mysqli_stmt_execute($stmt);
-        
+
+
     }
-    $sql = "SELECT * FROM users WHERE type = 'user'";
+    $sql = "SELECT * FROM users ORDER BY type DESC;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("Location: index.php?page=landingNtf&error=stmtFailed");
@@ -32,7 +43,7 @@
     }
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    
+
     if ($result->num_rows > 0) {
         ?>
         <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 42rem;">
@@ -48,7 +59,6 @@
                     $lastname = $row["lastname"];
                     $date = $row["birthdate"];
                     $email = $row["email"];
-                    $password = "";
                     $type = $row["type"];
                     $active = $row["active"]; ?>
                     <form method="post" id="form<?php echo $userId; ?>"
@@ -88,7 +98,7 @@
                             <label>E-Mail</label>
                         </div>
                         <div class="user-box">
-                            <input type="password" name="password" value="<?php echo $password ?>">
+                            <input type="password" name="password" value="">
                             <label>Passwort bei Bedarf ändern</label>
                         </div>
                         <div class="user-box">
