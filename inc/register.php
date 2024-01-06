@@ -112,9 +112,9 @@ if (
         VALUES (?, ?, ?, ?, ?, ?, ?);";
         $stmt = mysqli_stmt_init($conn);
 
-        if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-            <p>SQL statement failed";</p>
-            <?php return;
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            exit();
         }
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

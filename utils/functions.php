@@ -14,9 +14,10 @@ function emailExists($conn, $email)
     $sql = "SELECT * FROM users WHERE email = ?;";
     $stmt = mysqli_stmt_init($conn);
 
-    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-        <p>SQL-Fehler</p>
-    <?php }
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        exit();
+    }
 
     mysqli_stmt_bind_param($stmt, "s", $email);
     mysqli_stmt_execute($stmt);

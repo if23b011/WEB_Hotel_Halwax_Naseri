@@ -47,7 +47,12 @@ if (empty($emailErr) && empty($passwordErr)) {
                         $_SESSION['login'] = true;
                         $_SESSION['email'] = $email;
                         //? Datenbankabfrage
-                        $sql = "SELECT * FROM users WHERE email = '$email'";
+                        $sql = "SELECT * FROM users WHERE email = ?";
+                        $stmt = mysqli_stmt_init($conn);
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            header("Location: index.php?page=landingNtf&error=stmtFailed");
+                            exit();
+                        }
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         if ($row['type'] == 'admin') {

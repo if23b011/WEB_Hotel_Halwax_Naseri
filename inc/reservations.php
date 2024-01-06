@@ -5,9 +5,9 @@
             require_once 'utils/dbaccess.php';
             $sql = "SELECT userId FROM users WHERE email = ?;";
             $stmt = mysqli_stmt_init($conn);
-            if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-                <p>SQL statement failed</p>
-                <?php return;
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                header("Location: index.php?page=landingNtf&error=stmtFailed");
+                exit();
             }
             mysqli_stmt_bind_param($stmt, "s", $_SESSION["email"]);
             mysqli_stmt_execute($stmt);
@@ -18,9 +18,9 @@
 
             $sql = "SELECT * FROM reservations WHERE FK_userId = ?;";
             $stmt = mysqli_stmt_init($conn);
-            if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-                <p>SQL statement failed</p>
-                <?php return;
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                header("Location: index.php?page=landingNtf&error=stmtFailed");
+                exit();
             }
             mysqli_stmt_bind_param($stmt, "i", $FK_userId);
             mysqli_stmt_execute($stmt);

@@ -29,9 +29,9 @@
 
         $sql = "UPDATE users SET firstname = ? , lastname = ? , birthdate = ? WHERE email = ?";
         $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-            <p>SQL-Fehler</p>
-            <?php return;
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            exit();
         }
         mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $birthDate, $_SESSION["email"]);
         mysqli_stmt_execute($stmt);
@@ -100,9 +100,9 @@
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $sql = "UPDATE users SET password = ? WHERE email = ?";
             $stmt = mysqli_stmt_init($conn);
-            if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-                SQL-Fehler
-                <?php return;
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                header("Location: index.php?page=landingNtf&error=stmtFailed");
+                exit();
             }
             mysqli_stmt_bind_param($stmt, "ss", $password, $_SESSION["email"]);
             mysqli_stmt_execute($stmt);

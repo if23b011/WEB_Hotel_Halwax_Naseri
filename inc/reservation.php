@@ -65,9 +65,9 @@ function createReservation($conn, $room, $arrivalDate, $departureDate, $breakfas
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_stmt_init($conn);
 
-    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-        <p>SQL statement failed</p>
-        <?php return;
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        exit();
     }
 
     mysqli_stmt_bind_param($stmt, "sssiiissdsi", $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
@@ -78,9 +78,9 @@ function roomIsBooked($conn, $room, $arrivalDate, $departureDate)
 {
     $sql = "SELECT * FROM reservations WHERE room = ?;";
     $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-        <p>SQL statement failed</p>
-        <?php return;
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        exit();
     }
     mysqli_stmt_bind_param($stmt, "s", $room);
     mysqli_stmt_execute($stmt);
@@ -131,9 +131,9 @@ if (isset($departureDate) && isset($arrivalDate)) {
         }
         $sql = "SELECT userId FROM users WHERE email = ?;";
         $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-                    <p>SQL statement failed</p>
-            <?php return;
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            exit();
         }
         mysqli_stmt_bind_param($stmt, "s", $FK_userId);
         mysqli_stmt_execute($stmt);
