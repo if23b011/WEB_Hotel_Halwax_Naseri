@@ -1,8 +1,8 @@
 <?php
 session_start();
-
-setcookie("admin", "", time() - (84600 * 1000), "/");
-setcookie("email", "", time() - (84600 * 1000), "/");
+$_SESSION["login"] = false;
+$_SESSION["admin"] = false;
+$_SESSION["email"] = "";
 session_destroy();
 
 header("Location: ../index.php");

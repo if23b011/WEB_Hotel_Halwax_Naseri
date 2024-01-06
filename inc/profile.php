@@ -7,7 +7,6 @@
     require_once 'utils/dbaccess.php';
     require_once 'utils/functions.php';
 
-    $_SESSION["email"] = $_COOKIE["email"];
     $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -179,7 +178,7 @@
         </div>
     </div>
     <?php
-    if (isset($_COOKIE["email"])) { ?>
+    if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) { ?>
         <div class="d-grid gap-3 col-6 mx-auto">
             <a class="btn btn-danger" role="button" href="utils/logout.php">Logout</a>
         </div>

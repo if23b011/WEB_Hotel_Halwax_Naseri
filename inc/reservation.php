@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $arrival = $departure = $arrivalDate = $departureDate = $breakfast = $parking = $pets = $comments = "";
     $status = "neu";
     $reservationDate = date("d.m.Y", time());
-    $FK_userId = $_COOKIE['email'];
+    $FK_userId = $_SESSION['email'];
     if (isset($_POST["arrivalDate"])) {
         $arrival = input($_POST["arrivalDate"]);
         $arrivalDate = date("d.m.Y", strtotime($arrival));

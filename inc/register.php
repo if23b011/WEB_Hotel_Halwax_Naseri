@@ -122,7 +122,6 @@ if (
         mysqli_stmt_bind_param($stmt, "sssssss", $dBgender, $firstname, $lastname, $date, $email, $hashedPassword, $type);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
-        $_SESSION["email"] = $email;
         header("Location: index.php?page=loginNtf&error=none");
 
     }

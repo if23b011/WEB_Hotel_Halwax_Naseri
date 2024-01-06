@@ -45,14 +45,13 @@ if (empty($emailErr) && empty($passwordErr)) {
                     if (password_verify($password, $userData['password'])) {
                         //?  Password is correct
                         $_SESSION['login'] = true;
-                        setcookie("email", $_POST["email"], time() + (86400 * 30), "/");
+                        $_SESSION['email'] = $email;
                         //? Datenbankabfrage
                         $sql = "SELECT * FROM users WHERE email = '$email'";
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         if ($row['type'] == 'admin') {
                             $_SESSION['admin'] = true;
-                            setcookie("admin", true, time() + (86400 * 30), "/");
                             header("Location: index.php?page=landingNtf&error=noneLogin");
                         } else {
                             header("Location: index.php?page=landingNtf&error=noneLogin");

@@ -54,7 +54,7 @@ $result = $conn->query($sql); ?>
                             ?>
                         </h3>
                         <!-- Button zum Löschen der News -->
-                        <?php if (isset($_COOKIE["admin"])) {
+                        <?php if (isset($_SESSION["admin"]) && ($_SESSION["admin"] == true)) {
                             if ($row["newsOnline"] == 1) {
                                 $newsOnline = "online"; ?>
                                 <h4 class="text-info">News ist

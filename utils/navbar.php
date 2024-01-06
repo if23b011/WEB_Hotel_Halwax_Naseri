@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <?php
-                if (isset($_COOKIE["email"])) { ?>
+                if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?page=buchung">
                             <h4 style="color: white">Reservierung</h4>
@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <?php
-                if (isset($_COOKIE["admin"]) && $_COOKIE["admin"] == true) {
+                if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
                     ?>
                     <div class="btn-group">
                         <a class="btn btn-dark" href="index.php?page=userManagement" role="button">
@@ -54,11 +54,13 @@
             </ul>
             <ul class="navbar-nav ms-auto">
                 <?php
-                if (isset($_COOKIE["email"])) {
+                if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) {
                     ?>
                     <div class="btn-group">
                         <a class="btn btn-dark" href="index.php?page=profile" role="button">
-                            <h4 style="color: white"> <?php echo strstr($_COOKIE["email"], '@', true); ?> </h4>
+                            <h4 style="color: white">
+                                <?php echo strstr($_SESSION["email"], '@', true); ?>
+                            </h4>
                         </a>
                         <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"
                             data-bs-toggle="dropdown" aria-expanded="false">

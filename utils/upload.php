@@ -9,7 +9,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
     <p>SQL statement failed</p>
     <?php return;
 }
-mysqli_stmt_bind_param($stmt, "s", $_COOKIE["email"]);
+mysqli_stmt_bind_param($stmt, "s", $_SESSION["email"]);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
