@@ -24,15 +24,25 @@
     $filter = isset($_POST['filter']) ? $_POST['filter'] : "alle";
     if ($filter == "alle") {
         $sql = "SELECT * FROM reservations";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            exit();
+        }
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        $result = mysqli_stmt_get_result($stmt);
     } else {
         $sql = "SELECT * FROM reservations WHERE status = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $filter);
-        $stmt->execute([$filter]);
-        $result = $stmt->get_result();
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "s", $filter);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        $result = mysqli_stmt_get_result($stmt);
     }
     if ($result->num_rows > 0) {
         ?>

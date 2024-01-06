@@ -111,7 +111,6 @@ if (
         $sql = "INSERT INTO users ( gender, firstname, lastname, birthdate, email, password, type) 
         VALUES (?, ?, ?, ?, ?, ?, ?);";
         $stmt = mysqli_stmt_init($conn);
-
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("Location: index.php?page=landingNtf&error=stmtFailed");
             exit();
@@ -123,7 +122,6 @@ if (
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         header("Location: index.php?page=loginNtf&error=none");
-
     }
 }
 ?>

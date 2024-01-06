@@ -37,7 +37,15 @@ if (empty($emailErr) && empty($passwordErr)) {
             $userData = emailExists($conn, $email);
             if ($userData) {
                 //?  Check if the user is active
-                $sql = "SELECT * FROM users WHERE email = '$email'";
+                $sql = "SELECT * FROM users WHERE email = ?";
+                $stmt = mysqli_stmt_init($conn);
+                if (!mysqli_stmt_prepare($stmt, $sql)) {
+                    header("Location: index.php?page=landingNtf&error=stmtFailed");
+                    exit();
+                }
+                mysqli_stmt_bind_param($stmt, "s", $email);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
                 if ($row['active'] == 1) {
@@ -53,6 +61,9 @@ if (empty($emailErr) && empty($passwordErr)) {
                             header("Location: index.php?page=landingNtf&error=stmtFailed");
                             exit();
                         }
+                        mysqli_stmt_bind_param($stmt, "s", $email);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         if ($row['type'] == 'admin') {
@@ -96,7 +107,7 @@ if (empty($emailErr) && empty($passwordErr)) {
                 <div class="user-box">
                     <input type="password" name="password" value="<?php echo $password ?>"
                         placeholder="<?php echo $passwordErr ?>" tabindex="2">
-                        <label>Passwort</label>
+                    <label>Passwort</label>
                 </div>
                 <input type="submit" value="Login" class="loginBoxSubmit">
             </form>

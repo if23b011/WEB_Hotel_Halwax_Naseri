@@ -5,12 +5,13 @@ require_once 'utils/dbaccess.php';
 ?>
 <?php if (isset($_GET["msg"])) {
     if ($_GET["msg"] == "newsOnline") {
-        $sql = "UPDATE news SET newsOnline = 1 WHERE newsId = " . $_GET["newsId"];
+        $sql = "UPDATE news SET newsOnline = 1 WHERE newsId = ?";
         $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-            <p>SQL-Fehler</p>
-            <?php return;
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            exit();
         }
+        mysqli_stmt_bind_param($stmt, "i", $_GET["newsId"]);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         ?>
@@ -25,10 +26,11 @@ require_once 'utils/dbaccess.php';
     } else if ($_GET["msg"] == "newsOffline") {
         $sql = "UPDATE news SET newsOnline = 0 WHERE newsId = " . $_GET["newsId"];
         $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) { ?>
-                <p>SQL-Fehler</p>
-            <?php return;
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            exit();
         }
+        mysqli_stmt_bind_param($stmt, "i", $_GET["newsId"]);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         ?>

@@ -1,5 +1,5 @@
 <?php
-header("Refresh: 1; url=index.php?page=profile");
+header("Refresh: 1w; url=index.php?page=profile");
 include 'inc/profile.php';
 ?>
 <?php

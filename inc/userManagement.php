@@ -15,13 +15,24 @@
         $active = $_POST['active'];
 
         $sql = "UPDATE users SET gender=?, firstname=?, lastname=?, birthdate=?, email=?, password = ?, type=?, active=? WHERE userId=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssssssii", $gender, $firstname, $lastname, $birthdate, $email, $password, $type, $active, $userId);
-        $stmt->execute();
-        $stmt->close();
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "sssssssii", $gender, $firstname, $lastname, $birthdate, $email, $password, $type, $active, $userId);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
     }
-    $sql = "SELECT * FROM users WHERE type='user'";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM users WHERE type = 'user'";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        exit();
+    }
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    $result = mysqli_stmt_get_result($stmt);
     if ($result->num_rows > 0) {
         ?>
         <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 42rem;">

@@ -39,7 +39,7 @@ include 'inc/landing.php';
                     <div class="warning">
                 <div class="warning__body">
                     <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
-                    SQL Statement failed
+                    Error 
                 </div>
                 <div class="warning__progress"></div>
             </div>

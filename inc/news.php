@@ -10,10 +10,25 @@ if (isset($_GET["upload"])) {
 ?>
 <?php if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
     $sql = "SELECT * FROM news ORDER BY newsDate DESC";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        exit();
+    }
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
 } else {
     $sql = "SELECT * FROM news where newsOnline = 1 ORDER BY newsDate DESC";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        exit();
+    }
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);    
 }
-$result = $conn->query($sql); ?>
+$result = mysqli_stmt_get_result($stmt); ?>
 <?php if ($result->num_rows < 0) {
     header("Location: index.php?page=landingNtf&error=noNews");
 } else {

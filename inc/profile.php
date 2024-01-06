@@ -8,7 +8,14 @@
     require_once 'utils/functions.php';
 
     $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
-    $result = mysqli_query($conn, $sql);
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        exit();
+    }
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    $result = mysqli_stmt_get_result($stmt);
     $row = mysqli_fetch_assoc($result);
     $firstname = input($row['firstname']);
     $lastname = input($row['lastname']);
@@ -72,7 +79,14 @@
 
         if (!empty($_POST["oldPassword"])) {
             $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
-            $result = mysqli_query($conn, $sql);
+            $stmt = mysqli_stmt_init($conn);
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                header("Location: index.php?page=landingNtf&error=stmtFailed");
+                exit();
+            }
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+            $result = mysqli_stmt_get_result($stmt);
             if (!password_verify($_POST['oldPassword'], $row['password'])) {
                 $oldPasswordErr = "Falsches Passwort!";
                 $oldPassword = "";
@@ -90,7 +104,14 @@
     }
     if (isset($_POST["password"])) {
         $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
-        $result = mysqli_query($conn, $sql);
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            exit();
+        }
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        $result = mysqli_stmt_get_result($stmt);
         if (
             ($password != "") && ($password2 != "") && ($oldPassword != "") &&
             ($password == $password2) && password_verify($oldPassword, $row['password']) &&
