@@ -13,7 +13,6 @@ require_once 'utils/dbaccess.php';
         }
         mysqli_stmt_bind_param($stmt, "i", $_GET["newsId"]);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
         ?>
         <div class="success">
             <div class="success__body">
@@ -32,7 +31,6 @@ require_once 'utils/dbaccess.php';
         }
         mysqli_stmt_bind_param($stmt, "i", $_GET["newsId"]);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
         ?>
             <div class="warning">
                 <div class="warning__body">

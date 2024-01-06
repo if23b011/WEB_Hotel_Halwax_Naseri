@@ -72,7 +72,7 @@ function createReservation($conn, $room, $arrivalDate, $departureDate, $breakfas
 
     mysqli_stmt_bind_param($stmt, "sssiiissdsi", $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
+
 }
 function roomIsBooked($conn, $room, $arrivalDate, $departureDate)
 {
@@ -84,7 +84,7 @@ function roomIsBooked($conn, $room, $arrivalDate, $departureDate)
     }
     mysqli_stmt_bind_param($stmt, "s", $room);
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
+
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
         $arrival = date("d.m.Y", strtotime($row['arrivalDate']));
@@ -138,7 +138,7 @@ if (isset($departureDate) && isset($arrivalDate)) {
         }
         mysqli_stmt_bind_param($stmt, "s", $FK_userId);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
+
         $result = mysqli_stmt_get_result($stmt);
         $row = mysqli_fetch_assoc($result);
         $FK_userId = $row['userId'];

@@ -14,7 +14,7 @@
         exit();
     }
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
+
     $result = mysqli_stmt_get_result($stmt);
     $row = mysqli_fetch_assoc($result);
     $firstname = input($row['firstname']);
@@ -42,7 +42,7 @@
         }
         mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $birthDate, $_SESSION["email"]);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
+
 
         //? Passwortvalidierung
         if (empty($_POST["password"])) {
@@ -76,7 +76,6 @@
         } else {
             $password2 = input($_POST["password2"]);
         }
-
         if (!empty($_POST["oldPassword"])) {
             $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
             $stmt = mysqli_stmt_init($conn);
@@ -85,7 +84,6 @@
                 exit();
             }
             mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
             $result = mysqli_stmt_get_result($stmt);
             if (!password_verify($_POST['oldPassword'], $row['password'])) {
                 $oldPasswordErr = "Falsches Passwort!";
@@ -110,7 +108,7 @@
             exit();
         }
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
+
         $result = mysqli_stmt_get_result($stmt);
         if (
             ($password != "") && ($password2 != "") && ($oldPassword != "") &&
@@ -127,7 +125,7 @@
             }
             mysqli_stmt_bind_param($stmt, "ss", $password, $_SESSION["email"]);
             mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt); ?>
+            ?>
             <?php
             header("Location: index.php?page=profileNtf&error=nonePassword");
         }

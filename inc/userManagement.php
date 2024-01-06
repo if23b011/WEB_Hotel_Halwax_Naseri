@@ -22,7 +22,7 @@
         }
         mysqli_stmt_bind_param($stmt, "sssssssii", $gender, $firstname, $lastname, $birthdate, $email, $password, $type, $active, $userId);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
+        
     }
     $sql = "SELECT * FROM users WHERE type = 'user'";
     $stmt = mysqli_stmt_init($conn);
@@ -31,8 +31,8 @@
         exit();
     }
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
     $result = mysqli_stmt_get_result($stmt);
+    
     if ($result->num_rows > 0) {
         ?>
         <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 42rem;">

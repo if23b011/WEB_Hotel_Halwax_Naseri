@@ -30,7 +30,6 @@
             exit();
         }
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
         $result = mysqli_stmt_get_result($stmt);
     } else {
         $sql = "SELECT * FROM reservations WHERE status = ?";
@@ -41,7 +40,6 @@
         }
         mysqli_stmt_bind_param($stmt, "s", $filter);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
         $result = mysqli_stmt_get_result($stmt);
     }
     if ($result->num_rows > 0) {

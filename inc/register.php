@@ -120,7 +120,6 @@ if (
         $type = "user";
         mysqli_stmt_bind_param($stmt, "sssssss", $dBgender, $firstname, $lastname, $date, $email, $hashedPassword, $type);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
         header("Location: index.php?page=loginNtf&error=none");
     }
 }

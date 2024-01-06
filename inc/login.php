@@ -45,9 +45,9 @@ if (empty($emailErr) && empty($passwordErr)) {
                 }
                 mysqli_stmt_bind_param($stmt, "s", $email);
                 mysqli_stmt_execute($stmt);
-                mysqli_stmt_close($stmt);
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
+                
                 if ($row['active'] == 1) {
                     //?  Verify the password
                     if (password_verify($password, $userData['password'])) {
@@ -63,7 +63,7 @@ if (empty($emailErr) && empty($passwordErr)) {
                         }
                         mysqli_stmt_bind_param($stmt, "s", $email);
                         mysqli_stmt_execute($stmt);
-                        mysqli_stmt_close($stmt);
+                        
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         if ($row['type'] == 'admin') {

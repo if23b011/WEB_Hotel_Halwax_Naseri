@@ -16,7 +16,7 @@ if (isset($_GET["upload"])) {
         exit();
     }
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
+    
 
 } else {
     $sql = "SELECT * FROM news where newsOnline = 1 ORDER BY newsDate DESC";
@@ -26,7 +26,7 @@ if (isset($_GET["upload"])) {
         exit();
     }
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);    
+        
 }
 $result = mysqli_stmt_get_result($stmt); ?>
 <?php if ($result->num_rows < 0) {

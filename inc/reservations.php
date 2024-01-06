@@ -11,7 +11,6 @@
             }
             mysqli_stmt_bind_param($stmt, "s", $_SESSION["email"]);
             mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $row = mysqli_fetch_assoc($result);
             $FK_userId = $row['userId'];
@@ -24,7 +23,6 @@
             }
             mysqli_stmt_bind_param($stmt, "i", $FK_userId);
             mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
             $result = mysqli_stmt_get_result($stmt);
             if ($result->num_rows == 0) {
                 header("Location: index.php?page=buchung&error=noReservations");
@@ -124,7 +122,6 @@
                                 <?php $number++;
                             }
             }
-            mysqli_stmt_close($stmt);
             ?>
                     </form>
                 </div>

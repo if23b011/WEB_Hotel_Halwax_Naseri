@@ -11,13 +11,11 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 }
 mysqli_stmt_bind_param($stmt, "s", $_SESSION["email"]);
 mysqli_stmt_execute($stmt);
-mysqli_stmt_close($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 $target_file = null;
 if ($row) {
     $FK_userId = $row['userId'];
-    mysqli_stmt_close($stmt);
     if (!empty($_FILES["fileToUpload"]["name"])) {
         $target_dir = "../uploads/news/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -112,6 +110,5 @@ function upload($conn, $title, $text, $target_file, $newsDate, $FK_userId)
     $target_file_db = substr($target_file, 3);
     mysqli_stmt_bind_param($stmt, "ssssi", $title, $text, $target_file_db, $newsDate, $FK_userId);
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
     header("Location: ../index.php?page=news&msg=uploadSuccess");
 } ?>
