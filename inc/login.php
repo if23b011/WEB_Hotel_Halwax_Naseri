@@ -51,8 +51,7 @@ if (empty($emailErr) && empty($passwordErr)) {
                         $result = mysqli_query($conn, $sql);
                         $row = mysqli_fetch_assoc($result);
                         if ($row['type'] == 'admin') {
-                            $_SESSION['admin'] = true;
-                            header("Location: index.php?page=landingNtf&error=noneLogin");
+                            header("Location: index.php?page=landingNtf&error=noneAdminLogin");
                         } else {
                             header("Location: index.php?page=landingNtf&error=noneLogin");
                         }
