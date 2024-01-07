@@ -57,7 +57,7 @@
                     <div class="btn-group">
                         <a class="btn btn-dark" href="index.php?page=profile" role="button">
                             <h4 style="color: white">
-                                <?php echo strstr($_COOKIE["email"], '@', true); ?>
+                                <?php echo strstr($_COOKIE["email"], "@", true); ?>
                             </h4>
                         </a>
                         <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"

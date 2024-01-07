@@ -1,6 +1,6 @@
 <?php
 header("Refresh: 1; url=index.php");
-include 'inc/landing.php';
+include "inc/landing.php";
 ?>
 <div class="warning">
     <div class="warning__body">

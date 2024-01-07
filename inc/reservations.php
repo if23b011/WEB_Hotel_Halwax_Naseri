@@ -2,7 +2,7 @@
     <div class="d-grid col-12 mx-auto">
         <div class="mb-3 container">
             <?php
-            require_once 'utils/dbaccess.php';
+            require_once "utils/dbaccess.php";
             $sql = "SELECT userId FROM users WHERE email = ?;";
             $stmt = mysqli_stmt_init($conn);
             if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -13,7 +13,7 @@
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $row = mysqli_fetch_assoc($result);
-            $FK_userId = $row['userId'];
+            $FK_userId = $row["userId"];
 
             $sql = "SELECT * FROM reservations WHERE FK_userId = ?;";
             $stmt = mysqli_stmt_init($conn);
@@ -25,7 +25,7 @@
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             if ($result->num_rows == 0) {
-                header("Location: index.php?page=buchung&error=noReservations");
+                header("Location: index.php?page=reservationsNtf&error=noReservations");
             } else {
                 $number = 1; ?>
                 <div class="login-box d-flex justify-content-center align-items-center"
@@ -37,16 +37,16 @@
                             </a>
                             <?php
                             while ($row = mysqli_fetch_assoc($result)) {
-                                $room = $row['room'];
-                                $arrivalDate = $row['arrivalDate'];
-                                $departureDate = $row['departureDate'];
-                                $breakfast = $row['breakfast'];
-                                $parking = $row['parking'];
-                                $pets = $row['pets'];
-                                $comments = $row['comments'];
-                                $reservationDate = $row['reservationDate'];
-                                $totalCost = $row['totalCost'];
-                                $status = $row['status'];
+                                $room = $row["room"];
+                                $arrivalDate = $row["arrivalDate"];
+                                $departureDate = $row["departureDate"];
+                                $breakfast = $row["breakfast"];
+                                $parking = $row["parking"];
+                                $pets = $row["pets"];
+                                $comments = $row["comments"];
+                                $reservationDate = $row["reservationDate"];
+                                $totalCost = $row["totalCost"];
+                                $status = $row["status"];
                                 if (empty($comments)) {
                                     $comments = "keine";
                                 } ?>

@@ -1,7 +1,7 @@
 <?php
 header("Refresh: 1; url=index.php?page=news");
-include 'inc/news.php';
-require_once 'utils/dbaccess.php';
+include "inc/news.php";
+require_once "utils/dbaccess.php";
 ?>
 <?php if (isset($_GET["msg"])) {
     if ($_GET["msg"] == "newsOnline") {

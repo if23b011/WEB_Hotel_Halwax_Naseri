@@ -1,23 +1,6 @@
 <div class="container" style="margin-bottom: 100px;">
     <h1 class="text-center mx-auto">Zimmerauswahl</h1>
-    <div class="mb-4">
-        <?php
-        if (isset($_GET["error"])) {
-            if ($_GET["error"] == "noReservations") { ?>
-                <div class="warning">
-                    <div class="warning__body">
-                        <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
-                        Sie haben noch keine Reservierungen getätigt!
-                    </div>
-                    <div class="warning__progress"></div>
-                </div>
-                <?php
-                header("Refresh: 3; url=index.php?page=buchung");
-            }
-        }
-        ?>
-    </div>
-    <?php $_SESSION['zimmer'] = '' ?>
+    <?php $_SESSION["zimmer"] = "" ?>
     <div class="container">
         <div class="row row-cols-1 row-cols-md-2 row-cols-xxl-4 justify-content-center">
             <div class="col mb-4 text-center">

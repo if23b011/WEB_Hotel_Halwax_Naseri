@@ -4,8 +4,8 @@ if (isset($_COOKIE["email"])) {
     exit();
 }
 //? serverseitige Validierung
-require_once 'utils/dbaccess.php';
-require_once 'utils/functions.php';
+require_once "utils/dbaccess.php";
+require_once "utils/functions.php";
 //? Variablen deklarieren
 $gender = $email = $firstname = $lastname = $password = $password2 = $date = "";
 $emailErr = $firstnameErr = $lastnameErr = $passwordErr = $password2Err = $dateErr = "";
@@ -59,10 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     //? Passwortvalidierung
-    $uppercase = preg_match('@[A-Z]@', $password);
-    $lowercase = preg_match('@[a-z]@', $password);
-    $number = preg_match('@[0-9]@', $password);
-    $specialChars = preg_match('@[^\w]@', $password);
+    $uppercase = preg_match("@[A-Z]@", $password);
+    $lowercase = preg_match("@[a-z]@", $password);
+    $number = preg_match("@[0-9]@", $password);
+    $specialChars = preg_match("@[^\w]@", $password);
     if (empty($_POST["password"])) {
         $passwordErr = "*erforderlich";
     } else if (
@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
     if (empty($_POST["password2"])) {
         $password2Err = "*erforderlich";
-    } else if ($_POST['password'] != $_POST['password2']) {
+    } else if ($_POST["password"] != $_POST["password2"]) {
         $password2Err = "Passwort ist nicht ident!";
         $password = "";
         $password2 = "";
@@ -120,7 +120,7 @@ if (
         $type = "user";
         mysqli_stmt_bind_param($stmt, "sssssss", $dBgender, $firstname, $lastname, $date, $email, $hashedPassword, $type);
         mysqli_stmt_execute($stmt);
-        header("Location: index.php?page=loginNtf&error=none");
+        header("Location: index.php?page=loginNtf&error=noneRegister");
     }
 }
 ?>

@@ -1,10 +1,10 @@
 <?php
 header("Refresh: 1; url=index.php?page=login");
-include 'inc/login.php';
+include "inc/login.php";
 ?>
 <?php
 if (isset($_GET['error'])) {
-    if ($_GET['error'] == "none") { ?>
+    if ($_GET['error'] == "noneRegister") { ?>
         <div class="success">
             <div class="success__body">
                 <img src="res/img/check-circle.svg" alt="Success" class="success__icon">

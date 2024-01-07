@@ -1,17 +1,17 @@
 <div style="margin-bottom: 100px;">
     <?php
-    require_once 'utils/dbaccess.php';
-    require_once 'utils/functions.php';
+    require_once "utils/dbaccess.php";
+    require_once "utils/functions.php";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $userId = $_POST['userId'];
-        $gender = $_POST['gender'];
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
-        $birthdate = $_POST['birthdate'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $type = $_POST['type'];
-        $active = $_POST['active'];
+        $userId = $_POST["userId"];
+        $gender = $_POST["gender"];
+        $firstname = $_POST["firstname"];
+        $lastname = $_POST["lastname"];
+        $birthdate = $_POST["birthdate"];
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $type = $_POST["type"];
+        $active = $_POST["active"];
         if ($password == "") {
             $sql = "UPDATE users SET gender = ?, firstname = ?, lastname = ?, birthdate = ?, email = ?, type=?, active=? WHERE userId=?";
             $stmt = mysqli_stmt_init($conn);

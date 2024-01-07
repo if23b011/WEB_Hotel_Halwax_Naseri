@@ -1,6 +1,6 @@
 <?php
 header("Refresh: 1; url=index.php");
-include 'inc/landing.php';
+include "inc/landing.php";
 ?>
 <?php if (isset($_GET["error"])) {
     if ($_GET["error"] == "noneLogin") {

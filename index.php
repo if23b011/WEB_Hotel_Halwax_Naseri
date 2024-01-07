@@ -24,15 +24,15 @@ if (isset($_SESSION["admin"])) {
 <!doctype html>
 <html lang="en">
 
-<?php include 'utils/head.php'; ?>
+<?php include "utils/head.php"; ?>
 
 
 <body>
     <!-- Navigation-->
-    <?php include 'utils/navbar.php' ?>
+    <?php include "utils/navbar.php" ?>
     <!-- Content-->
     <?php
-    $page = (isset($_GET['page'])) ? $_GET['page'] : "landing";
+    $page = (isset($_GET["page"])) ? $_GET["page"] : "landing";
     $pages = [
         "buchung" => "inc/buchung.php",
         "faq" => "inc/faq.php",
@@ -60,10 +60,10 @@ if (isset($_SESSION["admin"])) {
             include $pages[$page];
         }
     } else {
-        include 'ntf/404.php';
+        include "ntf/404.php";
     } ?>
     <!-- Footer-->
-    <?php include 'utils/footer.php'; ?>
+    <?php include "utils/footer.php"; ?>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

@@ -1,5 +1,5 @@
 <?php
-require_once 'utils/dbaccess.php';
+require_once "utils/dbaccess.php";
 if (isset($_GET["upload"])) {
     if ($_GET["upload"] == "success") { ?>
         <p class="text-success">News hochgeladen</p>
@@ -16,7 +16,7 @@ if (isset($_GET["upload"])) {
         exit();
     }
     mysqli_stmt_execute($stmt);
-    
+
 
 } else {
     $sql = "SELECT * FROM news where newsOnline = 1 ORDER BY newsDate DESC";
@@ -26,7 +26,7 @@ if (isset($_GET["upload"])) {
         exit();
     }
     mysqli_stmt_execute($stmt);
-        
+
 }
 $result = mysqli_stmt_get_result($stmt); ?>
 <?php if ($result->num_rows < 0) {
@@ -43,10 +43,10 @@ $result = mysqli_stmt_get_result($stmt); ?>
                     <div class="text-center mb-4">
                         <div class="container">
                             <?php
-                            if (!empty($row["filePath"])) {
-                                echo '<img src="' . $row["filePath"] . '" alt="Thumbnail" class="img-thumbnail img-fluid">';
-                            }
-                            ?>
+                            if (!empty($row["filePath"])) { ?>
+                                <img src=" <?php $row["filePath"] ?>" alt="Thumbnail" class="img-thumbnail img-fluid">
+                                <?php
+                            } ?>
                         </div>
                     </div>
                     <div class="text-center">

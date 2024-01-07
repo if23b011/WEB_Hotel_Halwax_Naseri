@@ -1,5 +1,5 @@
 <?php
-require_once '../utils/dbaccess.php';
+require_once "../utils/dbaccess.php";
 $newsDate = date("d.m.Y", time());
 $time = time();
 $newsDate = date("Y-m-d H:i:s", strtotime($newsDate));
@@ -15,7 +15,7 @@ $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 $target_file = null;
 if ($row) {
-    $FK_userId = $row['userId'];
+    $FK_userId = $row["userId"];
     if (!empty($_FILES["fileToUpload"]["name"])) {
         $target_dir = "../uploads/news/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);

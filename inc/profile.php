@@ -4,8 +4,8 @@
     $oldPasswordErr = $passwordErr = $password2Err = $newPasswordErr = "";
     $passwordErrSec = "Das neue Passwort muss 8 Zeichen lang sein und mindestens: 
     1 Großbuchstabe, 1 Kleinbuchstabe, 1 Zahl und 1 Sonderzeichen enthalten";
-    require_once 'utils/dbaccess.php';
-    require_once 'utils/functions.php';
+    require_once "utils/dbaccess.php";
+    require_once "utils/functions.php";
 
     $sql = "SELECT * FROM users WHERE email = '" . $_COOKIE["email"] . "'";
     $stmt = mysqli_stmt_init($conn);
@@ -17,10 +17,10 @@
 
     $result = mysqli_stmt_get_result($stmt);
     $row = mysqli_fetch_assoc($result);
-    $firstname = input($row['firstname']);
-    $lastname = input($row['lastname']);
-    $email = input($row['email']);
-    $date = input($row['birthdate']);
+    $firstname = input($row["firstname"]);
+    $lastname = input($row["lastname"]);
+    $email = input($row["email"]);
+    $date = input($row["birthdate"]);
     $birthDate = date("Y-m-d", strtotime($date));
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["firstname"])) {
@@ -51,10 +51,10 @@
             $password = input($_POST["password"]);
         }
 
-        $uppercase = preg_match('@[A-Z]@', $password);
-        $lowercase = preg_match('@[a-z]@', $password);
-        $number = preg_match('@[0-9]@', $password);
-        $specialChars = preg_match('@[^\w]@', $password);
+        $uppercase = preg_match("@[A-Z]@", $password);
+        $lowercase = preg_match("@[a-z]@", $password);
+        $number = preg_match("@[0-9]@", $password);
+        $specialChars = preg_match("@[^\w]@", $password);
 
         if (
             !(empty($_POST["password"])) && (strlen($password) < 8 || !$uppercase || !$lowercase
@@ -70,7 +70,7 @@
         if (empty($_POST["password2"])) {
             $password2Err = "*erforderlich";
             $password2 = "";
-        } else if ($_POST['password'] != $_POST['password2']) {
+        } else if ($_POST["password"] != $_POST["password2"]) {
             $password2Err = "Passwort ist nicht ident!";
             $password2 = "";
         } else {
@@ -85,7 +85,7 @@
             }
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
-            if (!password_verify($_POST['oldPassword'], $row['password'])) {
+            if (!password_verify($_POST["oldPassword"], $row["password"])) {
                 $oldPasswordErr = "Falsches Passwort!";
                 $oldPassword = "";
             } else {
@@ -96,7 +96,7 @@
             $oldPassword = "";
         }
 
-        if ($password == $row['password']) {
+        if ($password == $row["password"]) {
             $newPasswordErr = "Das neue Passwort darf nicht dem alten Passwort entsprechen!";
         }
     }
@@ -112,11 +112,11 @@
         $result = mysqli_stmt_get_result($stmt);
         if (
             ($password != "") && ($password2 != "") && ($oldPassword != "") &&
-            ($password == $password2) && password_verify($oldPassword, $row['password']) &&
+            ($password == $password2) && password_verify($oldPassword, $row["password"]) &&
             ($passwordErr == "") && ($passwordErrSec == "") && ($password2Err == "") &&
-            ($oldPasswordErr == "") && ($password != $row['password'])
+            ($oldPasswordErr == "") && ($password != $row["password"])
         ) {
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
             $sql = "UPDATE users SET password = ? WHERE email = ?";
             $stmt = mysqli_stmt_init($conn);
             if (!mysqli_stmt_prepare($stmt, $sql)) {

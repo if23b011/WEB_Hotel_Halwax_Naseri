@@ -1,12 +1,12 @@
 <?php
-require_once 'utils/dbaccess.php';
-require_once 'utils/functions.php';
+require_once "utils/dbaccess.php";
+require_once "utils/functions.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $room = $_SESSION['zimmer'];
+    $room = $_SESSION["zimmer"];
     $arrival = $departure = $arrivalDate = $departureDate = $breakfast = $parking = $pets = $comments = "";
     $status = "neu";
     $reservationDate = date("d.m.Y", time());
-    $FK_userId = $_COOKIE['email'];
+    $FK_userId = $_COOKIE["email"];
     if (isset($_POST["arrivalDate"])) {
         $arrival = input($_POST["arrivalDate"]);
         $arrivalDate = date("d.m.Y", strtotime($arrival));
@@ -88,8 +88,8 @@ function roomIsBooked($conn, $room, $arrivalDate, $departureDate)
 
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
-        $arrival = date("d.m.Y", strtotime($row['arrivalDate']));
-        $departure = date("d.m.Y", strtotime($row['departureDate']));
+        $arrival = date("d.m.Y", strtotime($row["arrivalDate"]));
+        $departure = date("d.m.Y", strtotime($row["departureDate"]));
         if (strtotime($arrivalDate) >= strtotime($arrival) && strtotime($arrivalDate) <= strtotime($departure)) {
             return true;
         } else if (strtotime($departureDate) >= strtotime($arrival) && strtotime($departureDate) <= strtotime($departure)) {
@@ -101,13 +101,15 @@ function roomIsBooked($conn, $room, $arrivalDate, $departureDate)
 if (isset($departureDate) && isset($arrivalDate)) {
     $timestamp = time();
     $today = date("d.m.Y", $timestamp);
-    if (strtotime($arrival) <= strtotime($today)) {
-        echo '<p style="color: red;">Anreisedatum muss nach ' . $today . ' sein!</p>';
-    } else if (strtotime($departure) <= strtotime($arrival)) { ?>
+    if (strtotime($arrival) <= strtotime($today)) { ?>
+        <p style="color: red;">Anreisedatum muss nach
+            <?php $today ?> sein!
+        </p>
+    <?php } else if (strtotime($departure) <= strtotime($arrival)) { ?>
             <p style="color: red;">Anreisedatum muss vor Abreisedatum liegen!</p>
-    <?php } else if (roomIsBooked($conn, $room, $arrivalDate, $departureDate)) {
-        echo '<p style="color: red;">Dieses Zimmer ist bereits für diesen Zeitraum gebucht!</p>';
-    } else {
+    <?php } else if (roomIsBooked($conn, $room, $arrivalDate, $departureDate)) { ?>
+                <p style="color: red;">Dieses Zimmer ist bereits für diesen Zeitraum gebucht!</p>
+    <?php } else {
         //? Daten in Datenbank speichern
         $totalCost = calculateCost($room, $arrivalDate, $departureDate, $breakfast, $parking, $pets);
         $arrivalDate = date("Y-m-d", strtotime($arrivalDate));
@@ -142,9 +144,9 @@ if (isset($departureDate) && isset($arrivalDate)) {
 
         $result = mysqli_stmt_get_result($stmt);
         $row = mysqli_fetch_assoc($result);
-        $FK_userId = $row['userId'];
+        $FK_userId = $row["userId"];
         createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
-        header("Location: index.php?page=buchungNtf&error=none");
+        header("Location: index.php?page=reservationsNtf&error=noneReservation");
     }
 }
 ?>
@@ -158,7 +160,7 @@ if (isset($departureDate) && isset($arrivalDate)) {
                     <h1>Reservierung</h1>
                 </a>
                 <div class="user-box">
-                    <input type="text" id="disabledTextInput" value="<?php echo $_SESSION['zimmer'] ?>" disabled>
+                    <input type="text" id="disabledTextInput" value="<?php echo $_SESSION["zimmer"] ?>" disabled>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6 user-box">

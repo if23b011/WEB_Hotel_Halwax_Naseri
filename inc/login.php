@@ -1,6 +1,6 @@
 <?php
-require_once 'utils/functions.php';
-require_once 'utils/dbaccess.php';
+require_once "utils/functions.php";
+require_once "utils/dbaccess.php";
 if (isset($_COOKIE["email"])) {
     header("Location: index.php?page=profile");
     exit();
@@ -48,9 +48,9 @@ if (empty($emailErr) && empty($passwordErr)) {
                 $result = mysqli_stmt_get_result($stmt);
                 $row = mysqli_fetch_assoc($result);
 
-                if ($row['active'] == 1) {
+                if ($row["active"] == 1) {
                     //?  Verify the password
-                    if (password_verify($password, $userData['password'])) {
+                    if (password_verify($password, $userData["password"])) {
                         //?  Password is correct
                         setcookie("email", $email, time() + (86400 * 30), "/", null, false, true);
                         //? Datenbankabfrage
@@ -64,7 +64,7 @@ if (empty($emailErr) && empty($passwordErr)) {
                         mysqli_stmt_execute($stmt);
                         $result = mysqli_stmt_get_result($stmt);
                         $row = mysqli_fetch_assoc($result);
-                        if ($row['type'] == 'admin') {
+                        if ($row["type"] == "admin") {
                             $_SESSION["admin"] = true;
                             header("Location: index.php?page=landingNtf&error=noneAdminLogin");
                         } else {
