@@ -40,7 +40,7 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="visually-hidden">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-end">
                             <li>
                                 <a class="dropdown-item" href="index.php?page=reservationManagement">
                                     <h4 style="color: white">Reservierungen</h4>
@@ -48,7 +48,7 @@
                             </li>
                         </ul>
                     </div>
-                    <?php } ?>
+                <?php } ?>
             </ul>
             <ul class="navbar-nav ms-auto">
                 <?php
@@ -64,7 +64,12 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="visually-hidden">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu" style="margin-left: -50px">
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="index.php?page=reservations">
+                                    <h4>Reservierungen</h4>
+                                </a>
+                            </li>
                             <li>
                                 <a class="dropdown-item" href="utils/logout.php">
                                     <h4 style="color: red">Logout</h4>

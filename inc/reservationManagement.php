@@ -1,49 +1,53 @@
-<div style="margin-bottom: 100px;">
-    <?php
-    require_once "utils/dbaccess.php";
-    require_once "utils/functions.php";
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST["reservationId"]) && isset($_POST["room"]) && isset($_POST["arrivalDate"]) && isset($_POST["departureDate"]) && isset($_POST["breakfast"]) && isset($_POST["parking"]) && isset($_POST["pets"]) && isset($_POST["comments"]) && isset($_POST["status"])) {
-            $reservationId = $_POST["reservationId"];
-            $room = $_POST["room"];
-            $arrival = $_POST["arrivalDate"];
-            $departure = $_POST["departureDate"];
-            $breakfast = $_POST["breakfast"];
-            $parking = $_POST["parking"];
-            $pets = $_POST["pets"];
-            $comments = $_POST["comments"];
-            $status = $_POST["status"];
-            $sql = "UPDATE reservations SET room=?, arrivalDate=?, departureDate=?, breakfast=?, parking=?, pets=?, comments=?, status=? WHERE reservationId=?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssiiissi", $room, $arrival, $departure, $breakfast, $parking, $pets, $comments, $status, $reservationId);
-            $stmt->execute();
-            $stmt->close();
-        }
-    } ?>
-    <?php
-    $filter = isset($_POST["filter"]) ? $_POST["filter"] : "alle";
-    if ($filter == "alle") {
-        $sql = "SELECT * FROM reservations";
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: index.php?page=landingNtf&error=stmtFailed");
-            exit();
-        }
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-    } else {
-        $sql = "SELECT * FROM reservations WHERE status = ?";
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: index.php?page=landingNtf&error=stmtFailed");
-            exit();
-        }
-        mysqli_stmt_bind_param($stmt, "s", $filter);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+<?php
+if (!isset($_COOKIE["admin"])) {
+    header("Location: index.php?page=landingNtf&error=noAccess");
+    exit();
+}
+require_once "utils/dbaccess.php";
+require_once "utils/functions.php";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["reservationId"]) && isset($_POST["room"]) && isset($_POST["arrivalDate"]) && isset($_POST["departureDate"]) && isset($_POST["breakfast"]) && isset($_POST["parking"]) && isset($_POST["pets"]) && isset($_POST["comments"]) && isset($_POST["status"])) {
+        $reservationId = $_POST["reservationId"];
+        $room = $_POST["room"];
+        $arrival = $_POST["arrivalDate"];
+        $departure = $_POST["departureDate"];
+        $breakfast = $_POST["breakfast"];
+        $parking = $_POST["parking"];
+        $pets = $_POST["pets"];
+        $comments = $_POST["comments"];
+        $status = $_POST["status"];
+        $sql = "UPDATE reservations SET room=?, arrivalDate=?, departureDate=?, breakfast=?, parking=?, pets=?, comments=?, status=? WHERE reservationId=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sssiiissi", $room, $arrival, $departure, $breakfast, $parking, $pets, $comments, $status, $reservationId);
+        $stmt->execute();
+        $stmt->close();
     }
-    if ($result->num_rows > 0) {
-        ?>
+} ?>
+<?php
+$filter = isset($_POST["filter"]) ? $_POST["filter"] : "alle";
+if ($filter == "alle") {
+    $sql = "SELECT * FROM reservations";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        exit();
+    }
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+} else {
+    $sql = "SELECT * FROM reservations WHERE status = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $filter);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+}
+if ($result->num_rows > 0) {
+    ?>
+    <div style="margin-bottom: 100px;">
         <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 42rem;">
             <div style="text-align: center;">
                 <h1>Reservierungen</h1>
@@ -129,7 +133,7 @@
                         <input type="submit" value="Änderungen übernehmen" class="loginBoxSubmit">
                     </form>
                 <?php }
-    } else { ?>
+} else { ?>
                 <div class="login-box d-flex justify-content-center align-items-center"
                     style="width: 100%; max-width: 42rem;">
                     <div style="text-align: center;">
@@ -147,7 +151,7 @@
                     </div>
                 </div>
             <?php }
-    ?>
+?>
         </div>
     </div>
 </div>

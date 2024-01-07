@@ -1,3 +1,9 @@
+<?php
+if (!isset($_COOKIE["admin"])) {
+    header("Location: index.php?page=landingNtf&error=noAccess");
+    exit();
+}
+?>
 <div class="container" style="margin-bottom: 100px;">
     <div class="login-box d-flex justify-content-center align-items-center"
         style="height: auto; width: 100%; max-width: 42rem;">

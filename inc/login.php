@@ -1,10 +1,10 @@
 <?php
-require_once "utils/functions.php";
-require_once "utils/dbaccess.php";
 if (isset($_COOKIE["email"])) {
-    header("Location: index.php?page=profile");
+    header("Location: index.php?page=profileNtf&error=alreadyLoggedIn");
     exit();
 }
+require_once "utils/functions.php";
+require_once "utils/dbaccess.php";
 //? serverseitige Validierung
 $email = $password = "";
 $emailErr = $passwordErr = "";

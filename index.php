@@ -1,11 +1,6 @@
 <?php
-
-//TODO: Überprüfen, ob User Seite aufrufen darf (z.B. nur eingeloggte User dürfen auf Reservierungsseite)
-//TODO: Fehlermeldungen verbessern (Notifications mit GET-Parametern (z.B. ?page=loginNtf&loginError=none oder ?page=registerNtf&registerError=none))
-//TODO: Code aufräumen
+//TODO: Code durchschauen und aufräumen
 //TODO: Code kommentieren
-//TODO: SESSIONS und COOKIES überprüfen
-//TODO: Adresseingabe bei Buchung hinzufügen (idk es steht nicht in der Angabe)
 //TODO: Responsive Design Code verbessern
 //TODO: Usability und Accessibility verbessern
 //TODO: Design verschönern
@@ -34,6 +29,7 @@ if (isset($_SESSION["admin"])) {
     <?php
     $page = (isset($_GET["page"])) ? $_GET["page"] : "landing";
     $pages = [
+        "404" => "ntf/404.php",
         "buchung" => "inc/buchung.php",
         "faq" => "inc/faq.php",
         "impressum" => "inc/impressum.php",
@@ -53,6 +49,7 @@ if (isset($_SESSION["admin"])) {
         "newsNtf" => "ntf/newsNtf.php",
         "profileNtf" => "ntf/profileNtf.php",
         "registerNtf" => "ntf/registerNtf.php",
+        "reservationsNtf" => "ntf/reservationsNtf.php"
     ];
 
     if (isset($pages[$page])) {

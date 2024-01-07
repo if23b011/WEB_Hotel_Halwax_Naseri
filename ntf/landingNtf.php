@@ -43,5 +43,25 @@ include "inc/landing.php";
                         <div class="warning__progress"></div>
                     </div>
         <?php
+    } else if ($_GET["error"] == "notLoggedIn") { ?>
+                        <div class="warning">
+                            <div class="warning__body">
+                                <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
+                                Du bist nicht eingeloggt!
+                            </div>
+                            <div class="warning__progress"></div>
+                        </div>
+        <?php
+    } else if ($_GET["error"] == "noAccess") { ?>
+                            <div class="warning">
+                                <div class="warning__body">
+                                    <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
+                                    Kein Zugriff!
+                                </div>
+                                <div class="warning__progress"></div>
+                            </div>
+        <?php
     }
-} ?>
+}
+
+

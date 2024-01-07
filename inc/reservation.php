@@ -1,4 +1,8 @@
 <?php
+if (!isset($_COOKIE["email"])) {
+    header("Location: index.php?page=landingNtf&error=notLoggedIn");
+    exit();
+}
 require_once "utils/dbaccess.php";
 require_once "utils/functions.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

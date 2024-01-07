@@ -44,7 +44,7 @@ $result = mysqli_stmt_get_result($stmt); ?>
                         <div class="container">
                             <?php
                             if (!empty($row["filePath"])) { ?>
-                                <img src=" <?php $row["filePath"] ?>" alt="Thumbnail" class="img-thumbnail img-fluid">
+                                <img src=" <?= $row["filePath"]; ?>" alt="Thumbnail" class="img-thumbnail img-fluid">
                                 <?php
                             } ?>
                         </div>

@@ -1,3 +1,9 @@
+<?php
+if (!isset($_COOKIE["email"])) {
+    header("Location: index.php?page=landingNtf&error=notLoggedIn");
+    exit();
+}
+?>
 <div class="container" style="margin-bottom: 100px;">
     <h1 class="text-center mx-auto">Zimmerauswahl</h1>
     <?php $_SESSION["zimmer"] = "" ?>

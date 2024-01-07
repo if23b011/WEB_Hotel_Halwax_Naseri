@@ -52,4 +52,3 @@ require_once "utils/dbaccess.php";
         <?php
     }
 }
-?>

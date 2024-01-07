@@ -1,5 +1,9 @@
 <div style="margin-bottom: 100px;">
     <?php
+    if (!isset($_COOKIE["admin"])) {
+        header("Location: index.php?page=landingNtf&error=noAccess");
+        exit();
+    }
     require_once "utils/dbaccess.php";
     require_once "utils/functions.php";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -21,4 +21,4 @@ if (isset($_GET["error"])) {
                 <div class="warning__progress"></div>
             </div>
     <?php }
-} ?>
+}

@@ -1,6 +1,6 @@
 <?php
 if (isset($_COOKIE["email"])) {
-    header("Location: index.php?page=profile");
+    header("Location: index.php?page=profileNtf&error=alreadyLoggedIn");
     exit();
 }
 //? serverseitige Validierung

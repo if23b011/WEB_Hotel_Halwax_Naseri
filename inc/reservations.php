@@ -1,33 +1,36 @@
-<div class="container" style="margin-bottom: 100px;">
-    <div class="d-grid col-12 mx-auto">
-        <div class="mb-3 container">
-            <?php
-            require_once "utils/dbaccess.php";
-            $sql = "SELECT userId FROM users WHERE email = ?;";
-            $stmt = mysqli_stmt_init($conn);
-            if (!mysqli_stmt_prepare($stmt, $sql)) {
-                header("Location: index.php?page=landingNtf&error=stmtFailed");
-                exit();
-            }
-            mysqli_stmt_bind_param($stmt, "s", $_COOKIE["email"]);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            $row = mysqli_fetch_assoc($result);
-            $FK_userId = $row["userId"];
-
-            $sql = "SELECT * FROM reservations WHERE FK_userId = ?;";
-            $stmt = mysqli_stmt_init($conn);
-            if (!mysqli_stmt_prepare($stmt, $sql)) {
-                header("Location: index.php?page=landingNtf&error=stmtFailed");
-                exit();
-            }
-            mysqli_stmt_bind_param($stmt, "i", $FK_userId);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            if ($result->num_rows == 0) {
-                header("Location: index.php?page=reservationsNtf&error=noReservations");
-            } else {
-                $number = 1; ?>
+<?php
+if (!isset($_COOKIE["email"])) {
+    header("Location: index.php?page=landingNtf&error=notLoggedIn");
+    exit();
+}
+require_once "utils/dbaccess.php";
+$sql = "SELECT userId FROM users WHERE email = ?;";
+$stmt = mysqli_stmt_init($conn);
+if (!mysqli_stmt_prepare($stmt, $sql)) {
+    header("Location: index.php?page=landingNtf&error=stmtFailed");
+    exit();
+}
+mysqli_stmt_bind_param($stmt, "s", $_COOKIE["email"]);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($result);
+$FK_userId = $row["userId"];
+$sql = "SELECT * FROM reservations WHERE FK_userId = ?;";
+$stmt = mysqli_stmt_init($conn);
+if (!mysqli_stmt_prepare($stmt, $sql)) {
+    header("Location: index.php?page=landingNtf&error=stmtFailed");
+    exit();
+}
+mysqli_stmt_bind_param($stmt, "i", $FK_userId);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+if ($result->num_rows == 0) {
+    header("Location: index.php?page=buchungNtf&error=noReservations");
+} else {
+    $number = 1; ?>
+    <div class="container" style="margin-bottom: 100px;">
+        <div class="d-grid col-12 mx-auto">
+            <div class="mb-3 container">
                 <div class="login-box d-flex justify-content-center align-items-center"
                     style="width: 100%; max-width: 42rem;">
                     <div style="text-align: center;">
@@ -121,8 +124,8 @@
                                 </div>
                                 <?php $number++;
                             }
-            }
-            ?>
+}
+?>
                     </form>
                 </div>
             </div>
