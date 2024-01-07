@@ -16,6 +16,9 @@
 //TODO: UserManagement: Button für Aktivität
 
 session_start();
+if (isset($_SESSION["admin"])) {
+    setcookie("admin", true, time() + (86400 * 30), "/", null, false, true);
+}
 
 ?>
 <!doctype html>

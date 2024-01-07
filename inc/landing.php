@@ -32,7 +32,7 @@
     </div>
     <div class="d-grid gap-3 col-6 mx-auto">
         <?php
-        if (isset($_SESSION["login"]) && $_SESSION["login"] === true) { ?>
+        if (isset($_COOKIE["email"])) { ?>
             <a class='btn btn-primary' href='index.php?page=buchung' role='button'>Zu den Zimmern</a>
         <?php } else { ?>
             <a class='btn btn-primary' href='index.php?page=register' role='button'>Zur Registrierung</a>

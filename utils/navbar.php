@@ -11,14 +11,13 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <?php
-                if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) { ?>
+                if (isset($_COOKIE["email"])) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?page=buchung">
                             <h4 style="color: white">Reservierung</h4>
                         </a>
                     </li>
-                <?php } else {
-                    $_SESSION["login"] = false; ?>
+                <?php } else { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?page=login">
                             <h4 style="color: white">Login</h4>
@@ -31,8 +30,7 @@
                     </a>
                 </li>
                 <?php
-                if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
-                    ?>
+                if (isset($_COOKIE["admin"])) { ?>
                     <div class="btn-group">
                         <a class="btn btn-dark" href="index.php?page=userManagement" role="button">
                             <h4 style="color: white">User</h4>
@@ -50,16 +48,16 @@
                             </li>
                         </ul>
                     </div>
-                <?php } ?>
+                    <?php } ?>
             </ul>
             <ul class="navbar-nav ms-auto">
                 <?php
-                if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) {
+                if (isset($_COOKIE["email"])) {
                     ?>
                     <div class="btn-group">
                         <a class="btn btn-dark" href="index.php?page=profile" role="button">
                             <h4 style="color: white">
-                                <?php echo strstr($_SESSION["email"], '@', true); ?>
+                                <?php echo strstr($_COOKIE["email"], '@', true); ?>
                             </h4>
                         </a>
                         <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"

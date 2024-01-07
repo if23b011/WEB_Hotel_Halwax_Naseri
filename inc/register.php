@@ -1,5 +1,5 @@
 <?php
-if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) {
+if (isset($_COOKIE["email"])) {
     header("Location: index.php?page=profile");
     exit();
 }

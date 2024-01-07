@@ -7,7 +7,7 @@
     require_once 'utils/dbaccess.php';
     require_once 'utils/functions.php';
 
-    $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
+    $sql = "SELECT * FROM users WHERE email = '" . $_COOKIE["email"] . "'";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("Location: index.php?page=landingNtf&error=stmtFailed");
@@ -40,7 +40,7 @@
             header("Location: index.php?page=landingNtf&error=stmtFailed");
             exit();
         }
-        mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $birthDate, $_SESSION["email"]);
+        mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $birthDate, $_COOKIE["email"]);
         mysqli_stmt_execute($stmt);
 
 
@@ -77,7 +77,7 @@
             $password2 = input($_POST["password2"]);
         }
         if (!empty($_POST["oldPassword"])) {
-            $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
+            $sql = "SELECT * FROM users WHERE email = '" . $_COOKIE["email"] . "'";
             $stmt = mysqli_stmt_init($conn);
             if (!mysqli_stmt_prepare($stmt, $sql)) {
                 header("Location: index.php?page=landingNtf&error=stmtFailed");
@@ -101,7 +101,7 @@
         }
     }
     if (isset($_POST["password"])) {
-        $sql = "SELECT * FROM users WHERE email = '" . $_SESSION["email"] . "'";
+        $sql = "SELECT * FROM users WHERE email = '" . $_COOKIE["email"] . "'";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("Location: index.php?page=landingNtf&error=stmtFailed");
@@ -123,7 +123,7 @@
                 header("Location: index.php?page=landingNtf&error=stmtFailed");
                 exit();
             }
-            mysqli_stmt_bind_param($stmt, "ss", $password, $_SESSION["email"]);
+            mysqli_stmt_bind_param($stmt, "ss", $password, $_COOKIE["email"]);
             mysqli_stmt_execute($stmt);
             ?>
             <?php
@@ -196,7 +196,7 @@
         </div>
     </div>
     <?php
-    if (isset($_SESSION["login"]) && ($_SESSION["login"] == true)) { ?>
+    if (isset($_COOKIE["email"])) { ?>
         <div class="d-grid gap-3 col-6 mx-auto">
             <a class="btn btn-danger" role="button" href="utils/logout.php">Logout</a>
         </div>

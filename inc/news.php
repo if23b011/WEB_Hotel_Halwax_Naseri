@@ -8,7 +8,7 @@ if (isset($_GET["upload"])) {
     }
 }
 ?>
-<?php if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
+<?php if (isset($_COOKIE["admin"])) {
     $sql = "SELECT * FROM news ORDER BY newsDate DESC";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -69,7 +69,7 @@ $result = mysqli_stmt_get_result($stmt); ?>
                             ?>
                         </h3>
                         <!-- Button zum Löschen der News -->
-                        <?php if (isset($_SESSION["admin"]) && ($_SESSION["admin"] == true)) {
+                        <?php if (isset($_COOKIE["admin"])) {
                             if ($row["newsOnline"] == 1) {
                                 $newsOnline = "online"; ?>
                                 <h4 class="text-info">News ist

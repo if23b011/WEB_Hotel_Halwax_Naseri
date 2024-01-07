@@ -1,8 +1,7 @@
 <?php
 session_start();
-$_SESSION["login"] = false;
-$_SESSION["admin"] = false;
-$_SESSION["email"] = "";
+setcookie("email", "", time() - 3600, "/", null, false, true);
+setcookie("admin", "", time() - 3600, "/", null, false, true);
 session_destroy();
 header("Location: ../index.php");
 exit();
