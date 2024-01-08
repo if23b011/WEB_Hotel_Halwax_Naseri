@@ -140,7 +140,6 @@ if (isset($_POST["password"])) {
         <div style="text-align: center;">
             <h1>Profil</h1>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=profile"); ?>">
-                <?php //FIXME: Wenn Admin keine Reservierungen hat scheißt er rein mal wieder ?>
                 <a href="index.php?page=reservations" class="mb-3 a-glow">
                     <span></span>
                     Meine Reservierungen

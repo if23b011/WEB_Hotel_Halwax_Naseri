@@ -31,52 +31,39 @@
                 </li>
                 <?php
                 if (isset($_COOKIE["admin"])) { ?>
-                    <div class="btn-group">
-                        <a class="btn btn-dark" href="index.php?page=userManagement" role="button">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.php?page=userManagement">
                             <h4 style="color: white">User</h4>
-                            </h4>
                         </a>
-                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="visually-hidden">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" href="index.php?page=reservationManagement">
-                                    <h4 style="color: white">Reservierungen</h4>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.php?page=reservationManagement">
+                            <h4 style="color: white">Reservierungen</h4>
+                        </a>
+                    </li>
                 <?php } ?>
             </ul>
             <ul class="navbar-nav ms-auto">
                 <?php
                 if (isset($_COOKIE["email"])) {
                     ?>
-                    <div class="btn-group">
-                        <a class="btn btn-dark" href="index.php?page=profile" role="button">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.php?page=profile">
                             <h4 style="color: white">
                                 <?php echo strstr($_COOKIE["email"], "@", true); ?>
                             </h4>
                         </a>
-                        <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="visually-hidden">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" href="index.php?page=reservations">
-                                    <h4>Reservierungen</h4>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="utils/logout.php">
-                                    <h4 style="color: red">Logout</h4>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.php?page=reservations">
+                            <h4 style="color: white">Meine Reservierungen</h4>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="utils/logout.php">
+                            <h4 style="color: red">Logout</h4>
+                        </a>
+                    </li>
                 <?php } ?>
             </ul>
         </div>
