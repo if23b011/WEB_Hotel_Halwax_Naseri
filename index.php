@@ -1,15 +1,13 @@
 <?php
-//TODO: Code durchschauen und aufräumen
-//TODO: Code kommentieren
-//TODO: Responsive Design Code verbessern
-//TODO: Usability und Accessibility verbessern
-//TODO: Design verschönern
-//TODO: Editor-Notizen
-//TODO: Titel   
-//TODO: Durchsichtigkeit
-//TODO: restliche Seiten anpassen
-//TODO: UserManagement: Button für Aktivität
-
+//* TODO: UserManagement & ReservationManagement: Buttons für Löschen und Bearbeiten
+//* TODO: Notifcations auf normale Seiten geben 
+//* TODO: Code durchschauen, aufräumen und kommentieren
+//* TODO: Responsive Design Code verbessern
+//* TODO: Usability und Accessibility verbessern
+//* TODO: Editor-Notizen
+//* TODO: Titel   
+//* TODO: Durchsichtigkeit
+//* TODO: restliche Seiten anpassen
 session_start();
 if (isset($_SESSION["admin"])) {
     setcookie("admin", true, time() + (86400 * 30), "/", null, false, true);

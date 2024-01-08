@@ -23,7 +23,7 @@ require_once "utils/dbaccess.php";
         </div>
         <?php
     } else if ($_GET["msg"] == "newsOffline") {
-        $sql = "UPDATE news SET newsOnline = 0 WHERE newsId = " . $_GET["newsId"];
+        $sql = "UPDATE news SET newsOnline = 0 WHERE newsId = ?";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("Location: index.php?page=landingNtf&error=stmtFailed");

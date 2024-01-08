@@ -1,4 +1,6 @@
 <?php
+//FIXME: Warning: Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\hoteltropicana\utils\navbar.php:61) in C:\xampp\htdocs\hoteltropicana\inc\reservations.php on line 28
+
 if (!isset($_COOKIE["email"])) {
     header("Location: index.php?page=landingNtf&error=notLoggedIn");
     exit();
