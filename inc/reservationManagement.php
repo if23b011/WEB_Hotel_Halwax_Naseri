@@ -62,7 +62,7 @@ if ($result->num_rows > 0) {
                     <input type="submit" value="Filtern" class="loginBoxSubmit">
                 </form>
                 <?php
-                while ($row = $result->fetch_assoc()) { ?>
+                while ($row = mysqli_fetch_assoc($result)) { ?>
                     <?php
                     $sql = "SELECT * FROM users WHERE userId=" . $row["FK_userId"];
                     $result2 = $conn->query($sql);

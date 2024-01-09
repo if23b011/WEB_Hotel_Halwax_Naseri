@@ -29,7 +29,7 @@ if (isset($_GET["upload"])) {
 
 }
 $result = mysqli_stmt_get_result($stmt); ?>
-<?php if ($result->num_rows < 0) {
+<?php if (mysqli_num_rows($result) < 0) {
     header("Location: index.php?page=landingNtf&error=noNews");
 } else {
     ?>
@@ -38,7 +38,7 @@ $result = mysqli_stmt_get_result($stmt); ?>
             <div style="text-align: center;">
                 <h1 style="color: grey">Die neuesten News des Hotel Tropicana</h1>
                 <?php
-                while ($row = $result->fetch_assoc()) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                     <div class="text-center mb-4">
                         <div class="container">

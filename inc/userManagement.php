@@ -36,8 +36,6 @@
             mysqli_stmt_bind_param($stmt, "sssssssii", $gender, $firstname, $lastname, $birthdate, $email, $hashedPassword, $type, $active, $userId);
             mysqli_stmt_execute($stmt);
         }
-
-
     }
     $sql = "SELECT * FROM users ORDER BY type DESC;";
     $stmt = mysqli_stmt_init($conn);
@@ -55,7 +53,7 @@
                 <h1>User</h1>
                 <p>Bearbeiten Sie jeweils nur einen Benutzer</p>
                 <?php
-                while ($row = $result->fetch_assoc()) { ?>
+                while ($row = mysqli_fetch_assoc($result)) { ?>
                     <?php
                     $userId = $row["userId"];
                     $gender = $row["gender"];
