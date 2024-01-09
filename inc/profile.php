@@ -135,8 +135,8 @@ if (isset($_POST["password"])) {
 }
 ?>
 <div class="container" style="margin-bottom: 100px;">
-    <div class="row justify-content-center">
-        <div class="login-box">
+    <div class="login-box d-flex justify-content-center align-items-center" style="width: 90%; max-width: 42rem;">
+        <div style="text-align: center;">
             <h1>Profil</h1>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=profile"); ?>">
                 <a href="index.php?page=reservations" class="mb-3 a-glow">
@@ -169,42 +169,40 @@ if (isset($_POST["password"])) {
             </form>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8 col-sm-12">
-            <div class="login-box">
-                <h1>Passwort ändern:</h1>
-                <p class="mb-5" style="color: red" class="text-center">
-                    <?php echo $passwordErrSec ?>
+    <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 42rem;">
+        <div style="text-align: center;">
+            <h1>Passwort ändern:</h1>
+            <p class="mb-5" style="color: red" class="text-center">
+                <?php echo $passwordErrSec ?>
+            </p>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=profile"); ?>">
+                <div class="user-box">
+                    <input type="password" name="oldPassword" value="<?php echo $oldPassword ?>"
+                        placeholder="<?php echo $oldPasswordErr ?>" tabindex="6">
+                    <label>Altes Passwort*</label>
+                </div>
+                <div class="user-box">
+                    <input type="password" name="password" value="<?php echo $password ?>"
+                        placeholder="<?php echo $passwordErr ?>" tabindex="7">
+                    <label>Neues Passwort*</label>
+                </div>
+                <div class="user-box">
+                    <input type="password" name="password2" value="<?php echo $password2 ?>"
+                        placeholder="<?php echo $password2Err ?>" tabindex="8">
+                    <label>Neues Passwort wiederholen*</label>
+                </div>
+                <p style="color: red" class="text-center">
+                    <?php echo $newPasswordErr ?>
                 </p>
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=profile"); ?>">
-                    <div class="user-box">
-                        <input type="password" name="oldPassword" value="<?php echo $oldPassword ?>"
-                            placeholder="<?php echo $oldPasswordErr ?>" tabindex="6">
-                        <label>Altes Passwort*</label>
-                    </div>
-                    <div class="user-box">
-                        <input type="password" name="password" value="<?php echo $password ?>"
-                            placeholder="<?php echo $passwordErr ?>" tabindex="7">
-                        <label>Neues Passwort*</label>
-                    </div>
-                    <div class="user-box">
-                        <input type="password" name="password2" value="<?php echo $password2 ?>"
-                            placeholder="<?php echo $password2Err ?>" tabindex="8">
-                        <label>Neues Passwort wiederholen*</label>
-                    </div>
-                    <p style="color: red" class="text-center">
-                        <?php echo $newPasswordErr ?>
-                    </p>
-                    <p style="color: red" class="text-start">*erforderlich</p>
-                    <div class="d-flex justify-content-center">
-                        <input type="submit" value="Passwort ändern" style="white-space: normal" class="loginBoxSubmit"
-                            tabindex="8">
-                    </div>
-                </form>
-            </div>
-            <div class="d-grid gap-3 col-6 mx-auto">
-                <a class="btn btn-danger" role="button" href="utils/logout.php">Logout</a>
-            </div>
+                <p style="color: red" class="text-start">*erforderlich</p>
+                <div class="d-flex justify-content-center">
+                    <input type="submit" value="Passwort ändern" style="white-space: normal" class="loginBoxSubmit"
+                        tabindex="8">
+                </div>
+            </form>
         </div>
+    </div>
+    <div class="d-grid gap-3 col-6 mx-auto">
+        <a class="btn btn-danger" role="button" href="utils/logout.php">Logout</a>
     </div>
 </div>
