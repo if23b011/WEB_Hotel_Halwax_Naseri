@@ -1,6 +1,6 @@
 <?php
 if (!isset($_COOKIE["admin"])) {
-    header("Location: index.php?page=landingNtf&error=noAccess");
+    header("Location: index.php?page=landing&error=noAccess");
     exit();
 }
 require_once "utils/dbaccess.php";
@@ -41,7 +41,7 @@ if ($filter == "alle") {
     $sql = "SELECT * FROM reservations";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        header("Location: index.php?page=landing&error=stmtFailed");
         exit();
     }
     mysqli_stmt_execute($stmt);
@@ -50,7 +50,7 @@ if ($filter == "alle") {
     $sql = "SELECT * FROM reservations WHERE status = ?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        header("Location: index.php?page=landing&error=stmtFailed");
         exit();
     }
     mysqli_stmt_bind_param($stmt, "s", $filter);

@@ -31,6 +31,7 @@ h1 {
 
 h2 {
     color: #fff;
+    text-align: center;
     margin: 2rem;
 }
 
@@ -286,7 +287,7 @@ p {
             var(--success-background),
             var(--success-primary));
     border-radius: inherit;
-    animation: progress 0.75s 0.5s linear;
+    animation: progress 2.5s 0.3s linear;
 }
 
 @keyframes fade-in {
@@ -351,7 +352,7 @@ p {
             var(--warning-background),
             var(--warning-primary));
     border-radius: inherit;
-    animation: progress 0.75s 0.5s linear;
+    animation: progress 2.5s 0.3s linear;
 }
 
 @keyframes fade-in {

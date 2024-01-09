@@ -1,6 +1,26 @@
 <?php
+//Error handling
+if (isset($_GET["error"])) {
+    if ($_GET["error"] == "none") { ?>
+        <div class="success">
+            <div class="success__body">
+                <img src="res/img/check-circle.svg" alt="Success" class="success__icon">
+                Erfolgreich registriert! Bitte loggen Sie sich ein.
+            </div>
+            <div class="success__progress"></div>
+        </div>
+    <?php } else if ($_GET["error"] == "emailExists") { ?>
+            <div class="warning">
+                <div class="warning__body">
+                    <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
+                    Email existiert bereits!
+                </div>
+                <div class="warning__progress"></div>
+            </div>
+    <?php }
+}
 if (isset($_COOKIE["email"])) {
-    header("Location: index.php?page=profileNtf&error=alreadyLoggedIn");
+    header("Location: index.php?page=profile&error=alreadyLoggedIn");
     exit();
 }
 //? serverseitige Validierung
@@ -97,7 +117,7 @@ if (
 ) {
     //? Daten in Datenbank speichern
     if (emailExists($conn, $_POST["email"])) {
-        header("Location: index.php?page=registerNtf&error=emailExists");
+        header("Location: index.php?page=register&error=emailExists");
     } else {
         //? Geschlecht in Datenbank speichern
         if ($_POST["gender"] == "Herr") {
@@ -112,7 +132,7 @@ if (
         VALUES (?, ?, ?, ?, ?, ?, ?);";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            header("Location: index.php?page=landing&error=stmtFailed");
             exit();
         }
 
@@ -120,7 +140,7 @@ if (
         $type = "user";
         mysqli_stmt_bind_param($stmt, "sssssss", $dBgender, $firstname, $lastname, $date, $email, $hashedPassword, $type);
         mysqli_stmt_execute($stmt);
-        header("Location: index.php?page=loginNtf&error=noneRegister");
+        header("Location: index.php?page=login&error=noneRegister");
     }
 }
 ?>

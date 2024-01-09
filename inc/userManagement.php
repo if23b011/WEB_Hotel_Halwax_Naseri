@@ -1,7 +1,7 @@
 <div style="margin-bottom: 100px;">
     <?php
     if (!isset($_COOKIE["admin"])) {
-        header("Location: index.php?page=landingNtf&error=noAccess");
+        header("Location: index.php?page=landing&error=noAccess");
         exit();
     }
     require_once "utils/dbaccess.php";
@@ -28,7 +28,7 @@
             $sql = "UPDATE users SET gender = ?, firstname = ?, lastname = ?, birthdate = ?, email = ?, type=?, active=? WHERE userId=?";
             $stmt = mysqli_stmt_init($conn);
             if (!mysqli_stmt_prepare($stmt, $sql)) {
-                header("Location: index.php?page=landingNtf&error=stmtFailed");
+                header("Location: index.php?page=landing&error=stmtFailed");
                 exit();
             }
             mysqli_stmt_bind_param($stmt, "ssssssii", $gender, $firstname, $lastname, $birthdate, $email, $type, $active, $userId);
@@ -38,7 +38,7 @@
             $sql = "UPDATE users SET gender = ?, firstname = ?, lastname = ?, birthdate = ?, email = ?, password = ?, type=?, active=? WHERE userId=?";
             $stmt = mysqli_stmt_init($conn);
             if (!mysqli_stmt_prepare($stmt, $sql)) {
-                header("Location: index.php?page=landingNtf&error=stmtFailed");
+                header("Location: index.php?page=landing&error=stmtFailed");
                 exit();
             }
             mysqli_stmt_bind_param($stmt, "sssssssii", $gender, $firstname, $lastname, $birthdate, $email, $hashedPassword, $type, $active, $userId);
@@ -48,7 +48,7 @@
     $sql = "SELECT * FROM users ORDER BY type DESC;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        header("Location: index.php?page=landing&error=stmtFailed");
         exit();
     }
     mysqli_stmt_execute($stmt);

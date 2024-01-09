@@ -1,6 +1,6 @@
 <?php
 if (!isset($_COOKIE["admin"])) {
-    header("Location: index.php?page=landingNtf&error=noAccess");
+    header("Location: index.php?page=landing&error=noAccess");
     exit();
 }
 ?>

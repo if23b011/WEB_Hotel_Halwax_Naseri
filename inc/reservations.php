@@ -1,15 +1,26 @@
 <?php
-//FIXME: Warning: Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\hoteltropicana\utils\navbar.php:61) in C:\xampp\htdocs\hoteltropicana\inc\reservations.php on line 28
-
+//Error handling
+if (isset($_GET["error"])) {
+    if ($_GET["error"] == "noneReservation") { ?>
+        <div class="success">
+            <div class="success__body">
+                <img src="res/img/check-circle.svg" alt="Success" class="success__icon">
+                Buchung erfolgreich!
+            </div>
+            <div class="success__progress"></div>
+        </div>
+        <?php
+    }
+}
 if (!isset($_COOKIE["email"])) {
-    header("Location: index.php?page=landingNtf&error=notLoggedIn");
+    header("Location: index.php?page=landing&error=notLoggedIn");
     exit();
 }
 require_once "utils/dbaccess.php";
 $sql = "SELECT userId FROM users WHERE email = ?;";
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
-    header("Location: index.php?page=landingNtf&error=stmtFailed");
+    header("Location: index.php?page=landing&error=stmtFailed");
     exit();
 }
 mysqli_stmt_bind_param($stmt, "s", $_COOKIE["email"]);
@@ -20,14 +31,14 @@ $FK_userId = $row["userId"];
 $sql = "SELECT * FROM reservations WHERE FK_userId = ?;";
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
-    header("Location: index.php?page=landingNtf&error=stmtFailed");
+    header("Location: index.php?page=landing&error=stmtFailed");
     exit();
 }
 mysqli_stmt_bind_param($stmt, "i", $FK_userId);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 if ($result->num_rows == 0) {
-    header("Location: index.php?page=buchungNtf&error=noReservations");
+    header("Location: index.php?page=buchung&error=noReservations");
 } else {
     $number = 1; ?>
     <div class="container" style="margin-bottom: 100px;">

@@ -1,6 +1,46 @@
 <?php
+//Error handling
+if (isset($_GET['error'])) {
+    if ($_GET['error'] == "noneRegister") { ?>
+        <div class="success">
+            <div class="success__body">
+                <img src="res/img/check-circle.svg" alt="Success" class="success__icon">
+                Registrierung erfolgreich! Bitte loggen Sie sich ein.
+            </div>
+            <div class="success__progress"></div>
+        </div>
+        <?php
+    } else if ($_GET['error'] == "wrongPassword") { ?>
+            <div class="warning">
+                <div class="warning__body">
+                    <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
+                    Falsches Passwort
+                </div>
+                <div class="warning__progress"></div>
+            </div>
+        <?php
+    } else if ($_GET['error'] == "wrongEmail") { ?>
+                <div class="warning">
+                    <div class="warning__body">
+                        <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
+                        Benutzer existiert nicht
+                    </div>
+                    <div class="warning__progress"></div>
+                </div>
+        <?php
+    } else if ($_GET['error'] == "notActive") { ?>
+                    <div class="warning">
+                        <div class="warning__body">
+                            <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
+                            Benutzer ist nicht aktiviert
+                        </div>
+                        <div class="warning__progress"></div>
+                    </div>
+        <?php
+    }
+}
 if (isset($_COOKIE["email"])) {
-    header("Location: index.php?page=profileNtf&error=alreadyLoggedIn");
+    header("Location: index.php?page=profile&error=alreadyLoggedIn");
     exit();
 }
 require_once "utils/functions.php";
@@ -40,7 +80,7 @@ if (empty($emailErr) && empty($passwordErr)) {
                 $sql = "SELECT * FROM users WHERE email = ?";
                 $stmt = mysqli_stmt_init($conn);
                 if (!mysqli_stmt_prepare($stmt, $sql)) {
-                    header("Location: index.php?page=landingNtf&error=stmtFailed");
+                    header("Location: index.php?page=landing&error=stmtFailed");
                     exit();
                 }
                 mysqli_stmt_bind_param($stmt, "s", $email);
@@ -57,7 +97,7 @@ if (empty($emailErr) && empty($passwordErr)) {
                         $sql = "SELECT * FROM users WHERE email = ?";
                         $stmt = mysqli_stmt_init($conn);
                         if (!mysqli_stmt_prepare($stmt, $sql)) {
-                            header("Location: index.php?page=landingNtf&error=stmtFailed");
+                            header("Location: index.php?page=landing&error=stmtFailed");
                             exit();
                         }
                         mysqli_stmt_bind_param($stmt, "s", $email);
@@ -66,20 +106,20 @@ if (empty($emailErr) && empty($passwordErr)) {
                         $row = mysqli_fetch_assoc($result);
                         if ($row["type"] == "admin") {
                             $_SESSION["admin"] = true;
-                            header("Location: index.php?page=landingNtf&error=noneAdminLogin");
+                            header("Location: index.php?page=landing&error=noneAdminLogin");
                         } else {
-                            header("Location: index.php?page=landingNtf&error=noneLogin");
+                            header("Location: index.php?page=landing&error=noneLogin");
                         }
                     } else {
-                        header("Location: index.php?page=loginNtf&error=wrongPassword"); ?>
+                        header("Location: index.php?page=login&error=wrongPassword"); ?>
                     <?php }
                 } else {
                     //? User is not active
-                    header("Location: index.php?page=loginNtf&error=notActive");
+                    header("Location: index.php?page=login&error=notActive");
                 }
             } else {
                 //? User does not exist
-                header("Location: index.php?page=loginNtf&error=wrongEmail");
+                header("Location: index.php?page=login&error=wrongEmail");
             }
         }
     }

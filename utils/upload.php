@@ -6,7 +6,7 @@ $newsDate = date("Y-m-d H:i:s", strtotime($newsDate));
 $sql = "SELECT userId FROM users WHERE email = ?;";
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
-    header("Location: index.php?page=landingNtf&error=stmtFailed");
+    header("Location: index.php?page=landing&error=stmtFailed");
     exit();
 }
 mysqli_stmt_bind_param($stmt, "s", $_COOKIE["email"]);
@@ -104,7 +104,7 @@ function upload($conn, $title, $text, $target_file, $newsDate, $FK_userId)
     $sql = "INSERT INTO news (title, text, filepath, newsDate, FK_userId) VALUES (?, ?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        header("Location: index.php?page=landing&error=stmtFailed");
         exit();
     }
     $target_file_db = substr($target_file, 3);

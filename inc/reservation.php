@@ -1,6 +1,6 @@
 <?php
 if (!isset($_COOKIE["email"])) {
-    header("Location: index.php?page=landingNtf&error=notLoggedIn");
+    header("Location: index.php?page=landing&error=notLoggedIn");
     exit();
 }
 require_once "utils/dbaccess.php";
@@ -71,7 +71,7 @@ function createReservation($conn, $room, $arrivalDate, $departureDate, $breakfas
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        header("Location: index.php?page=landing&error=stmtFailed");
         exit();
     }
 
@@ -84,7 +84,7 @@ function roomIsBooked($conn, $room, $arrivalDate, $departureDate)
     $sql = "SELECT * FROM reservations WHERE room = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        header("Location: index.php?page=landing&error=stmtFailed");
         exit();
     }
     mysqli_stmt_bind_param($stmt, "s", $room);
@@ -140,7 +140,7 @@ if (isset($departureDate) && isset($arrivalDate)) {
         $sql = "SELECT userId FROM users WHERE email = ?;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            header("Location: index.php?page=landing&error=stmtFailed");
             exit();
         }
         mysqli_stmt_bind_param($stmt, "s", $FK_userId);
@@ -150,7 +150,7 @@ if (isset($departureDate) && isset($arrivalDate)) {
         $row = mysqli_fetch_assoc($result);
         $FK_userId = $row["userId"];
         createReservation($conn, $room, $arrivalDate, $departureDate, $breakfast, $parking, $pets, $comments, $reservationDate, $totalCost, $status, $FK_userId);
-        header("Location: index.php?page=reservationsNtf&error=noneReservation");
+        header("Location: index.php?page=reservations&error=noneReservation");
     }
 }
 ?>

@@ -1,6 +1,28 @@
 <?php
+//Error handling
+if (isset($_GET["error"])) {
+    if ($_GET["error"] == "nonePassword") { ?>
+        <div class="success">
+            <div class="success__body">
+                <img src="res/img/check-circle.svg" alt="Success" class="success__icon">
+                Erfolgreich Passwort geändert!
+            </div>
+            <div class="success__progress"></div>
+        </div>
+        <?php
+    } else if ($_GET["error"] == "alreadyLoggedIn") { ?>
+            <div class="warning">
+                <div class="warning__body">
+                    <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
+                    Du bist bereits eingeloggt!
+                </div>
+                <div class="warning__progress"></div>
+            </div>
+        <?php
+    }
+}
 if (!isset($_COOKIE["email"])) {
-    header("Location: index.php?page=landingNtf&error=notLoggedIn");
+    header("Location: index.php?page=landing&error=notLoggedIn");
     exit();
 }
 $firstname = $lastname = $email = $date = $oldPassword = $password = $password2 = "";
@@ -13,7 +35,7 @@ require_once "utils/functions.php";
 $sql = "SELECT * FROM users WHERE email = '" . $_COOKIE["email"] . "'";
 $stmt = mysqli_stmt_init($conn);
 if (!mysqli_stmt_prepare($stmt, $sql)) {
-    header("Location: index.php?page=landingNtf&error=stmtFailed");
+    header("Location: index.php?page=landing&error=stmtFailed");
     exit();
 }
 mysqli_stmt_execute($stmt);
@@ -40,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "UPDATE users SET firstname = ? , lastname = ? , birthdate = ? WHERE email = ?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        header("Location: index.php?page=landing&error=stmtFailed");
         exit();
     }
     mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $birthDate, $_COOKIE["email"]);
@@ -83,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "SELECT * FROM users WHERE email = '" . $_COOKIE["email"] . "'";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            header("Location: index.php?page=landing&error=stmtFailed");
             exit();
         }
         mysqli_stmt_execute($stmt);
@@ -107,7 +129,7 @@ if (isset($_POST["password"])) {
     $sql = "SELECT * FROM users WHERE email = '" . $_COOKIE["email"] . "'";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: index.php?page=landingNtf&error=stmtFailed");
+        header("Location: index.php?page=landing&error=stmtFailed");
         exit();
     }
     mysqli_stmt_execute($stmt);
@@ -123,14 +145,14 @@ if (isset($_POST["password"])) {
         $sql = "UPDATE users SET password = ? WHERE email = ?";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: index.php?page=landingNtf&error=stmtFailed");
+            header("Location: index.php?page=landing&error=stmtFailed");
             exit();
         }
         mysqli_stmt_bind_param($stmt, "ss", $password, $_COOKIE["email"]);
         mysqli_stmt_execute($stmt);
         ?>
         <?php
-        header("Location: index.php?page=profileNtf&error=nonePassword");
+        header("Location: index.php?page=profile&error=nonePassword");
     }
 }
 ?>

@@ -27,7 +27,7 @@ if (isset($_SESSION["admin"])) {
     <?php
     $page = (isset($_GET["page"])) ? $_GET["page"] : "landing";
     $pages = [
-        "404" => "ntf/404.php",
+        "404" => "inc/404.php",
         "buchung" => "inc/buchung.php",
         "faq" => "inc/faq.php",
         "impressum" => "inc/impressum.php",
@@ -41,13 +41,6 @@ if (isset($_SESSION["admin"])) {
         "reservations" => "inc/reservations.php",
         "upload" => "inc/upload.php",
         "userManagement" => "inc/userManagement.php",
-        "buchungNtf" => "ntf/buchungNtf.php",
-        "landingNtf" => "ntf/landingNtf.php",
-        "loginNtf" => "ntf/loginNtf.php",
-        "newsNtf" => "ntf/newsNtf.php",
-        "profileNtf" => "ntf/profileNtf.php",
-        "registerNtf" => "ntf/registerNtf.php",
-        "reservationsNtf" => "ntf/reservationsNtf.php"
     ];
 
     if (isset($pages[$page])) {
@@ -55,7 +48,7 @@ if (isset($_SESSION["admin"])) {
             include $pages[$page];
         }
     } else {
-        include "ntf/404.php";
+        include "inc/404.php";
     } ?>
     <!-- Footer-->
     <?php include "utils/footer.php"; ?>

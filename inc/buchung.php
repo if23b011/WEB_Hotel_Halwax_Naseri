@@ -1,6 +1,19 @@
 <?php
+//Error handling
+if (isset($_GET["error"])) {
+    if ($_GET["error"] == "noReservations") { ?>
+        <div class="warning">
+            <div class="warning__body">
+                <img src="res/img/eye-off.svg" alt="Error" class="warning__icon">
+                Sie haben noch keine Reservierungen getätigt!
+            </div>
+            <div class="warning__progress"></div>
+        </div>
+        <?php
+    }
+}
 if (!isset($_COOKIE["email"])) {
-    header("Location: index.php?page=landingNtf&error=notLoggedIn");
+    header("Location: index.php?page=landing&error=notLoggedIn");
     exit();
 }
 ?>
