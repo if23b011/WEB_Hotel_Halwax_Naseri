@@ -145,22 +145,22 @@ if (isset($_POST["password"])) {
                     Meine Reservierungen
                 </a>
                 <div class="user-box">
-                    <input type="text" class="form-control" name="firstname" placeholder="Vorname" tabindex="1"
+                    <input type="text" name="firstname" placeholder="Vorname" tabindex="1"
                         value="<?php echo $firstname; ?>">
                     <label>Vorname</label>
                 </div>
                 <div class="user-box">
-                    <input type="text" class="form-control" name="lastname" placeholder="Nachname" tabindex="2"
+                    <input type="text" name="lastname" placeholder="Nachname" tabindex="2"
                         value="<?php echo $lastname; ?>">
                     <label>Nachname</label>
                 </div>
                 <div class="user-box">
-                    <input type="text" class="form-control" name="email" placeholder="E-Mail-Adresse" tabindex="3"
+                    <input type="text" name="email" placeholder="E-Mail-Adresse" tabindex="3"
                         value="<?php echo $email; ?>" disabled>
                     <label>E-Mail-Adresse</label>
                 </div>
                 <div class="user-box">
-                    <input type="date" class="form-control" name="date" tabindex="4" value="<?php echo $date; ?>">
+                    <input type="date" name="date" tabindex="4" value="<?php echo $date; ?>">
                     <label>Geburtstag</label>
                 </div>
                 <input type="submit" value="Änderungen übernehmen" class="loginBoxSubmit" tabindex="5">
@@ -198,11 +198,7 @@ if (isset($_POST["password"])) {
             </form>
         </div>
     </div>
-    <?php
-    if (isset($_COOKIE["email"])) { ?>
-        <div class="d-grid gap-3 col-6 mx-auto">
-            <a class="btn btn-danger" role="button" href="utils/logout.php">Logout</a>
-        </div>
-    <?php }
-    ?>
+    <div class="d-grid gap-3 col-6 mx-auto">
+        <a class="btn btn-danger" role="button" href="utils/logout.php">Logout</a>
+    </div>
 </div>
