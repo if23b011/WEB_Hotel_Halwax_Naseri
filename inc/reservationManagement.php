@@ -11,12 +11,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $room = $_POST["room"];
         $arrival = $_POST["arrivalDate"];
         $departure = $_POST["departureDate"];
-        $breakfast = $_POST["breakfast"];
-        $parking = $_POST["parking"];
-        $pets = $_POST["pets"];
+        if ($_POST["breakfast"] == "inkludiert") {
+            $breakfast = 1;
+        } else {
+            $breakfast = 0;
+        }
+        if ($_POST["parking"] == "inkludiert") {
+            $parking = 1;
+        } else {
+            $parking = 0;
+        }
+        if ($_POST["pets"] == "inkludiert") {
+            $pets = 1;
+        } else {
+            $pets = 0;
+        }
         $comments = $_POST["comments"];
         $status = $_POST["status"];
-        $sql = "UPDATE reservations SET room=?, arrivalDate=?, departureDate=?, breakfast=?, parking=?, pets=?, comments=?, status=? WHERE reservationId=?";
+        $sql = "UPDATE reservations SET room = ?, arrivalDate = ?, departureDate = ?, breakfast = ?, parking = ?, pets = ?, comments = ?, status=? WHERE reservationId=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssiiissi", $room, $arrival, $departure, $breakfast, $parking, $pets, $comments, $status, $reservationId);
         $stmt->execute();
@@ -45,113 +57,161 @@ if ($filter == "alle") {
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 }
-if ($result->num_rows > 0) {
-    ?>
+if ($result->num_rows > 0) { ?>
     <div style="margin-bottom: 100px;">
-        <div class="login-box d-flex justify-content-center align-items-center" style="width: 100%; max-width: 42rem;">
-            <div style="text-align: center;">
-                <h1>Reservierungen</h1>
-                <p>Bearbeiten Sie jeweils nur eine Reservierung</p>
-                <form method="post" action="">
-                    <select class="form-select" name="filter" id="filter">
-                        <option value="alle" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "alle" ? "selected" : ""; ?>>alle</option>
-                        <option value="neu" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "neu" ? "selected" : ""; ?>>neu</option>
-                        <option value="bestätigt" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "bestätigt" ? "selected" : ""; ?>>bestätigt</option>
-                        <option value="storniert" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "storniert" ? "selected" : ""; ?>>storniert</option>
-                    </select>
-                    <input type="submit" value="Filtern" class="loginBoxSubmit">
-                </form>
-                <?php
-                while ($row = mysqli_fetch_assoc($result)) { ?>
-                    <?php
-                    $sql = "SELECT * FROM users WHERE userId=" . $row["FK_userId"];
-                    $result2 = $conn->query($sql);
-                    $row2 = $result2->fetch_assoc();
-                    if ($row2["gender"] == "M") {
-                        $genderWritten = "Herr ";
-                    } else {
-                        $genderWritten = "Frau ";
-                    }
-                    $person = $genderWritten . " " . $row2["firstname"] . " " . $row2["lastname"];
-                    $reservationId = $row["reservationId"];
-                    $room = $row["room"];
-                    $arrival = $row["arrivalDate"];
-                    $arrivalDate = date("d.m.Y", strtotime($arrival));
-                    $departure = $row["departureDate"];
-                    $departureDate = date("d.m.Y", strtotime($departure));
-                    $breakfast = $row["breakfast"];
-                    $parking = $row["parking"];
-                    $pets = $row["pets"];
-                    $comments = $row["comments"];
-                    $status = $row["status"]; ?>
-                    <form method="post" id="form<?php echo $reservationId; ?>"
-                        action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=reservationManagement"); ?>">
-                        <a>
-                            <span></span>
-                            <h2>
-                                <?php
-                                echo "$person";
-                                ?>
-                            </h2>
-                        </a>
-                        <input type="text" name="reservationId" value="<?php echo $reservationId ?>" hidden>
-                        <select class="form-select mb-5" name="room">
-                            <option value="Einzelzimmer mit Einzelbett" <?php echo $room == "Einzelzimmer mit Einzelbett" ? "selected" : ""; ?>>Einzelzimmer mit Einzelbett
-                            </option>
-                            <option value="Einzelzimmer mit Doppelbett" <?php echo $room == "Einzelzimmer mit Doppelbett" ? "selected" : ""; ?>>Einzelzimmer mit Doppelbett</option>
-                            <option value="Luxus Zimmer mit Jacuzzi" <?php echo $room == "Luxus Zimmer mit Jacuzzi" ? "selected" : ""; ?>>Luxus Zimmer mit Jacuzzi</option>
-                            <option value="Luxus Suite mit privatem Butler" <?php echo $room == "Luxus Suite mit privatem Butler" ? "selected" : ""; ?>>Luxus Suite mit privatem Butler</option>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <div class="login-box">
+                    <h1>Reservierungen</h1>
+                    <p class="text-center">Bearbeiten Sie jeweils nur eine Reservierung</p>
+                    <form method="post" action="">
+                        <select class="form-select" name="filter" id="filter">
+                            <option value="alle" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "alle" ? "selected" : ""; ?>>alle</option>
+                            <option value="neu" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "neu" ? "selected" : ""; ?>>neu</option>
+                            <option value="bestätigt" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "bestätigt" ? "selected" : ""; ?>>bestätigt</option>
+                            <option value="storniert" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "storniert" ? "selected" : ""; ?>>storniert</option>
                         </select>
-                        <div class="user-box">
-                            <input type="date" name="arrivalDate" value="<?php echo $arrival ?>">
-                            <label>Anreise</label>
+                        <div class="d-flex justify-content-center">
+                            <input type="submit" value="Filtern" style="white-space: normal" class="loginBoxSubmit">
                         </div>
-                        <div class="user-box">
-                            <input type="date" name="departureDate" value="<?php echo $departure ?>">
-                            <label>Abreise</label>
-                        </div>
-                        <div class="user-box">
-                            <input type="text" name="breakfast" value="<?php echo $breakfast ?>">
-                            <label>Frühstück (1=inkludiert, 0 = nicht inkludiert)</label>
-                        </div>
-                        <div class="user-box">
-                            <input type="text" name="parking" value="<?php echo $parking ?>">
-                            <label>Parkplatz (1=inkludiert, 0 = nicht inkludiert)</label>
-                        </div>
-                        <div class="user-box">
-                            <input type="text" name="pets" value="<?php echo $pets ?>">
-                            <label>Haustiere (1=inkludiert, 0 = nicht inkludiert)</label>
-                        </div>
-                        <div class="user-box">
-                            <input type="text" name="comments" value="<?php echo $comments ?>">
-                            <label>Comments</label>
-                        </div>
-                        <div class="user-box">
-                            <input type="text" name="status" value="<?php echo $status ?>">
-                            <label>Status (neu/bestätigt/storniert)</label>
-                        </div>
-                        <input type="submit" value="Änderungen übernehmen" class="loginBoxSubmit">
                     </form>
-                <?php }
-} else { ?>
-                <div class="login-box d-flex justify-content-center align-items-center"
-                    style="width: 100%; max-width: 42rem;">
-                    <div style="text-align: center;">
-                        <h1>Reservierungen</h1>
-                        <form method="post" action="">
-                            <select class="form-select" name="filter" id="filter">
-                                <option value="alle" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "alle" ? "selected" : ""; ?>>alle</option>
-                                <option value="neu" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "neu" ? "selected" : ""; ?>>neu</option>
-                                <option value="bestätigt" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "bestätigt" ? "selected" : ""; ?>>bestätigt</option>
-                                <option value="storniert" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "storniert" ? "selected" : ""; ?>>storniert</option>
+                    <?php
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $sql = "SELECT * FROM users WHERE userId=" . $row["FK_userId"];
+                        $result2 = $conn->query($sql);
+                        $row2 = $result2->fetch_assoc();
+                        if ($row2["gender"] == "M") {
+                            $genderWritten = "Herr ";
+                        } else {
+                            $genderWritten = "Frau ";
+                        }
+                        $person = $genderWritten . " " . $row2["firstname"] . " " . $row2["lastname"];
+                        $reservationId = $row["reservationId"];
+                        $room = $row["room"];
+                        $arrival = $row["arrivalDate"];
+                        $arrivalDate = date("d.m.Y", strtotime($arrival));
+                        $departure = $row["departureDate"];
+                        $departureDate = date("d.m.Y", strtotime($departure));
+                        if ($row["breakfast"] == 1) {
+                            $breakfast = "inkludiert";
+                        } else {
+                            $breakfast = "nicht inkludiert";
+                        }
+                        if ($row["parking"] == 1) {
+                            $parking = "inkludiert";
+                        } else {
+                            $parking = "nicht inkludiert";
+                        }
+                        if ($row["pets"] == 1) {
+                            $pets = "inkludiert";
+                        } else {
+                            $pets = "nicht inkludiert";
+                        }
+                        $comments = $row["comments"];
+                        $status = $row["status"]; ?>
+                        <form method="post" id="form<?php echo $reservationId; ?>"
+                            action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=reservationManagement"); ?>">
+                            <a>
+                                <span></span>
+                                <h2>
+                                    <?php
+                                    echo "$person";
+                                    ?>
+                                </h2>
+                            </a>
+                            <input type="text" name="reservationId" value="<?php echo $reservationId ?>" hidden>
+                            <select class="form-select mb-5" name="room">
+                                <option value="Einzelzimmer mit Einzelbett" <?php echo $room == "Einzelzimmer mit Einzelbett" ? "selected" : ""; ?>>Einzelzimmer mit Einzelbett
+                                </option>
+                                <option value="Einzelzimmer mit Doppelbett" <?php echo $room == "Einzelzimmer mit Doppelbett" ? "selected" : ""; ?>>Einzelzimmer mit Doppelbett</option>
+                                <option value="Luxus Zimmer mit Jacuzzi" <?php echo $room == "Luxus Zimmer mit Jacuzzi" ? "selected" : ""; ?>>Luxus Zimmer mit Jacuzzi</option>
+                                <option value="Luxus Suite mit privatem Butler" <?php echo $room == "Luxus Suite mit privatem Butler" ? "selected" : ""; ?>>Luxus Suite mit privatem Butler</option>
                             </select>
-                            <input type="submit" value="Filtern" class="loginBoxSubmit">
+                            <div class="user-box">
+                                <input type="date" name="arrivalDate" value="<?php echo $arrival ?>">
+                                <label>Anreise</label>
+                            </div>
+                            <div class="user-box">
+                                <input type="date" name="departureDate" value="<?php echo $departure ?>">
+                                <label>Abreise</label>
+                            </div>
+                            <div class="user-box mb-2">
+                                <input type="hidden">
+                                <label>Frühstück</label>
+                            </div>
+                            <select class="form-select mb-4" name="breakfast">
+                                <option value="inkludiert" <?php echo $breakfast == "inkludiert" ? "selected" : ""; ?>>inkludiert
+                                </option>
+                                <option value="nicht inkludiert" <?php echo $breakfast == "nicht inkludiert" ? "selected" : ""; ?>>nicht inkludiert</option>
+                            </select>
+                            <div class="user-box mb-2">
+                                <input type="hidden">
+                                <label>Parkplatz</label>
+                            </div>
+                            <select class="form-select mb-4" name="parking">
+                                <option value="inkludiert" <?php echo $parking == "inkludiert" ? "selected" : ""; ?>>inkludiert
+                                </option>
+                                <option value="nicht inkludiert" <?php echo $parking == "nicht inkludiert" ? "selected" : ""; ?>>
+                                    nicht inkludiert</option>
+                            </select>
+                            <div class="user-box mb-2">
+                                <input type="hidden">
+                                <label>Haustiere</label>
+                            </div>
+                            <select class="form-select mb-4" name="pets">
+                                <option value="inkludiert" <?php echo $pets == "inkludiert" ? "selected" : ""; ?>>inkludiert
+                                </option>
+                                <option value="nicht inkludiert" <?php echo $pets == "nicht inkludiert" ? "selected" : ""; ?>>
+                                    nicht inkludiert</option>
+                            </select>
+                            <div class="user-box">
+                                <input type="text" name="comments" value=" <?php echo $comments ?>" readonly>
+                                <label>Comments</label>
+                            </div>
+                            <div class="user-box">
+                                <input type="hidden">
+                                <label>Status</label>
+                            </div>
+                            <select class="form-select mb-4" name="status">
+                                <option value="neu" <?php echo $status == "neu" ? "selected" : ""; ?>>neu
+                                </option>
+                                <option value="bestätigt" <?php echo $status == "bestätigt" ? "selected" : ""; ?>>bestätigt
+                                </option>
+                                <option value="storniert" <?php echo $status == "storniert" ? "selected" : ""; ?>>storniert
+                                </option>
+                            </select>
+                            <div class="d-flex justify-content-center mb-4">
+                                <input type="submit" value="Änderungen übernehmen" style="white-space: normal"
+                                    class="loginBoxSubmit">
+                            </div>
                         </form>
-                        <h2 style="color: red">Keine Reservierungen mit diesem Filter gefunden.</h2>
-                    </div>
+                    <?php } ?>
                 </div>
-            <?php }
-?>
+            </div>
         </div>
-    </div>
+        <?php
+} else {
+    ?>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <div class="login-box">
+                    <h1>Reservierungen</h1>
+                    <form method="post" action="">
+                        <select class="form-select" name="filter" id="filter">
+                            <option value="alle" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "alle" ? "selected" : ""; ?>>alle</option>
+                            <option value="neu" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "neu" ? "selected" : ""; ?>>neu</option>
+                            <option value="bestätigt" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "bestätigt" ? "selected" : ""; ?>>bestätigt</option>
+                            <option value="storniert" <?php echo isset($_POST["filter"]) && $_POST["filter"] == "storniert" ? "selected" : ""; ?>>storniert</option>
+                        </select>
+                        <div class="d-flex justify-content-center">
+                            <input type="submit" value="Filtern" style="white-space: normal" class="loginBoxSubmit">
+                        </div>
+                    </form>
+                    <h2 style="color: red">Keine Reservierungen mit diesem Filter gefunden.</h2>
+                </div>
+            </div>
+        </div>
+        <?php
+}
+?>
 </div>
