@@ -76,62 +76,62 @@ if ($result->num_rows == 0) {
                                 </h2>
                             </a>
                             <div class="user-box">
-                                <input type="text" name="room" disabled value="<?php echo $room ?>">
+                                <input type="text" name="room" readonly value="<?php echo $room ?>">
                             </div>
                             <div class="user-box">
-                                <input type="text" name="arrivalDate" disabled
+                                <input type="text" name="arrivalDate" readonly
                                     value="Anreise: <?php echo date("d.m.Y", strtotime($arrivalDate)) ?>">
                             </div>
                             <div class="user-box">
-                                <input type="text" name="departureDate" disabled
+                                <input type="text" name="departureDate" readonly
                                     value="Abreise: <?php echo date("d.m.Y", strtotime($departureDate)) ?>">
                             </div>
                             <div class="user-box">
                                 <?php if ($breakfast == 1) {
                                     $breakfast = "inkludiert"; ?>
-                                    <input type="text" name="breakfast" disabled style="color: green;"
+                                    <input type="text" name="breakfast" readonly style="color: green;"
                                         value="Frühstück: <?php echo $breakfast ?>">
                                 <?php } else if ($breakfast == 0) {
                                     $breakfast = "nicht inkludiert"; ?>
-                                        <input type="text" name="breakfast" disabled style="color: red;"
+                                        <input type="text" name="breakfast" readonly style="color: red;"
                                             value="Frühstück: <?php echo $breakfast ?>">
                                 <?php } ?>
                             </div>
                             <div class="user-box">
                                 <?php if ($parking == 1) {
                                     $parking = "inkludiert"; ?>
-                                    <input type="text" name="parking" disabled style="color: green;"
+                                    <input type="text" name="parking" readonly style="color: green;"
                                         value="Parkplatz: <?php echo $parking ?>">
                                 <?php } else if ($parking == 0) {
                                     $parking = "nicht inkludiert"; ?>
-                                        <input type="text" name="parking" disabled style="color: red;"
+                                        <input type="text" name="parking" readonly style="color: red;"
                                             value="Parkplatz: <?php echo $parking ?>">
                                 <?php } ?>
                             </div>
                             <div class="user-box">
                                 <?php if ($pets == 1) {
                                     $pets = "inkludiert"; ?>
-                                    <input type="text" name="pets" disabled style="color: green;"
+                                    <input type="text" name="pets" readonly style="color: green;"
                                         value="Haustiere: <?php echo $pets ?>">
                                 <?php } else if ($pets == 0) {
                                     $pets = "nicht inkludiert"; ?>
-                                        <input type="text" name="pets" disabled style="color: red;"
+                                        <input type="text" name="pets" readonly style="color: red;"
                                             value="Haustiere: <?php echo $pets ?>">
                                 <?php } ?>
                             </div>
                             <div class="user-box">
-                                <input type="text" name="comments" disabled value="Kommentare: <?php echo $comments ?>">
+                                <input type="text" name="comments" readonly value="Kommentare: <?php echo $comments ?>">
                             </div>
                             <div class="user-box">
-                                <input type="text" name="reservationDate" disabled
+                                <input type="text" name="reservationDate" readonly
                                     value="Reservierungsdatum: <?php echo date("d.m.Y", strtotime($reservationDate)) ?>">
                             </div>
                             <div class="user-box">
-                                <input type="text" name="totalCost" disabled
+                                <input type="text" name="totalCost" readonly
                                     value="Gesamtkosten: <?php echo $totalCost . "€" ?>">
                             </div>
                             <div class="user-box">
-                                <input type="text" name="status" disabled value="Status: <?php echo $status ?>">
+                                <input type="text" name="status" readonly value="Status: <?php echo $status ?>">
                             </div>
                             <?php $number++;
                         }

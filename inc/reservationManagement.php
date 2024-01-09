@@ -5,6 +5,30 @@ if (!isset($_COOKIE["admin"])) {
 }
 require_once "utils/dbaccess.php";
 require_once "utils/functions.php";
+function calculateNewCost($room, $arrivalDate, $departureDate, $breakfast, $parking, $pets)
+{
+    $totalCost = 0;
+    $days = (strtotime($departureDate) - strtotime($arrivalDate)) / (60 * 60 * 24);
+    if ($room == "Einzelzimmer mit Einzelbett") {
+        $totalCost = $days * 30;
+    } else if ($room == "Einzelzimmer mit Doppelbett") {
+        $totalCost = $days * 75;
+    } else if ($room == "Luxus Zimmer mit Jacuzzi") {
+        $totalCost = $days * 200;
+    } else if ($room == "Luxus Suite mit privatem Butler") {
+        $totalCost = $days * 500;
+    }
+    if ($breakfast == 1) {
+        $totalCost += $days * 5;
+    }
+    if ($parking == 1) {
+        $totalCost += $days * 10;
+    }
+    if ($pets == 1) {
+        $totalCost += 15;
+    }
+    return $totalCost;
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["reservationId"]) && isset($_POST["room"]) && isset($_POST["arrivalDate"]) && isset($_POST["departureDate"]) && isset($_POST["breakfast"]) && isset($_POST["parking"]) && isset($_POST["pets"]) && isset($_POST["comments"]) && isset($_POST["status"])) {
         $reservationId = $_POST["reservationId"];
@@ -26,13 +50,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $pets = 0;
         }
-        $comments = $_POST["comments"];
         $status = $_POST["status"];
-        $sql = "UPDATE reservations SET room = ?, arrivalDate = ?, departureDate = ?, breakfast = ?, parking = ?, pets = ?, comments = ?, status=? WHERE reservationId=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssiiissi", $room, $arrival, $departure, $breakfast, $parking, $pets, $comments, $status, $reservationId);
-        $stmt->execute();
-        $stmt->close();
+        $totalCost = calculateNewCost($room, $arrival, $departure, $breakfast, $parking, $pets);
+        $sql = "UPDATE reservations SET room = ?, arrivalDate = ?, departureDate = ?, breakfast = ?, parking = ?, pets = ?, totalCost = ?, status=? WHERE reservationId=?";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: index.php?page=landing&error=stmtFailed");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "sssiiiisi", $room, $arrival, $departure, $breakfast, $parking, $pets, $totalCost, $status, $reservationId);
+        mysqli_stmt_execute($stmt);
     }
 } ?>
 <?php
@@ -107,6 +134,8 @@ if ($result->num_rows > 0) { ?>
                         $pets = "nicht inkludiert";
                     }
                     $comments = $row["comments"];
+                    $reservationDate = $row["reservationDate"];
+                    $totalCost = $row["totalCost"];
                     $status = $row["status"]; ?>
                     <form method="post" id="form<?php echo $reservationId; ?>"
                         action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?page=reservationManagement"); ?>">
@@ -166,7 +195,18 @@ if ($result->num_rows > 0) { ?>
                         </select>
                         <div class="user-box">
                             <input type="text" name="comments" value=" <?php echo $comments ?>" readonly>
-                            <label>Comments</label>
+                            <label>Kommentare</label>
+                        </div>
+                        <div class="user-box">
+                            <input type="text" name="reservationDate" readonly
+                                value="<?php echo date("d.m.Y", strtotime($reservationDate)) ?>">
+                            <label>Reservierungsdatum</label>
+                        </div>
+                        <?php //TODO: Total Cost neu berechnen 
+                                ?>
+                        <div class="user-box">
+                            <input type="text" name="totalCost" readonly value="<?php echo $totalCost . "€" ?>">
+                            <label>Gesamtkosten</label>
                         </div>
                         <div class="user-box">
                             <input type="hidden">
